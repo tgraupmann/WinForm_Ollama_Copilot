@@ -26,5 +26,10 @@ namespace WinForm_Ollama_Copilot
         {
 
         }
+
+        private void TxtPrompt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
