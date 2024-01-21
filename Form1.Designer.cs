@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TxtPrompt = new System.Windows.Forms.TextBox();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -127,7 +128,7 @@
             this.TxtResponse.Size = new System.Drawing.Size(599, 134);
             this.TxtResponse.TabIndex = 0;
             // 
-            // timer1
+            // TimerDetection
             // 
             this.TimerDetection.Tick += new System.EventHandler(this.TimerDetection_Tick);
             // 
@@ -139,6 +140,7 @@
             this.ClientSize = new System.Drawing.Size(624, 441);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(320, 320);
             this.Name = "Form1";
             this.Text = "Ollama Copilot";
