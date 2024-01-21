@@ -8,6 +8,12 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 ![image_1](images/image_1.png)
 
+## Videos
+
+**Overview of Ollama Copilot**
+
+<a target="_blank" href="https://www.youtube.com/watch?v=4mKgcgBTwCo"><img src="https://img.youtube.com/vi/4mKgcgBTwCo/0.jpg"/></a>
+
 ## Dependencies
 
 * [Ollama AI](https://ollama.ai)
