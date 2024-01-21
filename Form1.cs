@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Application = System.Windows.Forms.Application;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WinForm_Ollama_Copilot
@@ -27,6 +28,9 @@ namespace WinForm_Ollama_Copilot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            DropDownFocus.Items.Add("-- Select a destination application --");
+            DropDownFocus.SelectedIndex = 0;
+
             TxtPrompt.KeyDown += TxtPrompt_KeyDown;
             TxtPrompt.KeyUp += TxtPrompt_KeyUp;
 
@@ -36,23 +40,16 @@ namespace WinForm_Ollama_Copilot
 
         private async void PromptOllama()
         {
-            if (DropDownFocus.SelectedIndex < 0)
-            {
-                TxtResponse.Text = "You need to set focus to a window to send the Ollama response.";
-            }
-            else
-            {
-                TxtResponse.Text = "Ollama is thinking...";
+            TxtResponse.Text = "Ollama is thinking...";
 
-                JArray messages = new JArray();
-                JObject message = new JObject()
-                {
-                    ["role"] = "user",
-                    ["content"] = TxtPrompt.Text,
-                };
-                messages.Add(message);
-                await SendPostRequestAsync("http://localhost:11434/api/chat", new { model = "llama2", messages = messages });
-            }
+            JArray messages = new JArray();
+            JObject message = new JObject()
+            {
+                ["role"] = "user",
+                ["content"] = TxtPrompt.Text,
+            };
+            messages.Add(message);
+            await SendPostRequestAsync("http://localhost:11434/api/chat", new { model = "llama2", messages = messages });
         }
 
         private void TxtPrompt_KeyDown(object sender, KeyEventArgs e)
@@ -78,6 +75,7 @@ namespace WinForm_Ollama_Copilot
         private void Form1_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
             TimerDetection.Stop();
+            Application.Exit();
         }
 
         void DetectForeground()
@@ -105,8 +103,17 @@ namespace WinForm_Ollama_Copilot
             DropDownFocus.Items.Add(win.Title);
             if (_mDetectedWindows.Count > 0)
             {
-                DropDownFocus.SelectedIndex = 0;
+                DropDownFocus.SelectedIndex = 1;
             }
+        }
+
+        string GetSelectedTitle()
+        {
+            if (DropDownFocus.SelectedIndex <= 0)
+            {
+                return null;
+            }
+            return _mDetectedWindows[DropDownFocus.SelectedIndex - 1].Title;
         }
 
         private void TimerDetection_Tick(object sender, EventArgs e)
@@ -149,19 +156,26 @@ namespace WinForm_Ollama_Copilot
                         text += jsonResponse[i]["message"]["content"].ToString();
                     }
 
+                    String title = GetSelectedTitle();
+                    if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
+                    {
+                        text = text.Replace("|", "\t");
+                    }
+
                     Clipboard.SetText(text);
                     TxtResponse.Text = text;
 
-                    WindowState = FormWindowState.Minimized;
+                    if (DropDownFocus.SelectedIndex > 0)
+                    {
+                        WindowState = FormWindowState.Minimized;
 
-                    WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex];
-                    NativeUtils.SetForegroundWindow(win.Hwnd);
+                        WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                        NativeUtils.SetForegroundWindow(win.Hwnd);
 
-                    // send with control+V to paste.
-                    // This is better than the UI going crazy sending one key at a time
-                    SendKeys.Send("^v");
-
-
+                        // send with control+V to paste.
+                        // This is better than the UI going crazy sending one key at a time
+                        SendKeys.Send("^v");
+                    }
                 }
             }
             catch
