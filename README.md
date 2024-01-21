@@ -10,7 +10,17 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 ## Dependencies
 
-* [Ollama](https://ollama.ai)
+* [Ollama AI](https://ollama.ai)
+
+* Open `WinForm_Ollama_Copilot.sln` in Visual Studio.
+
+* The project uses Newtonsoft JSON so right-click the solution in solution explorer to select `Restore NuGet Packages`
+
+![image_2](images/image_2.png)
+
+* Build and run the application
+
+![image_3](images/image_3.png)
 
 ### Ollama With Docker
 
