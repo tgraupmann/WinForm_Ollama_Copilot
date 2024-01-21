@@ -38,6 +38,7 @@
             this.LblResponse = new System.Windows.Forms.Label();
             this.TxtResponse = new System.Windows.Forms.TextBox();
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -53,14 +54,13 @@
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.Size = new System.Drawing.Size(467, 235);
             this.TxtPrompt.TabIndex = 0;
-            this.TxtPrompt.TextChanged += new System.EventHandler(this.TxtPrompt_TextChanged);
             // 
             // BtnPrompt
             // 
             this.BtnPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPrompt.Location = new System.Drawing.Point(528, 216);
+            this.BtnPrompt.Location = new System.Drawing.Point(476, 216);
             this.BtnPrompt.Name = "BtnPrompt";
-            this.BtnPrompt.Size = new System.Drawing.Size(75, 23);
+            this.BtnPrompt.Size = new System.Drawing.Size(127, 23);
             this.BtnPrompt.TabIndex = 1;
             this.BtnPrompt.Text = "Prompt";
             this.BtnPrompt.UseVisualStyleBackColor = true;
@@ -72,6 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.DropDownFocus);
             this.panel1.Controls.Add(this.BtnPrompt);
             this.panel1.Controls.Add(this.TxtPrompt);
@@ -82,8 +83,7 @@
             // 
             // DropDownFocus
             // 
-            this.DropDownFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.DropDownFocus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DropDownFocus.FormattingEnabled = true;
             this.DropDownFocus.Location = new System.Drawing.Point(4, 246);
@@ -132,6 +132,16 @@
             // 
             this.TimerDetection.Tick += new System.EventHandler(this.TimerDetection_Tick);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.BackColor = System.Drawing.SystemColors.Info;
+            this.label1.Location = new System.Drawing.Point(476, 166);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 47);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "To submit press Control+Enter";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,6 +173,7 @@
         private System.Windows.Forms.TextBox TxtResponse;
         private System.Windows.Forms.ComboBox DropDownFocus;
         private System.Windows.Forms.Timer TimerDetection;
+        private System.Windows.Forms.Label label1;
     }
 }
 
