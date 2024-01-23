@@ -101,10 +101,6 @@ namespace WinForm_Ollama_Copilot
             }
             _mDetectedWindows.Add(win);
             DropDownFocus.Items.Add(win.Title);
-            if (_mDetectedWindows.Count > 0)
-            {
-                DropDownFocus.SelectedIndex = 1;
-            }
         }
 
         string GetSelectedTitle()
