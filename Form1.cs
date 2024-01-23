@@ -24,6 +24,8 @@ namespace WinForm_Ollama_Copilot
 
         private JArray _mHistory = new JArray();
 
+        private JArray _mImages = new JArray();
+
         private readonly string _mDefaultModel = ReadConfiguration("SelectedModel");
 
         private static void UpdateConfiguration(string key, string value)
@@ -152,6 +154,76 @@ namespace WinForm_Ollama_Copilot
             await SendGetRequestApiTagsAsync("http://localhost:11434/api/tags");
         }
 
+        private async Task SendPostRequestApiGenerateAsync(string url, object data)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(url, content);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception($"Error: {response.StatusCode}");
+                    }
+
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    //Console.WriteLine(responseBody);
+
+                    // format response into proper JSON
+                    string text = string.Join(",", responseBody.Split("\n".ToCharArray()));
+                    if (text.EndsWith(","))
+                    {
+                        text = text.Substring(0, text.Length - 1);
+                    }
+                    text = string.Format("[{0}]", text);
+
+                    JArray jsonResponse = JArray.Parse(text);
+
+                    text = String.Empty;
+                    for (int i = 0; i < jsonResponse.Count; ++i)
+                    {
+                        text += jsonResponse[i]["response"].ToString();
+                    }
+
+                    JObject message = new JObject()
+                    {
+                        ["role"] = "assistant",
+                        ["content"] = text,
+                    };
+                    _mHistory.Add(message);
+
+                    String title = GetSelectedTitle();
+                    if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
+                    {
+                        text = text.Replace("|", "\t");
+                    }
+
+                    Clipboard.SetText(text);
+                    TxtResponse.Text = text.Replace("\n", "\r\n");
+
+                    if (DropDownFocus.SelectedIndex > 0)
+                    {
+                        WindowState = FormWindowState.Minimized;
+
+                        WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                        NativeUtils.SetForegroundWindow(win.Hwnd);
+
+                        // send with control+V to paste.
+                        // This is better than the UI going crazy sending one key at a time
+                        SendKeys.Send("^v");
+                    }
+                }
+            }
+            catch
+            {
+                TxtResponse.Text = "Chat Response failed. Try again.";
+            }
+        }
+
         private async Task SendPostRequestApiChatAsync(string url, object data)
         {
             try
@@ -234,7 +306,15 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
-        private async void PromptOllama()
+        private async void PromptOllamaGenerate()
+        {
+            TxtResponse.Text = "Ollama is thinking...";
+
+            await SendPostRequestApiGenerateAsync("http://localhost:11434/api/generate", new { model = GetModel(), prompt= TxtPrompt.Text, images = _mImages });
+            _mImages.Clear();
+        }
+
+        private async void PromptOllamaChat()
         {
             TxtResponse.Text = "Ollama is thinking...";
 
@@ -262,7 +342,7 @@ namespace WinForm_Ollama_Copilot
             {
                 if (DropDownModels.SelectedIndex > 0)
                 {
-                    PromptOllama();
+                    PromptOllamaChat();
                 }
 
                 // Suppress the Enter key
@@ -319,7 +399,7 @@ namespace WinForm_Ollama_Copilot
 
         private void BtnPrompt_Click(object sender, EventArgs e)
         {
-            PromptOllama();
+            PromptOllamaChat();
         }
 
         const string TEMP_HISTORY = "temp.history";
@@ -436,6 +516,53 @@ namespace WinForm_Ollama_Copilot
             {
                 UpdateConfiguration("SelectedApplication", (string)DropDownFocus.Items[DropDownFocus.SelectedIndex]);
                 UpdateConfiguration("SelectedApplicationHwnd", _mDetectedWindows[DropDownFocus.SelectedIndex - 1].Hwnd.ToInt32().ToString());
+            }
+            else
+            {
+                UpdateConfiguration("SelectedApplication", null);
+                UpdateConfiguration("SelectedApplicationHwnd", null);
+            }
+        }
+
+        private void TxtPrompt_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private string ConvertImageToBase64(string filePath)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    fs.CopyTo(memoryStream);
+                }
+                byte[] imageBytes = memoryStream.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
+        }
+
+        private void TxtPrompt_DragDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                _mImages.Clear();
+                TxtResponse.Text = "Reading files...";
+                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (var file in files)
+                {
+                    string imgBase64 = ConvertImageToBase64(file);
+                    _mImages.Add(imgBase64);
+                }
+                TxtPrompt.Text = "Descibe the images";
+                PromptOllamaGenerate();
+            }
+            catch
+            {
+                TxtResponse.Text = "Failed to read image!";
             }
         }
     }

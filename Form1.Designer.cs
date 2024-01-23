@@ -53,16 +53,20 @@
             // 
             // TxtPrompt
             // 
+            this.TxtPrompt.AllowDrop = true;
             this.TxtPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TxtPrompt.Location = new System.Drawing.Point(3, 4);
+            this.TxtPrompt.MaxLength = 2000000;
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TxtPrompt.Size = new System.Drawing.Size(467, 235);
             this.TxtPrompt.TabIndex = 0;
+            this.TxtPrompt.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragDrop);
+            this.TxtPrompt.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragEnter);
             // 
             // BtnPrompt
             // 
