@@ -44,6 +44,7 @@
             this.LblResponse = new System.Windows.Forms.Label();
             this.TxtResponse = new System.Windows.Forms.TextBox();
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
+            this.DropDownModels = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -79,6 +80,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.DropDownModels);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.DropDownFocus);
@@ -207,6 +209,15 @@
             // 
             this.TimerDetection.Tick += new System.EventHandler(this.TimerDetection_Tick);
             // 
+            // CboModel
+            // 
+            this.DropDownModels.FormattingEnabled = true;
+            this.DropDownModels.Location = new System.Drawing.Point(477, 132);
+            this.DropDownModels.Name = "CboModel";
+            this.DropDownModels.Size = new System.Drawing.Size(121, 21);
+            this.DropDownModels.TabIndex = 9;
+            this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,6 +257,7 @@
         private System.Windows.Forms.Button BtnLoad;
         private System.Windows.Forms.Button BtnClear;
         private System.Windows.Forms.Button BtnSave;
+        private System.Windows.Forms.ComboBox DropDownModels;
     }
 }
 
