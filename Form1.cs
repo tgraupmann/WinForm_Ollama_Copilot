@@ -353,10 +353,13 @@ namespace WinForm_Ollama_Copilot
 
             if ((e.KeyCode == Keys.V) && (e.Control))
             {
-                BtnPaste_Click(null, null);
+                if (Clipboard.ContainsImage())
+                {
+                    BtnPaste_Click(null, null);
 
-                // Suppress the Enter key
-                e.SuppressKeyPress = true;
+                    // Suppress the Enter key
+                    e.SuppressKeyPress = true;
+                }
             }
         }
 
