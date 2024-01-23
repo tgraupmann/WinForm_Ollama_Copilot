@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application = System.Windows.Forms.Application;
-using static System.Net.Mime.MediaTypeNames;
+using System.Configuration;
 using System.IO;
 
 namespace WinForm_Ollama_Copilot
@@ -24,6 +24,32 @@ namespace WinForm_Ollama_Copilot
 
         private JArray _mHistory = new JArray();
 
+        private readonly string _mDefaultModel = ReadConfiguration("SelectedModel");
+
+        private static void UpdateConfiguration(string key, string value)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationElement kv = config.AppSettings.Settings[key];
+            if (kv == null)
+            {
+                // Key doesn't exist, create it
+                kv = new KeyValueConfigurationElement(key, value);
+                config.AppSettings.Settings.Add(kv);
+            }
+            else
+            {
+                // Key exists, update its value
+                kv.Value = value;
+            }
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        private static string ReadConfiguration(string key)
+        {
+            return ConfigurationManager.AppSettings[key];
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +57,7 @@ namespace WinForm_Ollama_Copilot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            UpdateModels();
             LoadHistory();
 
             DropDownModels.Items.Add("-- Select a model --");
@@ -38,6 +65,21 @@ namespace WinForm_Ollama_Copilot
 
             DropDownFocus.Items.Add("-- Select a destination application --");
             DropDownFocus.SelectedIndex = 0;
+
+            string defaultApplication = ReadConfiguration("SelectedApplication");
+            string defaultApplicationHwnd = ReadConfiguration("SelectedApplicationHwnd");
+            int hwndVal = 0;
+            if (!string.IsNullOrEmpty(defaultApplication) &&
+                int.TryParse(defaultApplicationHwnd, out hwndVal))
+            {
+                WindowFocus win;
+                win.Hwnd = (IntPtr)hwndVal;
+                win.Title = defaultApplication;
+                _mDetectedWindows.Add(win);
+
+                DropDownFocus.Items.Add(defaultApplication);
+                DropDownFocus.SelectedIndex = DropDownFocus.Items.Count - 1;
+            }
 
             TxtPrompt.KeyDown += TxtPrompt_KeyDown;
             TxtPrompt.KeyUp += TxtPrompt_KeyUp;
@@ -86,6 +128,13 @@ namespace WinForm_Ollama_Copilot
                                 if (!exists)
                                 {
                                     DropDownModels.Items.Add(name);
+                                    if (!string.IsNullOrEmpty(_mDefaultModel))
+                                    {
+                                        if (name == _mDefaultModel)
+                                        {
+                                            DropDownModels.SelectedIndex = DropDownModels.Items.Count - 1;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -369,11 +418,25 @@ namespace WinForm_Ollama_Copilot
         private void CboModel_SelectedIndexChanged(object sender, EventArgs e)
         {
             BtnPrompt.Enabled = DropDownModels.SelectedIndex > 0;
+
+            if (DropDownModels.SelectedIndex > 0)
+            {
+                UpdateConfiguration("SelectedModel", (string)DropDownModels.Items[DropDownModels.SelectedIndex]);
+            }
         }
 
         private void TimerModels_Tick(object sender, EventArgs e)
         {
             UpdateModels();
+        }
+
+        private void DropDownFocus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DropDownFocus.SelectedIndex > 0)
+            {
+                UpdateConfiguration("SelectedApplication", (string)DropDownFocus.Items[DropDownFocus.SelectedIndex]);
+                UpdateConfiguration("SelectedApplicationHwnd", _mDetectedWindows[DropDownFocus.SelectedIndex - 1].Hwnd.ToInt32().ToString());
+            }
         }
     }
 }
