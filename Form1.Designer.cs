@@ -52,6 +52,7 @@
             this.TxtPrompt.Location = new System.Drawing.Point(3, 4);
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
+            this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TxtPrompt.Size = new System.Drawing.Size(467, 235);
             this.TxtPrompt.TabIndex = 0;
             // 
@@ -125,6 +126,7 @@
             this.TxtResponse.Multiline = true;
             this.TxtResponse.Name = "TxtResponse";
             this.TxtResponse.ReadOnly = true;
+            this.TxtResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TxtResponse.Size = new System.Drawing.Size(599, 134);
             this.TxtResponse.TabIndex = 0;
             // 

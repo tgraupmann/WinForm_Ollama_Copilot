@@ -21,6 +21,8 @@ namespace WinForm_Ollama_Copilot
 
         private List<WindowFocus> _mDetectedWindows = new List<WindowFocus>();
 
+        private JArray _mHistory = new JArray();
+
         public Form1()
         {
             InitializeComponent();
@@ -42,14 +44,13 @@ namespace WinForm_Ollama_Copilot
         {
             TxtResponse.Text = "Ollama is thinking...";
 
-            JArray messages = new JArray();
             JObject message = new JObject()
             {
                 ["role"] = "user",
                 ["content"] = TxtPrompt.Text,
             };
-            messages.Add(message);
-            await SendPostRequestAsync("http://localhost:11434/api/chat", new { model = "llama2", messages = messages });
+            _mHistory.Add(message);
+            await SendPostRequestAsync("http://localhost:11434/api/chat", new { model = "llama2", messages = _mHistory });
         }
 
         private void TxtPrompt_KeyDown(object sender, KeyEventArgs e)
@@ -152,6 +153,13 @@ namespace WinForm_Ollama_Copilot
                         text += jsonResponse[i]["message"]["content"].ToString();
                     }
 
+                    JObject message = new JObject()
+                    {
+                        ["role"] = "assistant",
+                        ["content"] = text,
+                    };
+                    _mHistory.Add(message);
+
                     String title = GetSelectedTitle();
                     if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
                     {
@@ -159,7 +167,7 @@ namespace WinForm_Ollama_Copilot
                     }
 
                     Clipboard.SetText(text);
-                    TxtResponse.Text = text;
+                    TxtResponse.Text = text.Replace("\n", "\r\n");
 
                     if (DropDownFocus.SelectedIndex > 0)
                     {
