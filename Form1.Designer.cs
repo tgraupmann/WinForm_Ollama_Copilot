@@ -33,6 +33,7 @@
             this.TxtPrompt = new System.Windows.Forms.TextBox();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.DropDownModels = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.BtnLoad = new System.Windows.Forms.Button();
@@ -44,7 +45,7 @@
             this.LblResponse = new System.Windows.Forms.Label();
             this.TxtResponse = new System.Windows.Forms.TextBox();
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
-            this.DropDownModels = new System.Windows.Forms.ComboBox();
+            this.TimerModels = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -90,6 +91,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(614, 272);
             this.panel1.TabIndex = 2;
+            // 
+            // DropDownModels
+            // 
+            this.DropDownModels.FormattingEnabled = true;
+            this.DropDownModels.Location = new System.Drawing.Point(477, 132);
+            this.DropDownModels.Name = "DropDownModels";
+            this.DropDownModels.Size = new System.Drawing.Size(121, 21);
+            this.DropDownModels.TabIndex = 9;
+            this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -209,14 +219,10 @@
             // 
             this.TimerDetection.Tick += new System.EventHandler(this.TimerDetection_Tick);
             // 
-            // CboModel
+            // TimerModels
             // 
-            this.DropDownModels.FormattingEnabled = true;
-            this.DropDownModels.Location = new System.Drawing.Point(477, 132);
-            this.DropDownModels.Name = "CboModel";
-            this.DropDownModels.Size = new System.Drawing.Size(121, 21);
-            this.DropDownModels.TabIndex = 9;
-            this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
+            this.TimerModels.Interval = 5000;
+            this.TimerModels.Tick += new System.EventHandler(this.TimerModels_Tick);
             // 
             // Form1
             // 
@@ -258,6 +264,7 @@
         private System.Windows.Forms.Button BtnClear;
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.ComboBox DropDownModels;
+        private System.Windows.Forms.Timer TimerModels;
     }
 }
 

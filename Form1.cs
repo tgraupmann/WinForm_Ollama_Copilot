@@ -33,7 +33,6 @@ namespace WinForm_Ollama_Copilot
         {
             DropDownModels.Items.Add("-- Select a model --");
             DropDownModels.SelectedIndex = 0;
-            UpdateModels();
 
             DropDownFocus.Items.Add("-- Select a destination application --");
             DropDownFocus.SelectedIndex = 0;
@@ -43,6 +42,9 @@ namespace WinForm_Ollama_Copilot
 
             TimerDetection.Interval = 250;
             TimerDetection.Start();
+
+            TimerModels.Interval = 5000;
+            TimerModels.Start();
         }
 
         private async Task SendGetRequestApiTagsAsync(string url)
@@ -60,7 +62,7 @@ namespace WinForm_Ollama_Copilot
 
                     var responseBody = await response.Content.ReadAsStringAsync();
                     //Console.WriteLine(responseBody);
-                    
+
                     JObject jsonResponse = JObject.Parse(responseBody);
                     foreach (JObject model in jsonResponse["models"])
                     {
@@ -69,8 +71,20 @@ namespace WinForm_Ollama_Copilot
                         {
                             if (nameVersion.Contains(":"))
                             {
-                                nameVersion = nameVersion.Split(":".ToCharArray())[0];
-                                DropDownModels.Items.Add(nameVersion);
+                                string name = nameVersion.Split(":".ToCharArray())[0];
+                                bool exists = false;
+                                foreach (string modelName in DropDownModels.Items)
+                                {
+                                    if (modelName == name)
+                                    {
+                                        exists = true;
+                                        break;
+                                    }
+                                }
+                                if (!exists)
+                                {
+                                    DropDownModels.Items.Add(name);
+                                }
                             }
                         }
                     }
@@ -195,7 +209,10 @@ namespace WinForm_Ollama_Copilot
         {
             if ((e.KeyCode == Keys.Enter) && (e.Control))
             {
-                PromptOllama();
+                if (DropDownModels.SelectedIndex > 0)
+                {
+                    PromptOllama();
+                }
 
                 // Suppress the Enter key
                 e.SuppressKeyPress = true;
@@ -205,6 +222,7 @@ namespace WinForm_Ollama_Copilot
         private void Form1_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
             TimerDetection.Stop();
+            TimerModels.Stop();
             Application.Exit();
         }
 
@@ -313,6 +331,11 @@ namespace WinForm_Ollama_Copilot
         private void CboModel_SelectedIndexChanged(object sender, EventArgs e)
         {
             BtnPrompt.Enabled = DropDownModels.SelectedIndex > 0;
+        }
+
+        private void TimerModels_Tick(object sender, EventArgs e)
+        {
+            UpdateModels();
         }
     }
 }

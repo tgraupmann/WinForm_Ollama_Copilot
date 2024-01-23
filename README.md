@@ -41,3 +41,15 @@ docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ol
 ```shell
 docker exec -it ollama ollama run llama2
 ```
+
+* Install the `llava` model
+
+```shell
+docker exec -it ollama ollama run llava
+```
+
+* Install the `mixtral` model
+
+```shell
+docker exec -it ollama ollama run mixtral
+```
