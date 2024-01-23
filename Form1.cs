@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application = System.Windows.Forms.Application;
 using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -192,6 +193,64 @@ namespace WinForm_Ollama_Copilot
         private void BtnPrompt_Click(object sender, EventArgs e)
         {
             PromptOllama();
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Chat History (*.history)|*.history";
+                    saveFileDialog.Title = "Save Chat History";
+                    saveFileDialog.FileName = string.Format("{0}.history", DateTime.Now.ToString("yyyy-MM-dd"));
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
+                        {
+                            string json = _mHistory.ToString();
+                            writer.Write(json);
+                            writer.Flush();
+                        }
+                    }
+                }
+                TxtResponse.Text = "History saved.";
+            }
+            catch
+            {
+                TxtResponse.Text = "Failed to save history";
+            }
+        }
+
+        private void BtnLoad_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "Chat History (*.history)|*.history";
+                    openFileDialog.Title = "Load Chat History";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (StreamReader reader = new StreamReader(openFileDialog.OpenFile()))
+                        {
+                            _mHistory = JArray.Parse(reader.ReadToEnd());
+                        }
+                    }
+                }
+                TxtResponse.Text = "History loaded.";
+            }
+            catch
+            {
+                TxtResponse.Text = "Failed to load history";
+            }
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            _mHistory.Clear();
         }
     }
 }
