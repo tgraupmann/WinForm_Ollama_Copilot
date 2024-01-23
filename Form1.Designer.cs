@@ -33,6 +33,7 @@
             this.TxtPrompt = new System.Windows.Forms.TextBox();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BtnPaste = new System.Windows.Forms.Button();
             this.DropDownModels = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@
             this.TxtResponse = new System.Windows.Forms.TextBox();
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -59,7 +61,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TxtPrompt.Location = new System.Drawing.Point(3, 4);
-            this.TxtPrompt.MaxLength = 2000000;
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -71,9 +72,9 @@
             // BtnPrompt
             // 
             this.BtnPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPrompt.Location = new System.Drawing.Point(476, 216);
+            this.BtnPrompt.Location = new System.Drawing.Point(536, 216);
             this.BtnPrompt.Name = "BtnPrompt";
-            this.BtnPrompt.Size = new System.Drawing.Size(127, 23);
+            this.BtnPrompt.Size = new System.Drawing.Size(64, 23);
             this.BtnPrompt.TabIndex = 1;
             this.BtnPrompt.Text = "Prompt";
             this.BtnPrompt.UseVisualStyleBackColor = true;
@@ -85,8 +86,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.BtnPaste);
             this.panel1.Controls.Add(this.DropDownModels);
             this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.DropDownFocus);
             this.panel1.Controls.Add(this.BtnPrompt);
@@ -96,10 +99,22 @@
             this.panel1.Size = new System.Drawing.Size(614, 272);
             this.panel1.TabIndex = 2;
             // 
+            // BtnPaste
+            // 
+            this.BtnPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnPaste.Location = new System.Drawing.Point(476, 216);
+            this.BtnPaste.Name = "BtnPaste";
+            this.BtnPaste.Size = new System.Drawing.Size(54, 23);
+            this.BtnPaste.TabIndex = 10;
+            this.BtnPaste.Text = "Paste";
+            this.BtnPaste.UseVisualStyleBackColor = true;
+            this.BtnPaste.Click += new System.EventHandler(this.BtnPaste_Click);
+            // 
             // DropDownModels
             // 
+            this.DropDownModels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DropDownModels.FormattingEnabled = true;
-            this.DropDownModels.Location = new System.Drawing.Point(477, 132);
+            this.DropDownModels.Location = new System.Drawing.Point(479, 126);
             this.DropDownModels.Name = "DropDownModels";
             this.DropDownModels.Size = new System.Drawing.Size(121, 21);
             this.DropDownModels.TabIndex = 9;
@@ -165,11 +180,13 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.SystemColors.Info;
-            this.label1.Location = new System.Drawing.Point(476, 166);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(539, 181);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 47);
+            this.label1.Size = new System.Drawing.Size(61, 32);
             this.label1.TabIndex = 3;
-            this.label1.Text = "To submit press Control+Enter";
+            this.label1.Text = "Control+Enter";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DropDownFocus
             // 
@@ -229,6 +246,18 @@
             this.TimerModels.Interval = 5000;
             this.TimerModels.Tick += new System.EventHandler(this.TimerModels_Tick);
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.BackColor = System.Drawing.SystemColors.Info;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(476, 181);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 32);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Control+V";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,6 +299,8 @@
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.ComboBox DropDownModels;
         private System.Windows.Forms.Timer TimerModels;
+        private System.Windows.Forms.Button BtnPaste;
+        private System.Windows.Forms.Label label3;
     }
 }
 

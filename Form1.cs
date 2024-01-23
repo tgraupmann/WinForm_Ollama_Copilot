@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Application = System.Windows.Forms.Application;
 using System.Configuration;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -348,6 +350,14 @@ namespace WinForm_Ollama_Copilot
                 // Suppress the Enter key
                 e.SuppressKeyPress = true;
             }
+
+            if ((e.KeyCode == Keys.V) && (e.Control))
+            {
+                BtnPaste_Click(null, null);
+
+                // Suppress the Enter key
+                e.SuppressKeyPress = true;
+            }
         }
 
         private void Form1_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
@@ -557,12 +567,50 @@ namespace WinForm_Ollama_Copilot
                     string imgBase64 = ConvertImageToBase64(file);
                     _mImages.Add(imgBase64);
                 }
-                TxtPrompt.Text = "Descibe the images";
+                TxtPrompt.Text = "Describe the images";
                 PromptOllamaGenerate();
             }
             catch
             {
                 TxtResponse.Text = "Failed to read image!";
+            }
+        }
+
+        private void BtnPaste_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _mImages.Clear();
+                TxtResponse.Text = "Reading clipboard...";
+                if (DropDownModels.SelectedIndex <= 0)
+                {
+                    TxtResponse.Text = "Select a model";
+                }
+                else
+                {
+                    if (Clipboard.ContainsText(TextDataFormat.Text))
+                    {
+                        TxtPrompt.Text = Clipboard.GetText(TextDataFormat.Text);
+                        PromptOllamaChat();
+                    }
+                    else if (Clipboard.ContainsImage())
+                    {
+                        TxtPrompt.Text = "Describe the images";
+                        Image image = Clipboard.GetImage();
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            image.Save(ms, ImageFormat.Png);
+                            byte[] imageBytes = ms.ToArray();
+                            string base64Image = Convert.ToBase64String(imageBytes);
+                            _mImages.Add(base64Image);
+                        }
+                        PromptOllamaGenerate();
+                    }
+                }
+            }
+            catch
+            {
+                TxtResponse.Text = "Failed to paste from clipboard!";
             }
         }
     }
