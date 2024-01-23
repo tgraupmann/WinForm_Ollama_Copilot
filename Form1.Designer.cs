@@ -237,6 +237,7 @@
             this.Name = "Form1";
             this.Text = "Ollama Copilot";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += Form1_FormClosing;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);

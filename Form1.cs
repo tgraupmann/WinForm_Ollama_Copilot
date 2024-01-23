@@ -31,6 +31,8 @@ namespace WinForm_Ollama_Copilot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadHistory();
+
             DropDownModels.Items.Add("-- Select a model --");
             DropDownModels.SelectedIndex = 0;
 
@@ -219,8 +221,9 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
-        private void Form1_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        private void Form1_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
+            SaveHistory();
             TimerDetection.Stop();
             TimerModels.Stop();
             Application.Exit();
@@ -268,6 +271,41 @@ namespace WinForm_Ollama_Copilot
         private void BtnPrompt_Click(object sender, EventArgs e)
         {
             PromptOllama();
+        }
+
+        const string TEMP_HISTORY = "temp.history";
+
+        private void LoadHistory()
+        {
+            try
+            {
+                if (File.Exists(TEMP_HISTORY))
+                {
+                    using (StreamReader reader = new StreamReader(TEMP_HISTORY))
+                    {
+                        _mHistory = JArray.Parse(reader.ReadToEnd());
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void SaveHistory()
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(TEMP_HISTORY))
+                {
+                    string json = _mHistory.ToString();
+                    writer.Write(json);
+                    writer.Flush();
+                }
+            }
+            catch
+            {
+            }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
