@@ -313,7 +313,6 @@ namespace WinForm_Ollama_Copilot
             TxtResponse.Text = "Ollama is thinking...";
 
             await SendPostRequestApiGenerateAsync("http://localhost:11434/api/generate", new { model = GetModel(), prompt= TxtPrompt.Text, images = _mImages });
-            _mImages.Clear();
         }
 
         private async void PromptOllamaChat()
@@ -583,7 +582,6 @@ namespace WinForm_Ollama_Copilot
         {
             try
             {
-                _mImages.Clear();
                 TxtResponse.Text = "Reading clipboard...";
                 if (DropDownModels.SelectedIndex <= 0)
                 {
@@ -598,6 +596,7 @@ namespace WinForm_Ollama_Copilot
                     }
                     else if (Clipboard.ContainsImage())
                     {
+                        _mImages.Clear();
                         TxtPrompt.Text = "Describe the images";
                         Image image = Clipboard.GetImage();
                         using (MemoryStream ms = new MemoryStream())
