@@ -40,6 +40,7 @@
             this.BtnLoad = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.DropDownFocus = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -47,7 +48,7 @@
             this.TxtResponse = new System.Windows.Forms.TextBox();
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -82,8 +83,7 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.BtnPaste);
@@ -176,6 +176,18 @@
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.BackColor = System.Drawing.SystemColors.Info;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(476, 181);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 32);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Control+V";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -201,14 +213,13 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.Controls.Add(this.LblResponse);
             this.panel2.Controls.Add(this.TxtResponse);
-            this.panel2.Location = new System.Drawing.Point(5, 279);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 282);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(614, 159);
+            this.panel2.Size = new System.Drawing.Size(624, 159);
             this.panel2.TabIndex = 3;
             // 
             // LblResponse
@@ -234,7 +245,7 @@
             this.TxtResponse.Name = "TxtResponse";
             this.TxtResponse.ReadOnly = true;
             this.TxtResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtResponse.Size = new System.Drawing.Size(599, 134);
+            this.TxtResponse.Size = new System.Drawing.Size(609, 134);
             this.TxtResponse.TabIndex = 0;
             // 
             // TimerDetection
@@ -246,17 +257,14 @@
             this.TimerModels.Interval = 5000;
             this.TimerModels.Tick += new System.EventHandler(this.TimerModels_Tick);
             // 
-            // label3
+            // splitter1
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.BackColor = System.Drawing.SystemColors.Info;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(476, 181);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 32);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Control+V";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter1.Location = new System.Drawing.Point(0, 279);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(624, 3);
+            this.splitter1.TabIndex = 4;
+            this.splitter1.TabStop = false;
             // 
             // Form1
             // 
@@ -264,6 +272,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(624, 441);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -301,6 +310,7 @@
         private System.Windows.Forms.Timer TimerModels;
         private System.Windows.Forms.Button BtnPaste;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }
 
