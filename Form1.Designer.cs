@@ -43,10 +43,12 @@
             this.BtnSave = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.PanelBottom = new System.Windows.Forms.Panel();
+            this.ChkStayAwake = new System.Windows.Forms.CheckBox();
             this.LblResponse = new System.Windows.Forms.Label();
             this.TxtResponse = new System.Windows.Forms.TextBox();
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
+            this.TimerAwake = new System.Windows.Forms.Timer(this.components);
             this.PanelTop.SuspendLayout();
             this.PanelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -204,12 +206,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.PanelBottom.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.PanelBottom.Controls.Add(this.ChkStayAwake);
             this.PanelBottom.Controls.Add(this.LblResponse);
             this.PanelBottom.Controls.Add(this.TxtResponse);
             this.PanelBottom.Location = new System.Drawing.Point(0, 208);
             this.PanelBottom.Name = "PanelBottom";
             this.PanelBottom.Size = new System.Drawing.Size(624, 233);
             this.PanelBottom.TabIndex = 3;
+            // 
+            // ChkStayAwake
+            // 
+            this.ChkStayAwake.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ChkStayAwake.AutoSize = true;
+            this.ChkStayAwake.Location = new System.Drawing.Point(529, 3);
+            this.ChkStayAwake.Name = "ChkStayAwake";
+            this.ChkStayAwake.Size = new System.Drawing.Size(83, 17);
+            this.ChkStayAwake.TabIndex = 2;
+            this.ChkStayAwake.Text = "Stay Awake";
+            this.ChkStayAwake.UseVisualStyleBackColor = true;
+            this.ChkStayAwake.CheckedChanged += new System.EventHandler(this.ChkStayAwake_CheckedChanged);
             // 
             // LblResponse
             // 
@@ -245,6 +260,11 @@
             // 
             this.TimerModels.Interval = 5000;
             this.TimerModels.Tick += new System.EventHandler(this.TimerModels_Tick);
+            // 
+            // TimerAwake
+            // 
+            this.TimerAwake.Interval = 10000;
+            this.TimerAwake.Tick += new System.EventHandler(this.TimerAwake_Tick);
             // 
             // Form1
             // 
@@ -286,6 +306,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox DropDownModels;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox ChkStayAwake;
+        private System.Windows.Forms.Timer TimerAwake;
     }
 }
 

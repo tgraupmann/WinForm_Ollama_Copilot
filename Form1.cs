@@ -32,6 +32,8 @@ namespace WinForm_Ollama_Copilot
 
         private JArray _mImages = new JArray();
 
+        private JArray _mPing = new JArray();
+
         private readonly string _mDefaultModel = ReadConfiguration("SelectedModel");
 
         private static void UpdateConfiguration(string key, string value)
@@ -97,6 +99,19 @@ namespace WinForm_Ollama_Copilot
 
             TimerModels.Interval = 5000;
             TimerModels.Start();
+
+            string strStayAwake = ReadConfiguration("StayAwake");
+            ChkStayAwake.Checked = strStayAwake == "True";
+
+            JObject message = new JObject()
+            {
+                ["role"] = "user",
+                ["content"] = "hello",
+            };
+            _mPing.Add(message);
+
+            TimerAwake.Interval = 15000;
+            TimerAwake.Start();
         }
 
         private async Task SendGetRequestApiTagsAsync(string url)
@@ -665,6 +680,47 @@ namespace WinForm_Ollama_Copilot
             {
                 TxtResponse.Text = "Failed to paste from clipboard!";
             }
+        }
+
+        private async Task SendPostRequestApiChatPingAsync(string url, object data)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(url, content);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception($"Error: {response.StatusCode}");
+                    }
+
+                    string ignore = await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrEmpty(ignore))
+                    {
+                        //ignore
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private async void TimerAwake_Tick(object sender, EventArgs e)
+        {
+            if (ChkStayAwake.Checked)
+            {
+                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = _mPing });
+            }
+        }
+
+        private void ChkStayAwake_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("StayAwake", ChkStayAwake.Checked.ToString());
         }
     }
 }
