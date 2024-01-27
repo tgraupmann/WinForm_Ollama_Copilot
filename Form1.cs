@@ -11,6 +11,10 @@ using System.Configuration;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -315,17 +319,64 @@ namespace WinForm_Ollama_Copilot
             await SendPostRequestApiGenerateAsync("http://localhost:11434/api/generate", new { model = GetModel(), prompt= TxtPrompt.Text, images = _mImages });
         }
 
+        private static string CombineWhitespace(string input)
+        {
+            string pattern = @"\s+";
+            string replacement = " ";
+            string result = Regex.Replace(input, pattern, replacement);
+            return result;
+        }
+
+        // write a function that finds all urls in a string
+        private string ReplaceLinksWithText(string text)
+        {
+            const string urlPattern = @"http[s]?://[^ ]+";
+            var matches = Regex.Matches(text, urlPattern);
+            for (int i = matches.Count - 1; i >= 0; i--)
+            {
+                var match = matches[i];
+                var url = match.Value;
+                try
+                {
+                    HtmlWeb hw = new HtmlWeb();
+                    HtmlDocument doc = hw.Load(url);
+                    string content = CombineWhitespace(doc.DocumentNode.InnerText);
+                    text = text.Replace(url, "---\n" + content + "---\n");
+                }
+                catch
+                {
+
+                }
+            }
+            return text;
+        }
+
         private async void PromptOllamaChat()
         {
             TxtResponse.Text = "Ollama is thinking...";
 
-            JObject message = new JObject()
+            string text = TxtPrompt.Text;
+            if (!string.IsNullOrEmpty(text))
             {
-                ["role"] = "user",
-                ["content"] = TxtPrompt.Text,
-            };
-            _mHistory.Add(message);
-            await SendPostRequestApiChatAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = _mHistory });
+                try
+                {
+                    text = ReplaceLinksWithText(text);
+                    TxtPrompt.Text = text;
+                }
+                catch
+                {
+
+                }
+
+
+                JObject message = new JObject()
+                {
+                    ["role"] = "user",
+                    ["content"] = TxtPrompt.Text,
+                };
+                _mHistory.Add(message);
+                await SendPostRequestApiChatAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = _mHistory });
+            }
         }
 
         private void TxtPrompt_KeyDown(object sender, KeyEventArgs e)

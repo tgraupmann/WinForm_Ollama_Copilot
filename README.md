@@ -28,6 +28,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 ![image_3](images/image_3.png)
 
+* [Html Agility Pack](https://html-agility-pack.net/)
+
 ### Ollama With Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
