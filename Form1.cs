@@ -15,6 +15,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using System.Net;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -331,7 +332,7 @@ namespace WinForm_Ollama_Copilot
         {
             TxtResponse.Text = "Ollama is thinking...";
 
-            await SendPostRequestApiGenerateAsync("http://localhost:11434/api/generate", new { model = GetModel(), prompt= TxtPrompt.Text, images = _mImages });
+            await SendPostRequestApiGenerateAsync("http://localhost:11434/api/generate", new { model = GetModel(), prompt = TxtPrompt.Text, images = _mImages });
         }
 
         private static string CombineWhitespace(string input)
@@ -343,7 +344,7 @@ namespace WinForm_Ollama_Copilot
         }
 
         // write a function that finds all urls in a string
-        private string ReplaceLinksWithText(string text)
+        private async Task<string> ReplaceLinksWithText(string text)
         {
             const string urlPattern = @"http[s]?://[^ ]+";
             var matches = Regex.Matches(text, urlPattern);
@@ -353,9 +354,43 @@ namespace WinForm_Ollama_Copilot
                 var url = match.Value;
                 try
                 {
-                    HtmlWeb hw = new HtmlWeb();
-                    HtmlDocument doc = hw.Load(url);
-                    string content = CombineWhitespace(doc.DocumentNode.InnerText);
+                    HtmlWeb web = new HtmlWeb();
+                    web.UserAgent = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
+                    var tcs = new TaskCompletionSource<HttpWebResponse>();
+                    string content = string.Empty;
+                    web.PostResponse = delegate (HttpWebRequest request, HttpWebResponse response)
+                    {
+                        if (!string.IsNullOrEmpty(response.ContentType))
+                        {
+                            switch (response.ContentType.ToLower())
+                            {
+                                case "text/xml;charset=utf-8":
+                                case "text/plain; charset=utf-8":
+                                    using (var reader = new StreamReader(response.GetResponseStream()))
+                                    {
+
+                                        content = reader.ReadToEnd();
+                                    }
+                                    break;
+                            }
+                        }
+                        tcs.SetResult(response);
+                    };
+                    HtmlDocument doc = web.Load(url);
+                    var httpWebResponse = await tcs.Task;
+                    var contentType = httpWebResponse.ContentType;
+                    if (!string.IsNullOrEmpty(contentType))
+                    {
+                        switch (contentType.ToLower())
+                        {
+                            case "text/xml;charset=utf-8":
+                            case "text/plain; charset=utf-8":
+                                break;
+                            default:
+                                content = CombineWhitespace(doc.DocumentNode.InnerText);
+                                break;
+                        }
+                    }
                     text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
                 }
                 catch
@@ -375,7 +410,7 @@ namespace WinForm_Ollama_Copilot
             {
                 try
                 {
-                    text = ReplaceLinksWithText(text);
+                    text = await ReplaceLinksWithText(text);
                     TxtPrompt.Text = text;
                 }
                 catch
