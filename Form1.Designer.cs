@@ -61,6 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TxtPrompt.Location = new System.Drawing.Point(3, 4);
+            this.TxtPrompt.MaxLength = 100000;
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
