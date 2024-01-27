@@ -341,7 +341,7 @@ namespace WinForm_Ollama_Copilot
                     HtmlWeb hw = new HtmlWeb();
                     HtmlDocument doc = hw.Load(url);
                     string content = CombineWhitespace(doc.DocumentNode.InnerText);
-                    text = text.Replace(url, "---\n" + content + "---\n");
+                    text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
                 }
                 catch
                 {
