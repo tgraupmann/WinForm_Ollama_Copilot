@@ -350,6 +350,7 @@ namespace WinForm_Ollama_Copilot
                     switch (uri.Host.ToLower())
                     {
                         case "www.youtube.com":
+                            try
                             {
                                 var queryDictionary = System.Web.HttpUtility.ParseQueryString(uri.Query);
                                 string videoId = queryDictionary["v"];
@@ -364,7 +365,13 @@ namespace WinForm_Ollama_Copilot
                                 text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
                                 return text;
                             }
+                            catch
+                            {
+                                text = text.Replace(url, url + "\r\n---\r\nCould not be transcribed.\r\n---\r\n");
+                                return text;
+                            }
                         case "youtu.be":
+                            try
                             {
                                 string videoId = uri.LocalPath.Substring(1);
                                 using (var youTubeTranscriptApi = new YouTubeTranscriptApi())
@@ -376,6 +383,11 @@ namespace WinForm_Ollama_Copilot
                                     }
                                 }
                                 text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
+                                return text;
+                            }
+                            catch
+                            {
+                                text = text.Replace(url, url + "\r\n---\r\nCould not be transcribed.\r\n---\r\n");
                                 return text;
                             }
                     }
