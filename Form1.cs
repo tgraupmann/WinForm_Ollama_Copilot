@@ -347,21 +347,38 @@ namespace WinForm_Ollama_Copilot
                 {
                     string content = string.Empty;
                     Uri uri = new Uri(url);
-                    if (uri.Host.ToLower().Contains("www.youtube.com"))
+                    switch (uri.Host.ToLower())
                     {
-                        var queryDictionary = System.Web.HttpUtility.ParseQueryString(uri.Query);
-                        string videoId = queryDictionary["v"];
-                        using (var youTubeTranscriptApi = new YouTubeTranscriptApi())
-                        {
-                            var transcriptItems = youTubeTranscriptApi.GetTranscript(videoId);
-                            foreach (var item in transcriptItems)
+                        case "www.youtube.com":
                             {
-                                content += item.Text + " ";
+                                var queryDictionary = System.Web.HttpUtility.ParseQueryString(uri.Query);
+                                string videoId = queryDictionary["v"];
+                                using (var youTubeTranscriptApi = new YouTubeTranscriptApi())
+                                {
+                                    var transcriptItems = youTubeTranscriptApi.GetTranscript(videoId);
+                                    foreach (var item in transcriptItems)
+                                    {
+                                        content += item.Text + " ";
+                                    }
+                                }
+                                text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
+                                return text;
                             }
-                        }
-                        text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
-                        return text;
-                    }   
+                        case "youtu.be":
+                            {
+                                string videoId = uri.LocalPath.Substring(1);
+                                using (var youTubeTranscriptApi = new YouTubeTranscriptApi())
+                                {
+                                    var transcriptItems = youTubeTranscriptApi.GetTranscript(videoId);
+                                    foreach (var item in transcriptItems)
+                                    {
+                                        content += item.Text + " ";
+                                    }
+                                }
+                                text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
+                                return text;
+                            }
+                    }
 
                     HtmlWeb web = new HtmlWeb();
                     web.UserAgent = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
