@@ -1,6 +1,6 @@
 # Ollama Copilot
 
-This application is a Windows Form application that should run on Windows and Mac.
+This project is a Windows Form application.
 
 The application has a text prompt that uses the Ollama chat API. Application windows are listed in a drop down. Ollama responses are placed into the clipboard and pasted into the selected application specified by the dropdown.
 
@@ -13,6 +13,10 @@ The application has a text prompt that uses the Ollama chat API. Application win
 **Overview of Ollama Copilot**
 
 <a target="_blank" href="https://www.youtube.com/watch?v=4mKgcgBTwCo"><img src="https://img.youtube.com/vi/4mKgcgBTwCo/0.jpg"/></a>
+
+**Ollama Copilot v1.0.0**
+
+<a target="_blank" href="https://www.youtube.com/watch?v=Jh6jCRSlclk"><img src="https://img.youtube.com/vi/Jh6jCRSlclk/0.jpg"/></a>
 
 ## Dependencies
 
