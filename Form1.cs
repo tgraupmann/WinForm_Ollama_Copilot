@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using System.Net;
+using YoutubeTranscriptApi;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -344,10 +345,27 @@ namespace WinForm_Ollama_Copilot
                 var url = match.Value;
                 try
                 {
+                    string content = string.Empty;
+                    Uri uri = new Uri(url);
+                    if (uri.Host.ToLower().Contains("www.youtube.com"))
+                    {
+                        var queryDictionary = System.Web.HttpUtility.ParseQueryString(uri.Query);
+                        string videoId = queryDictionary["v"];
+                        using (var youTubeTranscriptApi = new YouTubeTranscriptApi())
+                        {
+                            var transcriptItems = youTubeTranscriptApi.GetTranscript(videoId);
+                            foreach (var item in transcriptItems)
+                            {
+                                content += item.Text + " ";
+                            }
+                        }
+                        text = text.Replace(url, "---\r\n" + content + "\r\n---\r\n");
+                        return text;
+                    }   
+
                     HtmlWeb web = new HtmlWeb();
                     web.UserAgent = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
                     var tcs = new TaskCompletionSource<HttpWebResponse>();
-                    string content = string.Empty;
                     web.PostResponse = delegate (HttpWebRequest request, HttpWebResponse response)
                     {
                         if (!string.IsNullOrEmpty(response.ContentType))

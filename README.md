@@ -34,6 +34,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Html Agility Pack](https://html-agility-pack.net/)
 
+* [youtube-transcript-api-sharp](https://github.com/BobLd/youtube-transcript-api-sharp)
+
 ### Ollama With Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
