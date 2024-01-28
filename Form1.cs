@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +31,6 @@ namespace WinForm_Ollama_Copilot
         private JArray _mHistory = new JArray();
 
         private JArray _mImages = new JArray();
-
-        private JArray _mPing = new JArray();
 
         private readonly string _mDefaultModel = ReadConfiguration("SelectedModel");
 
@@ -103,13 +100,6 @@ namespace WinForm_Ollama_Copilot
 
             string strStayAwake = ReadConfiguration("StayAwake");
             ChkStayAwake.Checked = strStayAwake == "True";
-
-            JObject message = new JObject()
-            {
-                ["role"] = "user",
-                ["content"] = "hello",
-            };
-            _mPing.Add(message);
 
             TimerAwake.Interval = 15000;
             TimerAwake.Start();
@@ -749,7 +739,14 @@ namespace WinForm_Ollama_Copilot
         {
             if (ChkStayAwake.Checked)
             {
-                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = _mPing });
+                JObject message = new JObject()
+                {
+                    ["role"] = "user",
+                    ["content"] = string.Format("The time is {0}", DateTime.Now)
+                };
+                JArray pingMessage = new JArray();
+                pingMessage.Add(message);
+                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = pingMessage });
             }
         }
 
