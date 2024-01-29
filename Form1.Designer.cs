@@ -49,6 +49,7 @@
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
+            this.LblVersion = new System.Windows.Forms.Label();
             this.PanelTop.SuspendLayout();
             this.PanelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -207,6 +208,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.PanelBottom.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.PanelBottom.Controls.Add(this.LblVersion);
             this.PanelBottom.Controls.Add(this.ChkStayAwake);
             this.PanelBottom.Controls.Add(this.LblResponse);
             this.PanelBottom.Controls.Add(this.TxtResponse);
@@ -217,13 +219,13 @@
             // 
             // ChkStayAwake
             // 
-            this.ChkStayAwake.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ChkStayAwake.AutoSize = true;
-            this.ChkStayAwake.Location = new System.Drawing.Point(529, 3);
+            this.ChkStayAwake.Location = new System.Drawing.Point(126, 3);
             this.ChkStayAwake.Name = "ChkStayAwake";
             this.ChkStayAwake.Size = new System.Drawing.Size(83, 17);
             this.ChkStayAwake.TabIndex = 2;
             this.ChkStayAwake.Text = "Stay Awake";
+            this.ChkStayAwake.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ChkStayAwake.UseVisualStyleBackColor = true;
             this.ChkStayAwake.CheckedChanged += new System.EventHandler(this.ChkStayAwake_CheckedChanged);
             // 
@@ -233,7 +235,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblResponse.AutoSize = true;
-            this.LblResponse.Location = new System.Drawing.Point(4, 4);
+            this.LblResponse.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.LblResponse.Location = new System.Drawing.Point(7, 4);
             this.LblResponse.Name = "LblResponse";
             this.LblResponse.Size = new System.Drawing.Size(58, 13);
             this.LblResponse.TabIndex = 1;
@@ -266,6 +269,16 @@
             // 
             this.TimerAwake.Interval = 10000;
             this.TimerAwake.Tick += new System.EventHandler(this.TimerAwake_Tick);
+            // 
+            // LblVersion
+            // 
+            this.LblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblVersion.Location = new System.Drawing.Point(442, 4);
+            this.LblVersion.Name = "LblVersion";
+            this.LblVersion.Size = new System.Drawing.Size(170, 16);
+            this.LblVersion.TabIndex = 3;
+            this.LblVersion.Text = "Ollama API Version";
+            this.LblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Form1
             // 
@@ -309,6 +322,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox ChkStayAwake;
         private System.Windows.Forms.Timer TimerAwake;
+        private System.Windows.Forms.Label LblVersion;
     }
 }
 

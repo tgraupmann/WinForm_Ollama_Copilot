@@ -10,7 +10,6 @@ using System.Configuration;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
@@ -162,9 +161,36 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
+        private async Task SendGetRequestApiVersionAsync(string url)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception($"Error: {response.StatusCode}");
+                    }
+
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    //Console.WriteLine(responseBody);
+
+                    JObject jsonResponse = JObject.Parse(responseBody);
+                    LblVersion.Text = string.Format("Ollama API Version: {0}", jsonResponse["version"].ToString());                    
+                }
+            }
+            catch
+            {
+                LblVersion.Text = "Ollama API Version: UNKNOWN";
+            }
+        }
+
         private async void UpdateModels()
         {
             await SendGetRequestApiTagsAsync("http://localhost:11434/api/tags");
+            await SendGetRequestApiVersionAsync("http://localhost:11434/api/version");
         }
 
         private async Task SendPostRequestApiGenerateAsync(string url, object data)
