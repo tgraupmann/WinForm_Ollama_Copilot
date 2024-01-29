@@ -44,6 +44,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
+![image_4](images/image_4.png)
+
 ```shell
 docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
