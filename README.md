@@ -26,7 +26,9 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Ollama AI](https://ollama.ai)
 
-* Open `WinForm_Ollama_Copilot.sln` in Visual Studio.
+* Open `WinForm_Ollama_Copilot.sln` in [Visual Studio 2022](https://visualstudio.microsoft.com/).
+
+![image_5](/images/image_5.png)
 
 * The project uses Newtonsoft JSON so right-click the solution in solution explorer to select `Restore NuGet Packages`
 
