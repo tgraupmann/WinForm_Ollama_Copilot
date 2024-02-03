@@ -68,6 +68,9 @@ namespace WinForm_Ollama_Copilot
             UpdateModels();
             LoadHistory();
 
+            DropDownInputDevice.Items.Add("-- Select an input device --");
+            DropDownInputDevice.SelectedIndex = 0;
+
             DropDownModels.Items.Add("-- Select a model --");
             DropDownModels.SelectedIndex = 0;
 
@@ -97,6 +100,9 @@ namespace WinForm_Ollama_Copilot
 
             TimerModels.Interval = 5000;
             TimerModels.Start();
+
+            string strDictation = ReadConfiguration("Dictation");
+            ChkDictation.Checked = strDictation == "True";
 
             string strStayAwake = ReadConfiguration("StayAwake");
             ChkStayAwake.Checked = strStayAwake == "True";
@@ -826,6 +832,15 @@ namespace WinForm_Ollama_Copilot
         private void ChkStayAwake_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("StayAwake", ChkStayAwake.Checked.ToString());
+        }
+
+        private void ChkDictation_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("Dictation", ChkDictation.Checked.ToString());
+        }
+
+        private void CboInputDevice_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }
