@@ -44,6 +44,8 @@ namespace WinForm_Ollama_Copilot
 
         public int _mVolume = 0;
 
+        private DateTime _mTimerSend = DateTime.MinValue;
+
         public AudioManager()
         {
             #region Input devices
@@ -77,7 +79,7 @@ namespace WinForm_Ollama_Copilot
                 {
                     volume = 1;
                 }
-                
+
                 for (int i = 0; i < AudioIntValues.Count; i++)
                 {
                     float data = (float)(AudioIntValues[i] / volume);
@@ -157,7 +159,7 @@ namespace WinForm_Ollama_Copilot
 
                 Wave.DataAvailable += Wave_DataAvailable;
                 Wave.StartRecording();
-            }            
+            }
         }
 
         void Wave_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
@@ -181,18 +183,23 @@ namespace WinForm_Ollama_Copilot
             // capture audio that's loud enough
             if (_mVolume > INPUT_THRESHOLD)
             {
+                _mTimerSend = DateTime.Now + TimeSpan.FromMilliseconds(500); // Send audio after done talking
                 for (int i = 0; i < tempSample.Count; ++i)
                 {
                     int data = tempSample[i];
                     AudioIntValues.Add(data);
 #if TEST_SAVE_AUDIO
-                AudioFloatValues.Add(data / 32767.0f);
+                    AudioFloatValues.Add(data / 32767.0f);
 #endif
                 }
             }
 
-            if (AudioIntValues.Count > DEFAULT_SAMPLE_RATE)
+            if (AudioIntValues.Count > 0 &&
+                _mTimerSend < DateTime.Now)
             {
+                // reset timer
+                _mTimerSend = DateTime.MinValue;
+
 #if TEST_SAVE_AUDIO
                 // save audio values as a wav file
                 try
@@ -217,11 +224,7 @@ namespace WinForm_Ollama_Copilot
                     return;
                 }
 
-                // wait for talking to end
-                if (_mVolume <= INPUT_THRESHOLD)
-                {                    
-                    Translate();
-                }
+                Translate();
             }
         }
     }
