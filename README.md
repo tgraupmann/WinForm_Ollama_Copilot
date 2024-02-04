@@ -42,6 +42,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [youtube-transcript-api-sharp](https://github.com/BobLd/youtube-transcript-api-sharp)
 
+* [Whisper](https://github.com/openai/whisper.git)
+
 ### Ollama With Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -68,4 +70,32 @@ docker exec -it ollama ollama run llava
 
 ```shell
 docker exec -it ollama ollama run mixtral
+```
+
+## Launch Whisper Server to enable local dictation
+
+### WSL
+
+* Install Ubuntu 22.04.3 LTS with WSL2
+
+* Setup Ubuntu for hosting the local [Whisper](https://openai.com/research/whisper) server
+
+```shell
+sudo apt-get update
+sudo apt install python3-pip
+sudo apt install uvicorn
+pip3 install FastAPI[all]
+pip3 install uvloop
+pip3 install numpy
+sudo apt-get install curl
+sudo apt-get install ffmpeg
+pip3 install ffmpeg
+pip3 install scipy
+pip3 install git+https://github.com/openai/whisper.git
+```
+
+* Run the server
+
+```shell
+python3 -m uvicorn WhisperServer:app --reload --port 11437
 ```

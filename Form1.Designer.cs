@@ -52,6 +52,7 @@
             this.TimerDetection = new System.Windows.Forms.Timer(this.components);
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
+            this.TimerDictation = new System.Windows.Forms.Timer(this.components);
             this.PanelTop.SuspendLayout();
             this.PanelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -306,6 +307,10 @@
             this.TimerAwake.Interval = 10000;
             this.TimerAwake.Tick += new System.EventHandler(this.TimerAwake_Tick);
             // 
+            // TimerDictation
+            // 
+            this.TimerDictation.Tick += new System.EventHandler(this.TimerDictation_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,6 +356,7 @@
         private System.Windows.Forms.Label LblVersion;
         private System.Windows.Forms.CheckBox ChkDictation;
         private System.Windows.Forms.ComboBox DropDownInputDevice;
+        private System.Windows.Forms.Timer TimerDictation;
     }
 }
 

@@ -29,6 +29,8 @@ namespace WinForm_Ollama_Copilot
 
         public List<string> InputDevices = new List<string>();
 
+        public List<string> DetectedWords = new List<string>();
+
         public AudioManager()
         {
             #region Input devices
@@ -42,9 +44,8 @@ namespace WinForm_Ollama_Copilot
             #endregion Input devices
         }
 
-        private async Task<string> Translate()
+        private async void Translate()
         {
-            string result = string.Empty;
             try
             {
                 HttpRequestMessage httpRequestMessage =
@@ -83,7 +84,8 @@ namespace WinForm_Ollama_Copilot
                         try
                         {
                             JObject responseJson = JObject.Parse(text);
-                            result = responseJson["text"].ToString();
+                            string sentence = responseJson["text"].ToString();
+                            DetectedWords.Add(sentence);
                         }
                         catch
                         {
@@ -99,7 +101,6 @@ namespace WinForm_Ollama_Copilot
 
                 }
             }
-            return result;
         }
 
         public void StopInputDeviceRecording()
@@ -135,7 +136,7 @@ namespace WinForm_Ollama_Copilot
             }            
         }
 
-        async void Wave_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
+        void Wave_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
         {
             if (e.BytesRecorded == 0)
             {
@@ -173,7 +174,7 @@ namespace WinForm_Ollama_Copilot
                     // wait to translate while talking for a while
                     return;
                 }
-                await Translate();
+                Translate();
             }
         }
     }

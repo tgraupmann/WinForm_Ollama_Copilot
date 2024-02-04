@@ -127,6 +127,9 @@ namespace WinForm_Ollama_Copilot
 
             TimerAwake.Interval = 15000;
             TimerAwake.Start();
+
+            TimerDictation.Interval = 1000;
+            TimerDictation.Start();
         }
 
         private async Task SendGetRequestApiTagsAsync(string url)
@@ -556,6 +559,7 @@ namespace WinForm_Ollama_Copilot
             SaveHistory();
             TimerDetection.Stop();
             TimerModels.Stop();
+            TimerDictation.Stop();
             Application.Exit();
         }
 
@@ -870,6 +874,19 @@ namespace WinForm_Ollama_Copilot
                 string deviceName = DropDownInputDevice.SelectedItem.ToString();
                 UpdateConfiguration("SelectedInputDevice", deviceName);
                 _mAudioManager.SelectInputDevice(DropDownInputDevice.SelectedIndex - 1);
+            }
+        }
+
+        private void TimerDictation_Tick(object sender, EventArgs e)
+        {
+            List<string> detectedWords = _mAudioManager.DetectedWords;
+            if (detectedWords.Count > 0)
+            {
+                _mAudioManager.DetectedWords = new List<string>();
+                if (ChkDictation.Checked)
+                {
+                    TxtPrompt.Text += " " + string.Join(" ", detectedWords);
+                }
             }
         }
     }
