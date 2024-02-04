@@ -160,6 +160,8 @@ namespace WinForm_Ollama_Copilot
 
         void Wave_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
         {
+            const int INPUT_THRESHOLD = 5000;
+
             if (e.BytesRecorded == 0)
             {
                 return;
@@ -172,14 +174,19 @@ namespace WinForm_Ollama_Copilot
                 tempSample.Add(data);
             }
 
+            int volume = tempSample.Max();
 
-            for (int i = 0; i < tempSample.Count; ++i)
+            // capture audio that's loud enough
+            if (volume > INPUT_THRESHOLD)
             {
-                int data = tempSample[i];
-                AudioIntValues.Add(data);
+                for (int i = 0; i < tempSample.Count; ++i)
+                {
+                    int data = tempSample[i];
+                    AudioIntValues.Add(data);
 #if TEST_SAVE_AUDIO
                 AudioFloatValues.Add(data / 32767.0f);
 #endif
+                }
             }
 
             if (AudioIntValues.Count > DEFAULT_SAMPLE_RATE)
@@ -209,8 +216,7 @@ namespace WinForm_Ollama_Copilot
                 }
 
                 // wait for talking to end
-                int volume = tempSample.Max();
-                if (volume < 5000)
+                if (volume <= INPUT_THRESHOLD)
                 {                    
                     Translate();
                 }
