@@ -38,8 +38,6 @@ namespace WinForm_Ollama_Copilot
 
         public List<string> DetectedWords = new List<string>();
 
-        public float Gain = 10f;
-
         private bool _WaitingForResponse = false;
 
         public int _mVolume = 0;
