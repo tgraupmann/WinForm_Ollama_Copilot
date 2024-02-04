@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TxtPrompt = new System.Windows.Forms.TextBox();
             this.PanelTop = new System.Windows.Forms.Panel();
+            this.LblVolume = new System.Windows.Forms.Label();
+            this.PbVolume = new System.Windows.Forms.ProgressBar();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.BtnPaste = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
@@ -53,8 +55,6 @@
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
-            this.PbVolume = new System.Windows.Forms.ProgressBar();
-            this.LblVolume = new System.Windows.Forms.Label();
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.PanelTop.SuspendLayout();
             this.PanelBottom.SuspendLayout();
@@ -98,6 +98,28 @@
             this.PanelTop.Name = "PanelTop";
             this.PanelTop.Size = new System.Drawing.Size(624, 207);
             this.PanelTop.TabIndex = 2;
+            // 
+            // LblVolume
+            // 
+            this.LblVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblVolume.AutoSize = true;
+            this.LblVolume.Location = new System.Drawing.Point(539, 23);
+            this.LblVolume.Name = "LblVolume";
+            this.LblVolume.Size = new System.Drawing.Size(21, 13);
+            this.LblVolume.TabIndex = 12;
+            this.LblVolume.Text = "0%";
+            this.LblVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PbVolume
+            // 
+            this.PbVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PbVolume.BackColor = System.Drawing.Color.Black;
+            this.PbVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.PbVolume.Location = new System.Drawing.Point(485, 13);
+            this.PbVolume.Maximum = 32767;
+            this.PbVolume.Name = "PbVolume";
+            this.PbVolume.Size = new System.Drawing.Size(127, 32);
+            this.PbVolume.TabIndex = 11;
             // 
             // BtnPrompt
             // 
@@ -315,27 +337,6 @@
             // TimerDictation
             // 
             this.TimerDictation.Tick += new System.EventHandler(this.TimerDictation_Tick);
-            // 
-            // PbVolume
-            // 
-            this.PbVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PbVolume.BackColor = System.Drawing.Color.Black;
-            this.PbVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.PbVolume.Location = new System.Drawing.Point(485, 13);
-            this.PbVolume.Maximum = 32767;
-            this.PbVolume.Name = "PbVolume";
-            this.PbVolume.Size = new System.Drawing.Size(127, 32);
-            this.PbVolume.TabIndex = 11;
-            // 
-            // LblVolume
-            // 
-            this.LblVolume.AutoSize = true;
-            this.LblVolume.Location = new System.Drawing.Point(533, 23);
-            this.LblVolume.Name = "LblVolume";
-            this.LblVolume.Size = new System.Drawing.Size(21, 13);
-            this.LblVolume.TabIndex = 12;
-            this.LblVolume.Text = "0%";
-            this.LblVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TimerVolume
             // 
