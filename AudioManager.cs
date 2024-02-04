@@ -42,6 +42,8 @@ namespace WinForm_Ollama_Copilot
 
         private bool _WaitingForResponse = false;
 
+        public int _mVolume = 0;
+
         public AudioManager()
         {
             #region Input devices
@@ -75,7 +77,7 @@ namespace WinForm_Ollama_Copilot
                 {
                     volume = 1;
                 }
-
+                
                 for (int i = 0; i < AudioIntValues.Count; i++)
                 {
                     float data = (float)(AudioIntValues[i] / volume);
@@ -174,10 +176,10 @@ namespace WinForm_Ollama_Copilot
                 tempSample.Add(data);
             }
 
-            int volume = tempSample.Max();
+            _mVolume = tempSample.Max();
 
             // capture audio that's loud enough
-            if (volume > INPUT_THRESHOLD)
+            if (_mVolume > INPUT_THRESHOLD)
             {
                 for (int i = 0; i < tempSample.Count; ++i)
                 {
@@ -216,7 +218,7 @@ namespace WinForm_Ollama_Copilot
                 }
 
                 // wait for talking to end
-                if (volume <= INPUT_THRESHOLD)
+                if (_mVolume <= INPUT_THRESHOLD)
                 {                    
                     Translate();
                 }

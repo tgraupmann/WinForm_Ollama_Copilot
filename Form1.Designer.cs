@@ -53,6 +53,9 @@
             this.TimerModels = new System.Windows.Forms.Timer(this.components);
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
+            this.PbVolume = new System.Windows.Forms.ProgressBar();
+            this.LblVolume = new System.Windows.Forms.Label();
+            this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.PanelTop.SuspendLayout();
             this.PanelBottom.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +80,8 @@
             // PanelTop
             // 
             this.PanelTop.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.PanelTop.Controls.Add(this.LblVolume);
+            this.PanelTop.Controls.Add(this.PbVolume);
             this.PanelTop.Controls.Add(this.BtnPrompt);
             this.PanelTop.Controls.Add(this.BtnPaste);
             this.PanelTop.Controls.Add(this.BtnClear);
@@ -119,9 +124,9 @@
             // BtnClear
             // 
             this.BtnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnClear.Location = new System.Drawing.Point(537, 80);
+            this.BtnClear.Location = new System.Drawing.Point(554, 51);
             this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(75, 23);
+            this.BtnClear.Size = new System.Drawing.Size(58, 23);
             this.BtnClear.TabIndex = 4;
             this.BtnClear.Text = "Clear";
             this.BtnClear.UseVisualStyleBackColor = true;
@@ -175,9 +180,9 @@
             // BtnLoad
             // 
             this.BtnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnLoad.Location = new System.Drawing.Point(537, 51);
+            this.BtnLoad.Location = new System.Drawing.Point(554, 80);
             this.BtnLoad.Name = "BtnLoad";
-            this.BtnLoad.Size = new System.Drawing.Size(75, 23);
+            this.BtnLoad.Size = new System.Drawing.Size(58, 23);
             this.BtnLoad.TabIndex = 6;
             this.BtnLoad.Text = "Load";
             this.BtnLoad.UseVisualStyleBackColor = true;
@@ -186,9 +191,9 @@
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.Location = new System.Drawing.Point(537, 22);
+            this.BtnSave.Location = new System.Drawing.Point(485, 80);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.Size = new System.Drawing.Size(54, 23);
             this.BtnSave.TabIndex = 5;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -198,7 +203,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(556, 6);
+            this.label2.Location = new System.Drawing.Point(500, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 7;
@@ -311,6 +316,31 @@
             // 
             this.TimerDictation.Tick += new System.EventHandler(this.TimerDictation_Tick);
             // 
+            // PbVolume
+            // 
+            this.PbVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PbVolume.BackColor = System.Drawing.Color.Black;
+            this.PbVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.PbVolume.Location = new System.Drawing.Point(485, 13);
+            this.PbVolume.Maximum = 32767;
+            this.PbVolume.Name = "PbVolume";
+            this.PbVolume.Size = new System.Drawing.Size(127, 32);
+            this.PbVolume.TabIndex = 11;
+            // 
+            // LblVolume
+            // 
+            this.LblVolume.AutoSize = true;
+            this.LblVolume.Location = new System.Drawing.Point(533, 23);
+            this.LblVolume.Name = "LblVolume";
+            this.LblVolume.Size = new System.Drawing.Size(21, 13);
+            this.LblVolume.TabIndex = 12;
+            this.LblVolume.Text = "0%";
+            this.LblVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TimerVolume
+            // 
+            this.TimerVolume.Tick += new System.EventHandler(this.TimerVolume_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,6 +387,9 @@
         private System.Windows.Forms.CheckBox ChkDictation;
         private System.Windows.Forms.ComboBox DropDownInputDevice;
         private System.Windows.Forms.Timer TimerDictation;
+        private System.Windows.Forms.ProgressBar PbVolume;
+        private System.Windows.Forms.Label LblVolume;
+        private System.Windows.Forms.Timer TimerVolume;
     }
 }
 

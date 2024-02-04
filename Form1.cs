@@ -82,7 +82,7 @@ namespace WinForm_Ollama_Copilot
                 {
                     DropDownInputDevice.SelectedIndex = DropDownInputDevice.Items.Count - 1;
                     found = true;
-                }   
+                }
             }
             if (!found)
             {
@@ -130,6 +130,9 @@ namespace WinForm_Ollama_Copilot
 
             TimerDictation.Interval = 1000;
             TimerDictation.Start();
+
+            TimerVolume.Interval = 100;
+            TimerVolume.Start();
         }
 
         private async Task SendGetRequestApiTagsAsync(string url)
@@ -205,7 +208,7 @@ namespace WinForm_Ollama_Copilot
                     //Console.WriteLine(responseBody);
 
                     JObject jsonResponse = JObject.Parse(responseBody);
-                    LblVersion.Text = string.Format("Ollama API Version: {0}", jsonResponse["version"].ToString());                    
+                    LblVersion.Text = string.Format("Ollama API Version: {0}", jsonResponse["version"].ToString());
                 }
             }
             catch
@@ -560,6 +563,7 @@ namespace WinForm_Ollama_Copilot
             TimerDetection.Stop();
             TimerModels.Stop();
             TimerDictation.Stop();
+            TimerVolume.Stop();
             Application.Exit();
         }
 
@@ -595,6 +599,21 @@ namespace WinForm_Ollama_Copilot
                 return null;
             }
             return _mDetectedWindows[DropDownFocus.SelectedIndex - 1].Title;
+        }
+
+        private void RenderProgressBar()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                // Update the UI
+                if (ChkDictation.Checked)
+                {
+                    // Update volume progressbar
+                    PbVolume.Value = _mAudioManager._mVolume;
+
+                    LblVolume.Text = string.Format("{0:F1} %", 100 * _mAudioManager._mVolume / 32767.0f);
+                }
+            });
         }
 
         private void TimerDetection_Tick(object sender, EventArgs e)
@@ -891,6 +910,11 @@ namespace WinForm_Ollama_Copilot
                     TxtPrompt.SelectionStart = selectionIndex;
                 }
             }
+        }
+
+        private void TimerVolume_Tick(object sender, EventArgs e)
+        {
+            RenderProgressBar();
         }
     }
 }
