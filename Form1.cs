@@ -906,8 +906,39 @@ namespace WinForm_Ollama_Copilot
                 {
                     // get text carret position
                     int selectionIndex = TxtPrompt.SelectionStart;
-                    TxtPrompt.Text += " " + string.Join(" ", detectedWords);
+                    
+                    // build the transcript
+                    string transcript = string.Empty;
+                    
+                    // add a space to the beginning of the transcript
+                    if (TxtPrompt.Text.Length == 0 ||
+                        selectionIndex <= 0 ||
+                        (selectionIndex < TxtPrompt.Text.Length &&
+                        TxtPrompt.Text.Substring(selectionIndex - 1, 1) == " "))
+                    {
+                    }
+                    else
+                    {
+                        transcript += " ";
+                    }
+                    transcript += string.Join(" ", detectedWords).Trim();
+                    if (selectionIndex == TxtPrompt.Text.Length)
+                    {
+                        TxtPrompt.Text += transcript;
+                    }
+                    else
+                    {
+                        TxtPrompt.Text = TxtPrompt.Text.Insert(selectionIndex, transcript);
+                    }
+                    selectionIndex += transcript.Length;
                     TxtPrompt.SelectionStart = selectionIndex;
+
+                    // add a space to the end of the transcript
+                    if (selectionIndex < TxtPrompt.Text.Length &&
+                        TxtPrompt.Text.Substring(selectionIndex, 1) != " ")
+                    {
+                        TxtPrompt.Text = TxtPrompt.Text.Insert(selectionIndex, " ");
+                    }
                 }
             }
         }
