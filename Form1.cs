@@ -70,6 +70,19 @@ namespace WinForm_Ollama_Copilot
             UpdateModels();
             LoadHistory();
 
+            const int DEFAULT_AUDIO_INPUT_THRESHOLD = 5;
+            string strAudioInputThreshold = ReadConfiguration("AudioInputThreshold");
+            int audioInputThreshold;
+            if (int.TryParse(strAudioInputThreshold, out audioInputThreshold))
+            {
+                SliderTheshold.Value = audioInputThreshold;
+            }
+            else
+            {
+                SliderTheshold.Value = DEFAULT_AUDIO_INPUT_THRESHOLD;
+            }
+            SliderTheshold_Scroll(null, null);
+
             DropDownInputDevice.Items.Add("-- Select an input device --");
 
             string defaultInputDevice = ReadConfiguration("SelectedInputDevice");
@@ -970,6 +983,14 @@ namespace WinForm_Ollama_Copilot
         private void TimerVolume_Tick(object sender, EventArgs e)
         {
             RenderProgressBar();
+        }
+
+        private void SliderTheshold_Scroll(object sender, EventArgs e)
+        {
+            _mAudioManager._mInputThreshold = (int)(SliderTheshold.Value / 100f * 32768);
+
+            LblThreshold.Text = string.Format("{0}%", SliderTheshold.Value);
+            UpdateConfiguration("AudioInputThreshold", SliderTheshold.Value.ToString());
         }
     }
 }

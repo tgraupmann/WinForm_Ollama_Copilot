@@ -11,6 +11,9 @@ namespace WinForm_Ollama_Copilot
 {
     internal class AudioManager
     {
+        public int _mInputThreshold = 1000; // of 32768
+        public int _mVolume = 0;
+
         WaveInEvent Wave;
 
         readonly List<int> AudioIntValues = new List<int>();
@@ -31,7 +34,6 @@ namespace WinForm_Ollama_Copilot
 
         private bool _WaitingForResponse = false;
 
-        public int _mVolume = 0;
 
         private DateTime _mTimerSend = DateTime.MinValue;
 
@@ -153,8 +155,6 @@ namespace WinForm_Ollama_Copilot
 
         void Wave_DataAvailable(object sender, WaveInEventArgs e)
         {
-            const int INPUT_THRESHOLD = 5000;
-
             if (e.BytesRecorded == 0)
             {
                 return;
@@ -170,7 +170,7 @@ namespace WinForm_Ollama_Copilot
             _mVolume = tempSample.Max();
 
             // capture audio that's loud enough
-            if (_mVolume > INPUT_THRESHOLD)
+            if (_mVolume > _mInputThreshold)
             {
                 _mTimerSend = DateTime.Now + TimeSpan.FromMilliseconds(500); // Send audio after done talking
                 for (int i = 0; i < tempSample.Count; ++i)

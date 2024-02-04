@@ -56,8 +56,11 @@
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
+            this.SliderTheshold = new System.Windows.Forms.TrackBar();
+            this.LblThreshold = new System.Windows.Forms.Label();
             this.PanelTop.SuspendLayout();
             this.PanelBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).BeginInit();
             this.SuspendLayout();
             // 
             // TxtPrompt
@@ -80,8 +83,10 @@
             // PanelTop
             // 
             this.PanelTop.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.PanelTop.Controls.Add(this.LblThreshold);
             this.PanelTop.Controls.Add(this.LblVolume);
             this.PanelTop.Controls.Add(this.PbVolume);
+            this.PanelTop.Controls.Add(this.SliderTheshold);
             this.PanelTop.Controls.Add(this.BtnPrompt);
             this.PanelTop.Controls.Add(this.BtnPaste);
             this.PanelTop.Controls.Add(this.BtnClear);
@@ -103,7 +108,7 @@
             // 
             this.LblVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LblVolume.AutoSize = true;
-            this.LblVolume.Location = new System.Drawing.Point(539, 23);
+            this.LblVolume.Location = new System.Drawing.Point(539, 31);
             this.LblVolume.Name = "LblVolume";
             this.LblVolume.Size = new System.Drawing.Size(21, 13);
             this.LblVolume.TabIndex = 12;
@@ -115,10 +120,10 @@
             this.PbVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PbVolume.BackColor = System.Drawing.Color.Black;
             this.PbVolume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.PbVolume.Location = new System.Drawing.Point(485, 13);
+            this.PbVolume.Location = new System.Drawing.Point(485, 28);
             this.PbVolume.Maximum = 32767;
             this.PbVolume.Name = "PbVolume";
-            this.PbVolume.Size = new System.Drawing.Size(127, 32);
+            this.PbVolume.Size = new System.Drawing.Size(127, 20);
             this.PbVolume.TabIndex = 11;
             // 
             // BtnPrompt
@@ -342,6 +347,28 @@
             // 
             this.TimerVolume.Tick += new System.EventHandler(this.TimerVolume_Tick);
             // 
+            // SliderTheshold
+            // 
+            this.SliderTheshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SliderTheshold.AutoSize = false;
+            this.SliderTheshold.Location = new System.Drawing.Point(526, 4);
+            this.SliderTheshold.Maximum = 100;
+            this.SliderTheshold.Name = "SliderTheshold";
+            this.SliderTheshold.Size = new System.Drawing.Size(86, 20);
+            this.SliderTheshold.TabIndex = 13;
+            this.SliderTheshold.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.SliderTheshold.Scroll += new System.EventHandler(this.SliderTheshold_Scroll);
+            // 
+            // LblThreshold
+            // 
+            this.LblThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblThreshold.AutoSize = true;
+            this.LblThreshold.Location = new System.Drawing.Point(488, 6);
+            this.LblThreshold.Name = "LblThreshold";
+            this.LblThreshold.Size = new System.Drawing.Size(21, 13);
+            this.LblThreshold.TabIndex = 14;
+            this.LblThreshold.Text = "0%";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,6 +386,7 @@
             this.PanelTop.PerformLayout();
             this.PanelBottom.ResumeLayout(false);
             this.PanelBottom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -391,6 +419,8 @@
         private System.Windows.Forms.ProgressBar PbVolume;
         private System.Windows.Forms.Label LblVolume;
         private System.Windows.Forms.Timer TimerVolume;
+        private System.Windows.Forms.TrackBar SliderTheshold;
+        private System.Windows.Forms.Label LblThreshold;
     }
 }
 
