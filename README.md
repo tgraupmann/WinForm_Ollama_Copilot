@@ -100,6 +100,8 @@ pip3 install git+https://github.com/openai/whisper.git
 python3 -m uvicorn WhisperServer:app --reload --port 11437
 ```
 
+![image_6](images/image_6.png)
+
 # Useful information on Whisper model sizes.
 
 * Source: [Whisper](https://github.com/openai/whisper)
