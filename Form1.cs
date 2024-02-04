@@ -34,6 +34,8 @@ namespace WinForm_Ollama_Copilot
 
         private readonly string _mDefaultModel = ReadConfiguration("SelectedModel");
 
+        private AudioManager _mAudioManager = new AudioManager();
+
         private static void UpdateConfiguration(string key, string value)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -69,7 +71,23 @@ namespace WinForm_Ollama_Copilot
             LoadHistory();
 
             DropDownInputDevice.Items.Add("-- Select an input device --");
-            DropDownInputDevice.SelectedIndex = 0;
+
+            string defaultInputDevice = ReadConfiguration("SelectedInputDevice");
+
+            bool found = false;
+            foreach (string device in _mAudioManager.InputDevices)
+            {
+                DropDownInputDevice.Items.Add(device);
+                if (device == defaultInputDevice)
+                {
+                    DropDownInputDevice.SelectedIndex = DropDownInputDevice.Items.Count - 1;
+                    found = true;
+                }   
+            }
+            if (!found)
+            {
+                DropDownInputDevice.SelectedIndex = 0;
+            }
 
             DropDownModels.Items.Add("-- Select a model --");
             DropDownModels.SelectedIndex = 0;
@@ -534,6 +552,7 @@ namespace WinForm_Ollama_Copilot
 
         private void Form1_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
+            _mAudioManager.StopInputDeviceRecording();
             SaveHistory();
             TimerDetection.Stop();
             TimerModels.Stop();
@@ -841,6 +860,17 @@ namespace WinForm_Ollama_Copilot
 
         private void CboInputDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (DropDownInputDevice.SelectedIndex == 0)
+            {
+                UpdateConfiguration("SelectedInputDevice", null);
+                _mAudioManager.StopInputDeviceRecording();
+            }
+            else
+            {
+                string deviceName = DropDownInputDevice.SelectedItem.ToString();
+                UpdateConfiguration("SelectedInputDevice", deviceName);
+                _mAudioManager.SelectInputDevice(DropDownInputDevice.SelectedIndex - 1);
+            }
         }
     }
 }
