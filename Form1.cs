@@ -878,16 +878,18 @@ namespace WinForm_Ollama_Copilot
 
         private void ChkDictation_CheckedChanged(object sender, EventArgs e)
         {
+            // store the toggle in the configuration
             UpdateConfiguration("Dictation", ChkDictation.Checked.ToString());
+
+            // start recording if dictation is checked
             if (ChkDictation.Checked)
             {
                 if (DropDownInputDevice.SelectedIndex > 0)
                 {
-                    string deviceName = DropDownInputDevice.SelectedItem.ToString();
-                    UpdateConfiguration("SelectedInputDevice", deviceName);
                     _mAudioManager.SelectInputDevice(DropDownInputDevice.SelectedIndex - 1);
                 }
             }
+            // stop recording if dictation is unchecked
             else
             {
                 _mAudioManager.StopInputDeviceRecording();
@@ -896,16 +898,25 @@ namespace WinForm_Ollama_Copilot
 
         private void CboInputDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (DropDownInputDevice.SelectedIndex == 0)
-            {
-                UpdateConfiguration("SelectedInputDevice", null);
-                _mAudioManager.StopInputDeviceRecording();
-            }
-            else
+            // store the selected input device in the configuration
+            if (DropDownInputDevice.SelectedIndex > 0)
             {
                 string deviceName = DropDownInputDevice.SelectedItem.ToString();
                 UpdateConfiguration("SelectedInputDevice", deviceName);
+            }
+            else
+            {
+                UpdateConfiguration("SelectedInputDevice", null);
+            }
+
+            // start recording if dictation is checked
+            if (ChkDictation.Checked && DropDownInputDevice.SelectedIndex > 0)
+            {
                 _mAudioManager.SelectInputDevice(DropDownInputDevice.SelectedIndex - 1);
+            }
+            else
+            {
+                _mAudioManager.StopInputDeviceRecording();
             }
         }
 
