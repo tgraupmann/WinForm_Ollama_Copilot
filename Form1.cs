@@ -879,6 +879,19 @@ namespace WinForm_Ollama_Copilot
         private void ChkDictation_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("Dictation", ChkDictation.Checked.ToString());
+            if (ChkDictation.Checked)
+            {
+                if (DropDownInputDevice.SelectedIndex > 0)
+                {
+                    string deviceName = DropDownInputDevice.SelectedItem.ToString();
+                    UpdateConfiguration("SelectedInputDevice", deviceName);
+                    _mAudioManager.SelectInputDevice(DropDownInputDevice.SelectedIndex - 1);
+                }
+            }
+            else
+            {
+                _mAudioManager.StopInputDeviceRecording();
+            }
         }
 
         private void CboInputDevice_SelectedIndexChanged(object sender, EventArgs e)
