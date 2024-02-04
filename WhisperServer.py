@@ -20,8 +20,8 @@ print("Loading Whisper Model...")
 
 #model = whisper.load_model("tiny")
 #model = whisper.load_model("base") #max size supported by Samsung ChromeBook4 with 4GB of RAM
-model = whisper.load_model("small")
-#model = whisper.load_model("medium")
+#model = whisper.load_model("small")
+model = whisper.load_model("medium")
 #model = whisper.load_model("large") # too large for my PC
 
 def readHtml(path):

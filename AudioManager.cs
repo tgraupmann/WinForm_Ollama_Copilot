@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace WinForm_Ollama_Copilot
 
         public List<string> DetectedWords = new List<string>();
 
+        public float Gain = 2f;
+
         public AudioManager()
         {
             #region Input devices
@@ -55,9 +58,10 @@ namespace WinForm_Ollama_Copilot
                 jobject["sampleRate"] = SampleRate;
 
                 JArray jarray = new JArray();
+                float k = Gain / 32767.0f;
                 for (int i = 0; i < AudioValues.Count; i++)
                 {
-                    float data = (float)(AudioValues[i] / 32767.0f);
+                    float data = (float)(AudioValues[i] * k);
                     jarray.Add(data);
                 }
 

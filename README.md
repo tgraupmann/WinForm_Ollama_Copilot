@@ -74,7 +74,7 @@ docker exec -it ollama ollama run mixtral
 
 ## Launch Whisper Server to enable local dictation
 
-### WSL
+### WSL2
 
 * Install Ubuntu 22.04.3 LTS with WSL2
 
@@ -99,3 +99,19 @@ pip3 install git+https://github.com/openai/whisper.git
 ```shell
 python3 -m uvicorn WhisperServer:app --reload --port 11437
 ```
+
+# Useful information on Whisper model sizes.
+
+* Source: [Whisper](https://github.com/openai/whisper)
+
+## Available models and languages
+
+There are five model sizes, four with English-only versions, offering speed and accuracy tradeoffs. Below are the names of the available models and their approximate memory requirements and inference speed relative to the large model; actual speed may vary depending on many factors including the available hardware.
+
+|  Size  | Parameters | English-only model | Multilingual model | Required VRAM | Relative speed |
+|:------:|:----------:|:------------------:|:------------------:|:-------------:|:--------------:|
+|  tiny  |    39 M    |     `tiny.en`      |       `tiny`       |     ~1 GB     |      ~32x      |
+|  base  |    74 M    |     `base.en`      |       `base`       |     ~1 GB     |      ~16x      |
+| small  |   244 M    |     `small.en`     |      `small`       |     ~2 GB     |      ~6x       |
+| medium |   769 M    |    `medium.en`     |      `medium`      |     ~5 GB     |      ~2x       |
+| large  |   1550 M   |        N/A         |      `large`       |    ~10 GB     |       1x       |
