@@ -66,7 +66,7 @@ docker exec -it ollama ollama run llama2
 docker exec -it ollama ollama run llava
 ```
 
-* Install the `mixtral` model (requires 48GB of RAM)
+* Install the `mixtral` model (requires 48GB of VRAM)
 
 ```shell
 docker exec -it ollama ollama run mixtral

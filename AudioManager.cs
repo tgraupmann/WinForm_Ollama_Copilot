@@ -1,28 +1,19 @@
-﻿//#define TEST_SAVE_AUDIO
-
-using NAudio.CoreAudioApi;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Remoting.Channels;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WinForm_Ollama_Copilot
 {
     internal class AudioManager
     {
-        NAudio.Wave.WaveInEvent Wave;
+        WaveInEvent Wave;
 
         readonly List<int> AudioIntValues = new List<int>();
-#if TEST_SAVE_AUDIO
-        readonly List<float> AudioFloatValues = new List<float>();
-#endif
 
         const int DEFAULT_SAMPLE_RATE = 32000;
         const int DEFAULT_CHANNEL_COUNT = 1;
@@ -48,9 +39,9 @@ namespace WinForm_Ollama_Copilot
         {
             #region Input devices
 
-            for (int i = 0; i < NAudio.Wave.WaveIn.DeviceCount; i++)
+            for (int i = 0; i < WaveIn.DeviceCount; i++)
             {
-                var caps = NAudio.Wave.WaveIn.GetCapabilities(i);
+                var caps = WaveIn.GetCapabilities(i);
                 InputDevices.Add(caps.ProductName);
             }
 
@@ -143,15 +134,15 @@ namespace WinForm_Ollama_Copilot
             if (deviceNumber < 0)
                 return;
 
-            if (deviceNumber < NAudio.Wave.WaveIn.DeviceCount)
+            if (deviceNumber < WaveIn.DeviceCount)
             {
                 SampleRate = DEFAULT_SAMPLE_RATE;
                 ChannelCount = DEFAULT_CHANNEL_COUNT;
 
-                Wave = new NAudio.Wave.WaveInEvent()
+                Wave = new WaveInEvent()
                 {
                     DeviceNumber = deviceNumber,
-                    WaveFormat = new NAudio.Wave.WaveFormat(SampleRate, BitDepth, ChannelCount),
+                    WaveFormat = new WaveFormat(SampleRate, BitDepth, ChannelCount),
                     BufferMilliseconds = BufferMilliseconds
                 };
 
@@ -160,7 +151,7 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
-        void Wave_DataAvailable(object sender, NAudio.Wave.WaveInEventArgs e)
+        void Wave_DataAvailable(object sender, WaveInEventArgs e)
         {
             const int INPUT_THRESHOLD = 5000;
 
@@ -186,9 +177,6 @@ namespace WinForm_Ollama_Copilot
                 {
                     int data = tempSample[i];
                     AudioIntValues.Add(data);
-#if TEST_SAVE_AUDIO
-                    AudioFloatValues.Add(data / 32767.0f);
-#endif
                 }
             }
 
@@ -197,25 +185,6 @@ namespace WinForm_Ollama_Copilot
             {
                 // reset timer
                 _mTimerSend = DateTime.MinValue;
-
-#if TEST_SAVE_AUDIO
-                // save audio values as a wav file
-                try
-                {
-                    // Create a WaveFileWriter object
-                    using (WaveFileWriter writer = new WaveFileWriter("audio.wav", Wave.WaveFormat))
-                    {
-                        // Write the float array to the WAV file
-                        writer.WriteSamples(AudioFloatValues.ToArray(), 0, AudioFloatValues.Count);
-                        AudioFloatValues.Clear();
-                    }
-
-                }
-                catch
-                {
-
-                }
-#endif
 
                 if (_WaitingForResponse)
                 {
