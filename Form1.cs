@@ -885,7 +885,10 @@ namespace WinForm_Ollama_Copilot
                 _mAudioManager.DetectedWords = new List<string>();
                 if (ChkDictation.Checked)
                 {
+                    // get text carret position
+                    int selectionIndex = TxtPrompt.SelectionStart;
                     TxtPrompt.Text += " " + string.Join(" ", detectedWords);
+                    TxtPrompt.SelectionStart = selectionIndex;
                 }
             }
         }

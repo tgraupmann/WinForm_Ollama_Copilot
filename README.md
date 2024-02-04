@@ -115,3 +115,9 @@ There are five model sizes, four with English-only versions, offering speed and 
 | small  |   244 M    |     `small.en`     |      `small`       |     ~2 GB     |      ~6x       |
 | medium |   769 M    |    `medium.en`     |      `medium`      |     ~5 GB     |      ~2x       |
 | large  |   1550 M   |        N/A         |      `large`       |    ~10 GB     |       1x       |
+
+## Test the Whisper mode conversion MP3 to text
+
+```shell
+python3 WhisperTest.py audio.mp3
+```
