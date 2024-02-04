@@ -4,7 +4,7 @@
 # pip3 install uvloop
 
 # launch the app
-# python -m uvicorn Server_base:app --reload
+# python3 -m uvicorn WhisperServer:app --reload --port 11437
 # browse: http://127.0.0.1:11437
 
 from fastapi import FastAPI
