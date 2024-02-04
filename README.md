@@ -18,9 +18,13 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 <a target="_blank" href="https://www.youtube.com/watch?v=Jh6jCRSlclk"><img src="https://img.youtube.com/vi/Jh6jCRSlclk/0.jpg"/></a>
 
-**Youtube Transcripts**
+**Youtube Transcripts v1.0.1**
 
 <a target="_blank" href="https://www.youtube.com/watch?v=lY-6ZdsuHS8"><img src="https://img.youtube.com/vi/lY-6ZdsuHS8/0.jpg"/></a>
+
+**Speech to Text v1.0.2**
+
+<a target="_blank" href="https://www.youtube.com/watch?v=BBn0__pgHIA"><img src="https://img.youtube.com/vi/BBn0__pgHIA/0.jpg"/></a>
 
 ## Dependencies
 
