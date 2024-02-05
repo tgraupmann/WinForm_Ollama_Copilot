@@ -302,7 +302,7 @@
             this.DropDownOutputVoice.FormattingEnabled = true;
             this.DropDownOutputVoice.Location = new System.Drawing.Point(74, 207);
             this.DropDownOutputVoice.Name = "DropDownOutputVoice";
-            this.DropDownOutputVoice.Size = new System.Drawing.Size(356, 21);
+            this.DropDownOutputVoice.Size = new System.Drawing.Size(316, 21);
             this.DropDownOutputVoice.TabIndex = 9;
             this.DropDownOutputVoice.SelectedIndexChanged += new System.EventHandler(this.DropDownOutputVoice_SelectedIndexChanged);
             // 

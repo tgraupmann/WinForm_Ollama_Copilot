@@ -325,7 +325,7 @@ namespace WinForm_Ollama_Copilot
                     }
 
                     Clipboard.SetText(text);
-                    TxtResponse.Text = text.Replace("\n", "\r\n");
+                    TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
 
                     if (DropDownFocus.SelectedIndex > 0)
                     {
@@ -395,7 +395,7 @@ namespace WinForm_Ollama_Copilot
                     }
 
                     Clipboard.SetText(text);
-                    TxtResponse.Text = text.Replace("\n", "\r\n");
+                    TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
                     Speak();
 
                     if (DropDownFocus.SelectedIndex > 0)
