@@ -69,6 +69,14 @@ namespace WinForm_Ollama_Copilot
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            string strFontSize = ReadConfiguration("FontSize");
+            float fontSize;
+            if (float.TryParse(strFontSize, out fontSize))
+            {
+                TxtPrompt.Font = new System.Drawing.Font(TxtPrompt.Font.FontFamily, fontSize);
+                TxtResponse.Font = new System.Drawing.Font(TxtResponse.Font.FontFamily, fontSize);
+            }
+
             UpdateModels();
             LoadHistory();
 
@@ -568,8 +576,60 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
+        bool _mKeyDownControl = false;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (_mKeyDownControl)
+            {
+                switch (m.Msg)
+                {
+                    case 0x20A: // WM_MOUSEWHEEL
+                                // Determine the amount of the wheel movement.
+                        short delta = (short)(m.WParam.ToInt32() >> 16);
+
+                        // If delta is positive, the wheel was rotated upwards.
+                        // If delta is negative, the wheel was rotated downwards.
+                        if (delta > 0)
+                        {
+                            // Handle scroll up
+                            try
+                            {
+                                float fontSize = TxtPrompt.Font.Size + 1;
+                                UpdateConfiguration("FontSize", fontSize.ToString());
+                                TxtPrompt.Font = new System.Drawing.Font(TxtPrompt.Font.FontFamily, fontSize);
+                                TxtResponse.Font = new System.Drawing.Font(TxtResponse.Font.FontFamily, fontSize);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        else
+                        {
+                            // Handle scroll down
+                            try
+                            {
+                                float fontSize = Math.Max(8, TxtPrompt.Font.Size - 1);
+                                UpdateConfiguration("FontSize", fontSize.ToString());
+                                TxtPrompt.Font = new System.Drawing.Font(TxtPrompt.Font.FontFamily, fontSize);
+                                TxtResponse.Font = new System.Drawing.Font(TxtResponse.Font.FontFamily, fontSize);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+
         private void TxtPrompt_KeyDown(object sender, KeyEventArgs e)
         {
+            _mKeyDownControl = e.Control;
+
             if ((e.KeyCode == Keys.Enter) && (e.Control))
             {
                 // Suppress the Enter key
@@ -579,6 +639,8 @@ namespace WinForm_Ollama_Copilot
 
         private void TxtPrompt_KeyUp(object sender, KeyEventArgs e)
         {
+            _mKeyDownControl = !e.Control;
+
             if ((e.KeyCode == Keys.Enter) && (e.Control))
             {
                 if (DropDownModels.SelectedIndex > 0)
