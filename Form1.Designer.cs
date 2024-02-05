@@ -32,8 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TxtPrompt = new System.Windows.Forms.TextBox();
             this.PanelTop = new System.Windows.Forms.Panel();
+            this.LblThreshold = new System.Windows.Forms.Label();
             this.LblVolume = new System.Windows.Forms.Label();
             this.PbVolume = new System.Windows.Forms.ProgressBar();
+            this.SliderTheshold = new System.Windows.Forms.TrackBar();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.BtnPaste = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
@@ -45,6 +47,10 @@
             this.BtnSave = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.PanelBottom = new System.Windows.Forms.Panel();
+            this.ChkOutputSpeak = new System.Windows.Forms.CheckBox();
+            this.DropDownOutputVoice = new System.Windows.Forms.ComboBox();
+            this.BtnStop = new System.Windows.Forms.Button();
+            this.BtnPlay = new System.Windows.Forms.Button();
             this.DropDownInputDevice = new System.Windows.Forms.ComboBox();
             this.ChkDictation = new System.Windows.Forms.CheckBox();
             this.LblVersion = new System.Windows.Forms.Label();
@@ -56,11 +62,9 @@
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
-            this.SliderTheshold = new System.Windows.Forms.TrackBar();
-            this.LblThreshold = new System.Windows.Forms.Label();
             this.PanelTop.SuspendLayout();
-            this.PanelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).BeginInit();
+            this.PanelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // TxtPrompt
@@ -104,6 +108,16 @@
             this.PanelTop.Size = new System.Drawing.Size(624, 207);
             this.PanelTop.TabIndex = 2;
             // 
+            // LblThreshold
+            // 
+            this.LblThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblThreshold.AutoSize = true;
+            this.LblThreshold.Location = new System.Drawing.Point(488, 6);
+            this.LblThreshold.Name = "LblThreshold";
+            this.LblThreshold.Size = new System.Drawing.Size(21, 13);
+            this.LblThreshold.TabIndex = 14;
+            this.LblThreshold.Text = "0%";
+            // 
             // LblVolume
             // 
             this.LblVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -125,6 +139,18 @@
             this.PbVolume.Name = "PbVolume";
             this.PbVolume.Size = new System.Drawing.Size(127, 20);
             this.PbVolume.TabIndex = 11;
+            // 
+            // SliderTheshold
+            // 
+            this.SliderTheshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SliderTheshold.AutoSize = false;
+            this.SliderTheshold.Location = new System.Drawing.Point(526, 4);
+            this.SliderTheshold.Maximum = 100;
+            this.SliderTheshold.Name = "SliderTheshold";
+            this.SliderTheshold.Size = new System.Drawing.Size(86, 20);
+            this.SliderTheshold.TabIndex = 13;
+            this.SliderTheshold.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.SliderTheshold.Scroll += new System.EventHandler(this.SliderTheshold_Scroll);
             // 
             // BtnPrompt
             // 
@@ -243,6 +269,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.PanelBottom.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.PanelBottom.Controls.Add(this.ChkOutputSpeak);
+            this.PanelBottom.Controls.Add(this.DropDownOutputVoice);
+            this.PanelBottom.Controls.Add(this.BtnStop);
+            this.PanelBottom.Controls.Add(this.BtnPlay);
             this.PanelBottom.Controls.Add(this.DropDownInputDevice);
             this.PanelBottom.Controls.Add(this.ChkDictation);
             this.PanelBottom.Controls.Add(this.LblVersion);
@@ -253,6 +283,50 @@
             this.PanelBottom.Name = "PanelBottom";
             this.PanelBottom.Size = new System.Drawing.Size(624, 233);
             this.PanelBottom.TabIndex = 3;
+            // 
+            // ChkOutputSpeak
+            // 
+            this.ChkOutputSpeak.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChkOutputSpeak.AutoSize = true;
+            this.ChkOutputSpeak.Location = new System.Drawing.Point(8, 210);
+            this.ChkOutputSpeak.Name = "ChkOutputSpeak";
+            this.ChkOutputSpeak.Size = new System.Drawing.Size(57, 17);
+            this.ChkOutputSpeak.TabIndex = 10;
+            this.ChkOutputSpeak.Text = "Speak";
+            this.ChkOutputSpeak.UseVisualStyleBackColor = true;
+            this.ChkOutputSpeak.CheckedChanged += new System.EventHandler(this.ChkOutputSpeak_CheckedChanged);
+            // 
+            // DropDownOutputVoice
+            // 
+            this.DropDownOutputVoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.DropDownOutputVoice.FormattingEnabled = true;
+            this.DropDownOutputVoice.Location = new System.Drawing.Point(74, 207);
+            this.DropDownOutputVoice.Name = "DropDownOutputVoice";
+            this.DropDownOutputVoice.Size = new System.Drawing.Size(172, 21);
+            this.DropDownOutputVoice.TabIndex = 9;
+            this.DropDownOutputVoice.SelectedIndexChanged += new System.EventHandler(this.DropDownOutputVoice_SelectedIndexChanged);
+            // 
+            // BtnStop
+            // 
+            this.BtnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStop.Location = new System.Drawing.Point(532, 206);
+            this.BtnStop.Name = "BtnStop";
+            this.BtnStop.Size = new System.Drawing.Size(75, 23);
+            this.BtnStop.TabIndex = 7;
+            this.BtnStop.Text = "Stop";
+            this.BtnStop.UseVisualStyleBackColor = true;
+            this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
+            // 
+            // BtnPlay
+            // 
+            this.BtnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnPlay.Location = new System.Drawing.Point(451, 206);
+            this.BtnPlay.Name = "BtnPlay";
+            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
+            this.BtnPlay.TabIndex = 6;
+            this.BtnPlay.Text = "Play";
+            this.BtnPlay.UseVisualStyleBackColor = true;
+            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
             // 
             // DropDownInputDevice
             // 
@@ -322,7 +396,7 @@
             this.TxtResponse.Name = "TxtResponse";
             this.TxtResponse.ReadOnly = true;
             this.TxtResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtResponse.Size = new System.Drawing.Size(603, 203);
+            this.TxtResponse.Size = new System.Drawing.Size(603, 173);
             this.TxtResponse.TabIndex = 0;
             // 
             // TimerDetection
@@ -347,28 +421,6 @@
             // 
             this.TimerVolume.Tick += new System.EventHandler(this.TimerVolume_Tick);
             // 
-            // SliderTheshold
-            // 
-            this.SliderTheshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SliderTheshold.AutoSize = false;
-            this.SliderTheshold.Location = new System.Drawing.Point(526, 4);
-            this.SliderTheshold.Maximum = 100;
-            this.SliderTheshold.Name = "SliderTheshold";
-            this.SliderTheshold.Size = new System.Drawing.Size(86, 20);
-            this.SliderTheshold.TabIndex = 13;
-            this.SliderTheshold.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.SliderTheshold.Scroll += new System.EventHandler(this.SliderTheshold_Scroll);
-            // 
-            // LblThreshold
-            // 
-            this.LblThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LblThreshold.AutoSize = true;
-            this.LblThreshold.Location = new System.Drawing.Point(488, 6);
-            this.LblThreshold.Name = "LblThreshold";
-            this.LblThreshold.Size = new System.Drawing.Size(21, 13);
-            this.LblThreshold.TabIndex = 14;
-            this.LblThreshold.Text = "0%";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,9 +436,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.PanelTop.ResumeLayout(false);
             this.PanelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).EndInit();
             this.PanelBottom.ResumeLayout(false);
             this.PanelBottom.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -421,6 +473,10 @@
         private System.Windows.Forms.Timer TimerVolume;
         private System.Windows.Forms.TrackBar SliderTheshold;
         private System.Windows.Forms.Label LblThreshold;
+        private System.Windows.Forms.Button BtnStop;
+        private System.Windows.Forms.Button BtnPlay;
+        private System.Windows.Forms.ComboBox DropDownOutputVoice;
+        private System.Windows.Forms.CheckBox ChkOutputSpeak;
     }
 }
 

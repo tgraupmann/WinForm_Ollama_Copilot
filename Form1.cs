@@ -83,6 +83,27 @@ namespace WinForm_Ollama_Copilot
             }
             SliderTheshold_Scroll(null, null);
 
+            DropDownOutputVoice.Items.Add("-- Select an output voice --");
+            DropDownOutputVoice.Items.Add("Male");
+            DropDownOutputVoice.Items.Add("Female");
+
+            string strOutputVoice = ReadConfiguration("OutputVoice");
+            switch (strOutputVoice)
+            {
+                case "Male":
+                    DropDownOutputVoice.SelectedIndex = 1;
+                    break;
+                case "Female":
+                    DropDownOutputVoice.SelectedIndex = 2;
+                    break;
+                default:
+                    DropDownOutputVoice.SelectedIndex = 0;
+                    break;
+            }
+
+            string strOutputSpeak = ReadConfiguration("OutputSpeak");
+            ChkOutputSpeak.Checked = strOutputSpeak == "True";
+
             DropDownInputDevice.Items.Add("-- Select an input device --");
 
             string defaultInputDevice = ReadConfiguration("SelectedInputDevice");
@@ -943,10 +964,10 @@ namespace WinForm_Ollama_Copilot
                 {
                     // get text carret position
                     int selectionIndex = TxtPrompt.SelectionStart;
-                    
+
                     // build the transcript
                     string transcript = string.Empty;
-                    
+
                     // add a space to the beginning of the transcript
                     if (TxtPrompt.Text.Length == 0 ||
                         selectionIndex <= 0 ||
@@ -992,5 +1013,32 @@ namespace WinForm_Ollama_Copilot
             LblThreshold.Text = string.Format("{0}%", SliderTheshold.Value);
             UpdateConfiguration("AudioInputThreshold", SliderTheshold.Value.ToString());
         }
+        private void ChkOutputSpeak_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("OutputSpeak", ChkOutputSpeak.Checked.ToString());
+        }
+
+        private void DropDownOutputVoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DropDownOutputVoice.SelectedIndex > 0)
+            {
+                UpdateConfiguration("OutputVoice", DropDownOutputVoice.SelectedItem.ToString());
+            }
+            else
+            {
+                UpdateConfiguration("OutputVoice", null);
+            }
+        }
+
+        private void BtnPlay_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BtnStop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
