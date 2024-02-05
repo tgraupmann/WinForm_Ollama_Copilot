@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -14,6 +15,45 @@ namespace WinForm_Ollama_Copilot
         private bool _WaitingForResponse = false;
 
         private static readonly HttpClient client = new HttpClient();
+
+        public async Task<List<string>> GetVoices()
+        {
+            List<string> voices = new List<string>();
+
+            try
+            {
+
+                HttpRequestMessage httpRequestMessage =
+                    new HttpRequestMessage(HttpMethod.Get, "http://localhost:11438/get_voices");
+
+                var productValue = new ProductInfoHeaderValue("Speak_Client", "1.0");
+                var commentValue = new ProductInfoHeaderValue("(+http://localhost:11438/get_voices)");
+                httpRequestMessage.Headers.UserAgent.Add(productValue);
+                httpRequestMessage.Headers.UserAgent.Add(commentValue);
+
+                var response = await client.SendAsync(httpRequestMessage);
+                if (response != null)
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        string pJsonContent = await content.ReadAsStringAsync();
+                        JArray jarray = JArray.Parse(pJsonContent);
+                        foreach (JObject jobject in jarray)
+                        {
+                            voices.Add(jobject["name"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex != null)
+                {
+
+                }
+            }
+            return voices;
+        }
 
         public async void Speak(int voice, string sentence)
         {
@@ -62,6 +102,37 @@ namespace WinForm_Ollama_Copilot
                 }
             }
             _WaitingForResponse = false;
+        }
+
+        public async void Stop()
+        {
+            try
+            {
+
+                HttpRequestMessage httpRequestMessage =
+                    new HttpRequestMessage(HttpMethod.Get, "http://localhost:11438/stop");
+
+                var productValue = new ProductInfoHeaderValue("Speak_Client", "1.0");
+                var commentValue = new ProductInfoHeaderValue("(+http://localhost:11438/stop)");
+                httpRequestMessage.Headers.UserAgent.Add(productValue);
+                httpRequestMessage.Headers.UserAgent.Add(commentValue);
+
+                var response = await client.SendAsync(httpRequestMessage);
+                if (response != null)
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        await content.ReadAsStringAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex != null)
+                {
+
+                }
+            }
         }
     }
 }

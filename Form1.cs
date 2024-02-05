@@ -67,7 +67,7 @@ namespace WinForm_Ollama_Copilot
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             UpdateModels();
             LoadHistory();
@@ -84,24 +84,6 @@ namespace WinForm_Ollama_Copilot
                 SliderTheshold.Value = DEFAULT_AUDIO_INPUT_THRESHOLD;
             }
             SliderTheshold_Scroll(null, null);
-
-            DropDownOutputVoice.Items.Add("-- Select an output voice --");
-            DropDownOutputVoice.Items.Add("Male");
-            DropDownOutputVoice.Items.Add("Female");
-
-            string strOutputVoice = ReadConfiguration("OutputVoice");
-            switch (strOutputVoice)
-            {
-                case "Male":
-                    DropDownOutputVoice.SelectedIndex = 1;
-                    break;
-                case "Female":
-                    DropDownOutputVoice.SelectedIndex = 2;
-                    break;
-                default:
-                    DropDownOutputVoice.SelectedIndex = 0;
-                    break;
-            }
 
             string strOutputSpeak = ReadConfiguration("OutputSpeak");
             ChkOutputSpeak.Checked = strOutputSpeak == "True";
@@ -169,6 +151,33 @@ namespace WinForm_Ollama_Copilot
 
             TimerVolume.Interval = 100;
             TimerVolume.Start();
+
+            #region DropDownVoices
+
+            DropDownOutputVoice.Items.Add("-- Select an output voice --");
+            List<string> voices = await _mSpeakManager.GetVoices();
+            foreach (string name in voices)
+            {
+                DropDownOutputVoice.Items.Add(name);
+            }
+
+            string strOutputVoice = ReadConfiguration("OutputVoice");
+            found = false;
+            for (int i = 0; i < DropDownOutputVoice.Items.Count; ++i)
+            {
+                if (DropDownOutputVoice.Items[i].ToString() == strOutputVoice)
+                {
+                    DropDownOutputVoice.SelectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                DropDownFocus.SelectedIndex = 0;
+            }
+
+            #endregion DropDownVoices
         }
 
         private async Task SendGetRequestApiTagsAsync(string url)
@@ -1047,7 +1056,7 @@ namespace WinForm_Ollama_Copilot
         }
         private void BtnStop_Click(object sender, EventArgs e)
         {
-
+            _mSpeakManager.Stop();
         }
 
 
