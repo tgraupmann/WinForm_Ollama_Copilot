@@ -14,30 +14,12 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import pyttsx3
-import threading
-import time
+import multiprocessing
 
-pendingSpeak = False
-
-def onWordSpeak(name, location, length):
-  global engine
-  global pendingSpeak
-  print(f"onWordSpeak: pendingSpeak={pendingSpeak} name={name}")
-  if (not pendingSpeak):
-    engine.stop()
-
-def onEndSpeak(name, completed):
-  global pendingSpeak
-  print("onEndSpeak", name, completed)
-  pendingSpeak = False
+threadSpeak = None
 
 engine = pyttsx3.init()
-engine.connect('finished-utterance', onEndSpeak)
-engine.connect('started-word', onWordSpeak)
 voices = engine.getProperty('voices') 
-engine.setProperty('voice', voices[1].id)
-engine.say("Python TTS Server Started")
-engine.runAndWait()
 
 app = FastAPI()
 
@@ -57,51 +39,41 @@ async def api_get_voices():
 
 @app.get("/stop", response_class=HTMLResponse)
 async def api_stop():
-  global pendingSpeak
-  print (f"stop: pendingSpeak={pendingSpeak}")
-  pendingSpeak = False
+  global threadSpeak
+  print (f"stop:")
+  if (threadSpeak != None):
+    print("stop: threadSpeak.terminate()")
+    threadSpeak.terminate()
+    threadSpeak = None
   return HTMLResponse(content="ok", status_code=200)
 
-@app.post('/speak')
-async def api_speak(item:SpeakItem):
-  global pendingSpeak
+# Create a thread to iterate say() calls
+def speak_in_thread(voice, sentence):
   global engine
+  global voices
+  #print("speak_in_thread: started")
+  engine.setProperty('voice', voices[voice].id)
+  engine.say(sentence)
+  engine.runAndWait()
+  #print("speak_in_thread: complete")
+
+@app.post('/speak', response_class=HTMLResponse)
+async def api_speak(item:SpeakItem):
+  global threadSpeak
+
   print("speak", str(item.voice), "sentence", item.sentence)
-  pendingSpeak = True
-  engine.setProperty('voice', voices[item.voice].id)
-  engine.say(item.sentence)
-  print("speak done")
+
+  # stop existing utterance
+  if (threadSpeak != None):
+    print("stop: threadSpeak.terminate()")
+    threadSpeak.terminate()
+    threadSpeak = None
+
+  # spawn thread to speak without blocking API
+  threadSpeak = multiprocessing.Process(target=speak_in_thread, args=(item.voice, item.sentence))
+  threadSpeak.start()
+  #print("spawned speak thread")
+
+  return HTMLResponse(content="ok", status_code=200)
 
 print ("Python TTS Server Started")
-
-# Create a thread to iterate say() calls
-def speak_in_thread():
-  global engine
-  global pendingSpeak
-  print("speak_in_thread: started")
-  #engine.connect('started-word', onWordSpeak)
-  #engine.runAndWait()
-  while (True):
-    time.sleep(0.1)
-    #print("speak_in_thread: startLoop()")
-    engine.startLoop(False)
-    #print("speak_in_thread: iterate()")
-    engine.iterate()
-    #print("speak_in_thread: endLoop()")
-    engine.endLoop()
-threadSpeak = threading.Thread(target=speak_in_thread)
-threadSpeak.start()
-
-# Create a thread to iterate engine.stop() calls
-def stop_in_thread():
-  global engine
-  global pendingSpeak
-  print("stop_in_thread: started")
-  while (True):
-    time.sleep(0.1)
-    if (not pendingSpeak):
-      pendingSpeak = True
-      print("stop_in_thread: engine.stop()")
-      engine.stop()
-threadStop = threading.Thread(target=stop_in_thread)
-threadStop.start()
