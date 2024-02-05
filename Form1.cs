@@ -1067,23 +1067,46 @@ namespace WinForm_Ollama_Copilot
                     {
                         transcript += " ";
                     }
-                    transcript += string.Join(" ", detectedWords).Trim();
-                    if (selectionIndex == TxtPrompt.Text.Length)
+                    bool submitPrompt = false;
+                    string input = string.Join(" ", detectedWords).Trim();
+                    string searchInput = input.ToLower();
+                    string cleanedInput = Regex.Replace(searchInput, @"[^a-z\s]", "").Trim();
+                    if (cleanedInput.EndsWith("command clear prompt"))
                     {
-                        TxtPrompt.Text += transcript;
+                        TxtPrompt.Text = "";
+                        return;
                     }
-                    else
+                    else if (cleanedInput.EndsWith("command prompt"))
                     {
-                        TxtPrompt.Text = TxtPrompt.Text.Insert(selectionIndex, transcript);
+                        submitPrompt = true;
+                        int index = input.ToLower().LastIndexOf("command");
+                        cleanedInput = input.Substring(0, index);
                     }
-                    selectionIndex += transcript.Length;
-                    TxtPrompt.SelectionStart = selectionIndex;
+                    if (detectedWords.Count > 0)
+                    {
+                        transcript += cleanedInput.Trim();
+                        if (selectionIndex == TxtPrompt.Text.Length)
+                        {
+                            TxtPrompt.Text += transcript;
+                        }
+                        else
+                        {
+                            TxtPrompt.Text = TxtPrompt.Text.Insert(selectionIndex, transcript);
+                        }
+                        selectionIndex += transcript.Length;
+                        TxtPrompt.SelectionStart = selectionIndex;
 
-                    // add a space to the end of the transcript
-                    if (selectionIndex < TxtPrompt.Text.Length &&
-                        TxtPrompt.Text.Substring(selectionIndex, 1) != " ")
+                        // add a space to the end of the transcript
+                        if (selectionIndex < TxtPrompt.Text.Length &&
+                            TxtPrompt.Text.Substring(selectionIndex, 1) != " ")
+                        {
+                            TxtPrompt.Text = TxtPrompt.Text.Insert(selectionIndex, " ");
+                        }
+                    }
+
+                    if (submitPrompt)
                     {
-                        TxtPrompt.Text = TxtPrompt.Text.Insert(selectionIndex, " ");
+                        PromptOllamaChat();
                     }
                 }
             }
