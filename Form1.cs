@@ -160,30 +160,40 @@ namespace WinForm_Ollama_Copilot
             TimerVolume.Interval = 100;
             TimerVolume.Start();
 
+            await PopulateVoices();
+        }
+
+        private async Task PopulateVoices()
+        {
             #region DropDownVoices
 
             DropDownOutputVoice.Items.Add("-- Select an output voice --");
-            List<string> voices = await _mSpeakManager.GetVoices();
-            foreach (string name in voices)
-            {
-                DropDownOutputVoice.Items.Add(name);
-            }
-
             string strOutputVoice = ReadConfiguration("OutputVoice");
-            found = false;
-            for (int i = 0; i < DropDownOutputVoice.Items.Count; ++i)
+            DropDownOutputVoice.SelectedIndex = 0;
+            List<string> voices = null;
+            do
             {
-                if (DropDownOutputVoice.Items[i].ToString() == strOutputVoice)
+                voices = await _mSpeakManager.GetVoices();
+                if (voices.Count == 0)
                 {
-                    DropDownOutputVoice.SelectedIndex = i;
-                    found = true;
-                    break;
+                    await Task.Delay(3000);
+                    continue;
+                }
+                foreach (string name in voices)
+                {
+                    DropDownOutputVoice.Items.Add(name);
+                }
+
+                for (int i = 0; i < DropDownOutputVoice.Items.Count; ++i)
+                {
+                    if (DropDownOutputVoice.Items[i].ToString() == strOutputVoice)
+                    {
+                        DropDownOutputVoice.SelectedIndex = i;
+                        break;
+                    }
                 }
             }
-            if (!found)
-            {
-                DropDownFocus.SelectedIndex = 0;
-            }
+            while (voices.Count == 0);
 
             #endregion DropDownVoices
         }

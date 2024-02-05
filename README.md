@@ -48,6 +48,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Whisper](https://github.com/openai/whisper.git)
 
+* [Pyttsx3](https://pypi.org/project/pyttsx3/)
+
 ### Ollama With Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -126,4 +128,26 @@ There are five model sizes, four with English-only versions, offering speed and 
 
 ```shell
 python3 WhisperTest.py audio.mp3
+```
+
+## Launch Pyttsv3 Server to enable text to speech
+
+### Windows
+
+* Install [Python](https://apps.microsoft.com/detail/9NRWMJP3717K?hl=en-us&gl=US) from the Microsoft Store app on the Windows host machine which has access to the sound card.
+
+![image_7](images/image_7.png)
+
+* Open the Windows command prompt to install dependencies
+
+```cmd
+pip3 install uvicorn
+pip3 install FastAPI[all]
+pip3 install pyttsx3
+```
+
+* Launch the Pyttsv3 Server in the Windows command prompt
+
+```cmd
+python3 -m uvicorn Pyttsv3Server:app --reload --port 11438
 ```
