@@ -1056,7 +1056,25 @@ namespace WinForm_Ollama_Copilot
 
         private void BtnPlay_Click(object sender, EventArgs e)
         {
-            Speak();
+            if (DropDownOutputVoice.SelectedIndex > 0)
+            {
+                int voice = DropDownOutputVoice.SelectedIndex - 1;
+                if (TxtResponse.SelectionStart > 0)
+                {
+                    if (TxtResponse.SelectionLength > 0)
+                    {
+                        _mSpeakManager.Speak(voice, TxtResponse.Text.Substring(TxtResponse.SelectionStart, TxtResponse.SelectionLength));
+                    }
+                    else
+                    {
+                        _mSpeakManager.Speak(voice, TxtResponse.Text.Substring(TxtResponse.SelectionStart));
+                    }
+                }
+                else
+                {
+                    _mSpeakManager.Speak(voice, TxtResponse.Text);
+                }
+            }
         }
         private async void BtnStop_Click(object sender, EventArgs e)
         {
