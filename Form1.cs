@@ -36,6 +36,8 @@ namespace WinForm_Ollama_Copilot
 
         private AudioManager _mAudioManager = new AudioManager();
 
+        private SpeakManager _mSpeakManager = new SpeakManager();
+
         private static void UpdateConfiguration(string key, string value)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -377,6 +379,7 @@ namespace WinForm_Ollama_Copilot
 
                     Clipboard.SetText(text);
                     TxtResponse.Text = text.Replace("\n", "\r\n");
+                    Speak();
 
                     if (DropDownFocus.SelectedIndex > 0)
                     {
@@ -1030,9 +1033,17 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
+        private void Speak()
+        {
+            if (DropDownOutputVoice.SelectedIndex > 0)
+            {
+                _mSpeakManager.Speak(DropDownOutputVoice.SelectedIndex - 1, TxtResponse.Text);
+            }
+        }
+
         private void BtnPlay_Click(object sender, EventArgs e)
         {
-
+            Speak();
         }
         private void BtnStop_Click(object sender, EventArgs e)
         {
