@@ -7,7 +7,7 @@
 # pip3 install pyttsx3
 
 # launch the app
-# python3 -m uvicorn Pyttsv3Server:app --reload --port 11438
+# python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
 # browse: http://127.0.0.1:11438
 
 from fastapi import FastAPI

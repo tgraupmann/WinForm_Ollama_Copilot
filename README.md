@@ -130,7 +130,7 @@ There are five model sizes, four with English-only versions, offering speed and 
 python3 WhisperTest.py audio.mp3
 ```
 
-## Launch Pyttsv3 Server to enable text to speech
+## Launch Pyttsx3 Server to enable text to speech
 
 ### Windows
 
@@ -146,8 +146,8 @@ pip3 install FastAPI[all]
 pip3 install pyttsx3
 ```
 
-* Launch the Pyttsv3 Server in the Windows command prompt
+* Launch the Pyttsx3 Server in the Windows command prompt
 
 ```cmd
-python3 -m uvicorn Pyttsv3Server:app --reload --port 11438
+python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
 ```
