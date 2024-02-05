@@ -104,7 +104,7 @@ namespace WinForm_Ollama_Copilot
             _WaitingForResponse = false;
         }
 
-        public async void Stop()
+        public async Task Stop()
         {
             try
             {

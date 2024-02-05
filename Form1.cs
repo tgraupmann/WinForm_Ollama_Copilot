@@ -604,13 +604,17 @@ namespace WinForm_Ollama_Copilot
 
         private void Form1_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
-            _mAudioManager.StopInputDeviceRecording();
-            SaveHistory();
-            TimerDetection.Stop();
-            TimerModels.Stop();
-            TimerDictation.Stop();
-            TimerVolume.Stop();
-            Application.Exit();
+            this.Invoke((MethodInvoker)async delegate
+            {
+                await _mSpeakManager.Stop();
+                _mAudioManager.StopInputDeviceRecording();
+                SaveHistory();
+                TimerDetection.Stop();
+                TimerModels.Stop();
+                TimerDictation.Stop();
+                TimerVolume.Stop();
+                Application.Exit();
+            });
         }
 
         void DetectForeground()
@@ -1054,9 +1058,9 @@ namespace WinForm_Ollama_Copilot
         {
             Speak();
         }
-        private void BtnStop_Click(object sender, EventArgs e)
+        private async void BtnStop_Click(object sender, EventArgs e)
         {
-            _mSpeakManager.Stop();
+            await _mSpeakManager.Stop();
         }
 
 
