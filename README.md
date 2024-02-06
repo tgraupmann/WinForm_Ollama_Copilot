@@ -26,6 +26,10 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 <a target="_blank" href="https://www.youtube.com/watch?v=BBn0__pgHIA"><img src="https://img.youtube.com/vi/BBn0__pgHIA/0.jpg"/></a>
 
+**Text to Speech v1.0.3**
+
+<a target="_blank" href="https://www.youtube.com/watch?v=rVadgr7rnVk"><img src="https://img.youtube.com/vi/rVadgr7rnVk/0.jpg"/></a>
+
 ## Dependencies
 
 * [Ollama AI](https://ollama.ai)
