@@ -160,6 +160,9 @@ namespace WinForm_Ollama_Copilot
             TimerVolume.Interval = 100;
             TimerVolume.Start();
 
+            TimerSpeaking.Interval = 100;
+            TimerSpeaking.Start();
+
             await PopulateVoices();
         }
 
@@ -685,6 +688,7 @@ namespace WinForm_Ollama_Copilot
                 TimerModels.Stop();
                 TimerDictation.Stop();
                 TimerVolume.Stop();
+                TimerSpeaking.Stop();
                 Application.Exit();
             });
         }
@@ -1178,6 +1182,34 @@ namespace WinForm_Ollama_Copilot
             await _mSpeakManager.Stop();
         }
 
-
+        private async void TimerSpeaking_Tick(object sender, EventArgs e)
+        {
+            if (ChkDictation.Checked)
+            {
+                bool speaking = await _mSpeakManager.IsSpeaking();
+                _mAudioManager._mIgnoreRecording = speaking;
+                if (speaking)
+                {
+                    if (ChkDictation.Enabled)
+                    {
+                        ChkDictation.Enabled = false;
+                    }
+                }
+                else
+                {
+                    if (!ChkDictation.Enabled)
+                    {
+                        ChkDictation.Enabled = true;
+                    }
+                }
+            }
+            else
+            {
+                if (!ChkDictation.Enabled)
+                {
+                    ChkDictation.Enabled = true; // allow interaction
+                }
+            }
+        }
     }
 }

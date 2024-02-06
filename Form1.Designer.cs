@@ -62,6 +62,7 @@
             this.TimerAwake = new System.Windows.Forms.Timer(this.components);
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
+            this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.PanelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).BeginInit();
             this.PanelBottom.SuspendLayout();
@@ -421,6 +422,11 @@
             // 
             this.TimerVolume.Tick += new System.EventHandler(this.TimerVolume_Tick);
             // 
+            // TimerSpeaking
+            // 
+            this.TimerSpeaking.Interval = 500;
+            this.TimerSpeaking.Tick += new System.EventHandler(this.TimerSpeaking_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -478,6 +484,7 @@
         private System.Windows.Forms.Button BtnPlay;
         private System.Windows.Forms.ComboBox DropDownOutputVoice;
         private System.Windows.Forms.CheckBox ChkOutputSpeak;
+        private System.Windows.Forms.Timer TimerSpeaking;
     }
 }
 

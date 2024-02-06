@@ -7,7 +7,7 @@
 # pip3 install pyttsx3
 
 # launch the app
-# python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
+# python3 -m uvicorn Pyttsx3Server:app --reload --port 11438 --log-level error
 # browse: http://127.0.0.1:11438
 
 from fastapi import FastAPI
@@ -37,6 +37,14 @@ async def api_get_voices():
     index += 1
   return results
 
+@app.get("/is_speaking")
+async def api_is_speaking():
+  speakInProgress = False
+  if (threadSpeak != None):
+    speakInProgress = threadSpeak.is_alive()
+  #print(f"is_speaking: {speakInProgress}")
+  return { "speaking": speakInProgress }
+
 @app.get("/stop", response_class=HTMLResponse)
 async def api_stop():
   global threadSpeak
@@ -55,7 +63,7 @@ def speak_in_thread(voice, sentence):
   engine.setProperty('voice', voices[voice].id)
   engine.say(sentence)
   engine.runAndWait()
-  #print("speak_in_thread: complete")
+  print("speak_in_thread: complete")
 
 @app.post('/speak', response_class=HTMLResponse)
 async def api_speak(item:SpeakItem):

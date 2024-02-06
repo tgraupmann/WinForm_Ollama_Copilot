@@ -34,8 +34,9 @@ namespace WinForm_Ollama_Copilot
 
         private bool _WaitingForResponse = false;
 
-
         private DateTime _mTimerSend = DateTime.MinValue;
+
+        public bool _mIgnoreRecording = false;
 
         public AudioManager()
         {
@@ -155,6 +156,11 @@ namespace WinForm_Ollama_Copilot
 
         void Wave_DataAvailable(object sender, WaveInEventArgs e)
         {
+            if (_mIgnoreRecording)
+            {
+                return;
+            }
+
             if (e.BytesRecorded == 0)
             {
                 return;

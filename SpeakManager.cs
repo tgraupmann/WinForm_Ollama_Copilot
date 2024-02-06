@@ -55,6 +55,40 @@ namespace WinForm_Ollama_Copilot
             return voices;
         }
 
+        public async Task<bool> IsSpeaking()
+        {
+            try
+            {
+
+                HttpRequestMessage httpRequestMessage =
+                    new HttpRequestMessage(HttpMethod.Get, "http://localhost:11438/is_speaking");
+
+                var productValue = new ProductInfoHeaderValue("Speak_Client", "1.0");
+                var commentValue = new ProductInfoHeaderValue("(+http://localhost:11438/is_speaking)");
+                httpRequestMessage.Headers.UserAgent.Add(productValue);
+                httpRequestMessage.Headers.UserAgent.Add(commentValue);
+
+                var response = await client.SendAsync(httpRequestMessage);
+                if (response != null)
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        string pJsonContent = await content.ReadAsStringAsync();
+                        JObject jobject = JObject.Parse(pJsonContent);
+                        return jobject["speaking"].ToString() == "True";                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex != null)
+                {
+
+                }
+            }
+            return false;
+        }
+
         public async void Speak(int voice, string sentence)
         {
             if (_WaitingForResponse)
