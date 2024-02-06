@@ -151,3 +151,13 @@ pip3 install pyttsx3
 ```cmd
 python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
 ```
+
+### Speech Commands
+
+* "Prompt clear" - Clears the prompt text area
+
+* "Prompt submit" - Submits the prompt
+
+* "Response play" - Speaks the response
+
+- "Response clear" - Clears the response text area

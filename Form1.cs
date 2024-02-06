@@ -1077,16 +1077,29 @@ namespace WinForm_Ollama_Copilot
                     string input = string.Join(" ", detectedWords).Trim();
                     string searchInput = input.ToLower();
                     string cleanedInput = Regex.Replace(searchInput, @"[^a-z\s]", "").Trim();
-                    if (cleanedInput.EndsWith("command clear prompt"))
+                    if (cleanedInput.EndsWith("prompt clear"))
                     {
                         TxtPrompt.Text = "";
                         return;
                     }
-                    else if (cleanedInput.EndsWith("command prompt"))
+                    else if (cleanedInput.EndsWith("prompt submit"))
                     {
                         submitPrompt = true;
-                        int index = input.ToLower().LastIndexOf("command");
+                        int index = input.ToLower().LastIndexOf("prompt");
                         input = input.Substring(0, index);
+                    }
+                    else if (cleanedInput.EndsWith("response clear"))
+                    {
+                        TxtResponse.Text = "";
+                        return;
+                    }
+                    else if (cleanedInput.EndsWith("response play"))
+                    {
+                        if (DropDownOutputVoice.SelectedIndex > 0)
+                        {
+                            BtnPlay_Click(null, null);
+                        }
+                        return;
                     }
                     if (detectedWords.Count > 0)
                     {
