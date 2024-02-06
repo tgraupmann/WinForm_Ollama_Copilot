@@ -69,6 +69,54 @@ namespace WinForm_Ollama_Copilot
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            bool locationChanged = false;
+
+            string strLocationX = ReadConfiguration("LocationX");
+            int locationX = Location.X;
+            if (int.TryParse(strLocationX, out locationX))
+            {
+                locationChanged = true;
+            }
+
+            string strLocationY = ReadConfiguration("LocationY");
+            int locationY = Location.Y;
+            if (int.TryParse(strLocationY, out locationY))
+            {
+                locationChanged = true;
+            }
+
+            if (locationChanged)
+            {
+                Location = new Point(locationX, locationY);
+            }
+
+            this.LocationChanged += new System.EventHandler(this.Form1_LocationChanged);
+
+
+            string strWidth = ReadConfiguration("Width");
+            int width = Width;
+            if (int.TryParse(strWidth, out width))
+            {
+                Width = width;
+            }
+
+            string strHeight = ReadConfiguration("Height");
+            int height = Height;
+            if (int.TryParse(strHeight, out height))
+            {
+                Height = height;
+            }
+
+            this.Resize += new System.EventHandler(this.Form1_Resize);
+
+
+            string strWindowState = ReadConfiguration("WindowState");
+            if (strWindowState == "Maximized")
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+
+
             string strFontSize = ReadConfiguration("FontSize");
             float fontSize;
             if (float.TryParse(strFontSize, out fontSize))
@@ -1227,6 +1275,40 @@ namespace WinForm_Ollama_Copilot
                 {
                     ChkDictation.Enabled = true; // allow interaction
                 }
+            }
+        }
+
+        private void Form1_LocationChanged(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                UpdateConfiguration("LocationX", Location.X.ToString());
+                UpdateConfiguration("LocationY", Location.Y.ToString());
+            }
+
+            switch (WindowState)
+            {
+                case FormWindowState.Normal:
+                case FormWindowState.Maximized:
+                    UpdateConfiguration("WindowState", WindowState.ToString());
+                    break;
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                UpdateConfiguration("Width", Width.ToString());
+                UpdateConfiguration("Height", Height.ToString());
+            }
+
+            switch (WindowState)
+            {
+                case FormWindowState.Normal:
+                case FormWindowState.Maximized:
+                    UpdateConfiguration("WindowState", WindowState.ToString());
+                    break;
             }
         }
     }

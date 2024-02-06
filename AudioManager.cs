@@ -18,7 +18,7 @@ namespace WinForm_Ollama_Copilot
 
         readonly List<int> AudioIntValues = new List<int>();
 
-        const int DEFAULT_SAMPLE_RATE = 32000;
+        const int DEFAULT_SAMPLE_RATE = 16000;
         const int DEFAULT_CHANNEL_COUNT = 1;
 
         private int SampleRate = DEFAULT_SAMPLE_RATE;
