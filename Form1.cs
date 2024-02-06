@@ -1067,6 +1067,8 @@ namespace WinForm_Ollama_Copilot
                     {
                         transcript += " ";
                     }
+
+                    // detect commands
                     bool submitPrompt = false;
                     string input = string.Join(" ", detectedWords).Trim();
                     string searchInput = input.ToLower();
@@ -1080,11 +1082,11 @@ namespace WinForm_Ollama_Copilot
                     {
                         submitPrompt = true;
                         int index = input.ToLower().LastIndexOf("command");
-                        cleanedInput = input.Substring(0, index);
+                        input = input.Substring(0, index);
                     }
                     if (detectedWords.Count > 0)
                     {
-                        transcript += cleanedInput.Trim();
+                        transcript += input.Trim();
                         if (selectionIndex == TxtPrompt.Text.Length)
                         {
                             TxtPrompt.Text += transcript;
