@@ -1140,6 +1140,11 @@ namespace WinForm_Ollama_Copilot
             if (DropDownOutputVoice.SelectedIndex > 0)
             {
                 UpdateConfiguration("OutputVoice", DropDownOutputVoice.SelectedItem.ToString());
+
+                if (_mAudioManager._mIgnoreRecording)
+                {
+                    BtnPlay_Click(null, null);
+                }
             }
             else
             {
