@@ -813,6 +813,27 @@ namespace WinForm_Ollama_Copilot
                         _mHistory = JArray.Parse(reader.ReadToEnd());
                     }
                 }
+
+                if (_mHistory.Count > 0)
+                {
+                    JObject lastMessage = _mHistory[_mHistory.Count - 1].ToObject< JObject>();
+                    if (lastMessage["role"].ToString() == "user")
+                    {
+                        TxtPrompt.Text = lastMessage["content"].ToString().Replace("\n", "\r\n").Trim();
+                    }
+                    else if (lastMessage["role"].ToString() == "assistant")
+                    {
+                        TxtResponse.Text = lastMessage["content"].ToString().Replace("\n", "\r\n").Trim();
+                        if (_mHistory.Count > 1)
+                        {
+                            lastMessage = _mHistory[_mHistory.Count - 2].ToObject<JObject>();
+                            if (lastMessage["role"].ToString() == "user")
+                            {
+                                TxtPrompt.Text = lastMessage["content"].ToString().Replace("\n", "\r\n").Trim();
+                            }
+                        }
+                    }
+                }
             }
             catch
             {
