@@ -79,6 +79,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.PanelBottom.SuspendLayout();
@@ -96,7 +97,7 @@
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtPrompt.Size = new System.Drawing.Size(427, 161);
+            this.TxtPrompt.Size = new System.Drawing.Size(490, 161);
             this.TxtPrompt.TabIndex = 0;
             this.TxtPrompt.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragDrop);
             this.TxtPrompt.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragEnter);
@@ -105,8 +106,6 @@
             // 
             this.PanelTop.BackColor = System.Drawing.SystemColors.ControlLight;
             this.PanelTop.Controls.Add(this.tabControl1);
-            this.PanelTop.Controls.Add(this.BtnPaste);
-            this.PanelTop.Controls.Add(this.label3);
             this.PanelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelTop.Location = new System.Drawing.Point(0, 0);
             this.PanelTop.Name = "PanelTop";
@@ -139,7 +138,7 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(514, 198);
+            this.tabControl1.Size = new System.Drawing.Size(577, 198);
             this.tabControl1.TabIndex = 15;
             // 
             // tabPage1
@@ -151,7 +150,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(506, 172);
+            this.tabPage1.Size = new System.Drawing.Size(569, 172);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Prompt";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -159,7 +158,7 @@
             // BtnPrompt
             // 
             this.BtnPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPrompt.Location = new System.Drawing.Point(436, 143);
+            this.BtnPrompt.Location = new System.Drawing.Point(499, 143);
             this.BtnPrompt.Name = "BtnPrompt";
             this.BtnPrompt.Size = new System.Drawing.Size(64, 23);
             this.BtnPrompt.TabIndex = 1;
@@ -171,7 +170,7 @@
             // 
             this.ChkDictation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ChkDictation.AutoSize = true;
-            this.ChkDictation.Location = new System.Drawing.Point(440, 6);
+            this.ChkDictation.Location = new System.Drawing.Point(503, 6);
             this.ChkDictation.Name = "ChkDictation";
             this.ChkDictation.Size = new System.Drawing.Size(60, 17);
             this.ChkDictation.TabIndex = 4;
@@ -185,7 +184,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.SystemColors.Info;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(439, 108);
+            this.label1.Location = new System.Drawing.Point(502, 108);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 32);
             this.label1.TabIndex = 3;
@@ -205,7 +204,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(751, 172);
+            this.tabPage2.Size = new System.Drawing.Size(569, 172);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "STT";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -273,9 +272,11 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label3);
+            this.tabPage3.Controls.Add(this.BtnPaste);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(751, 172);
+            this.tabPage3.Size = new System.Drawing.Size(569, 172);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Images";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -284,7 +285,7 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(751, 172);
+            this.tabPage4.Size = new System.Drawing.Size(569, 172);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "OCR";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -296,14 +297,14 @@
             this.tabPage5.Controls.Add(this.BtnSave);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(751, 172);
+            this.tabPage5.Size = new System.Drawing.Size(569, 172);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "History";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // BtnLoad
             // 
-            this.BtnLoad.Location = new System.Drawing.Point(39, 87);
+            this.BtnLoad.Location = new System.Drawing.Point(253, 98);
             this.BtnLoad.Name = "BtnLoad";
             this.BtnLoad.Size = new System.Drawing.Size(58, 23);
             this.BtnLoad.TabIndex = 6;
@@ -313,7 +314,7 @@
             // 
             // BtnClear
             // 
-            this.BtnClear.Location = new System.Drawing.Point(39, 29);
+            this.BtnClear.Location = new System.Drawing.Point(253, 40);
             this.BtnClear.Name = "BtnClear";
             this.BtnClear.Size = new System.Drawing.Size(58, 23);
             this.BtnClear.TabIndex = 4;
@@ -323,9 +324,9 @@
             // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(39, 58);
+            this.BtnSave.Location = new System.Drawing.Point(253, 69);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(54, 23);
+            this.BtnSave.Size = new System.Drawing.Size(58, 23);
             this.BtnSave.TabIndex = 5;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -368,10 +369,9 @@
             // 
             // BtnPaste
             // 
-            this.BtnPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPaste.Location = new System.Drawing.Point(524, 171);
+            this.BtnPaste.Location = new System.Drawing.Point(236, 81);
             this.BtnPaste.Name = "BtnPaste";
-            this.BtnPaste.Size = new System.Drawing.Size(57, 23);
+            this.BtnPaste.Size = new System.Drawing.Size(87, 23);
             this.BtnPaste.TabIndex = 10;
             this.BtnPaste.Text = "Paste";
             this.BtnPaste.UseVisualStyleBackColor = true;
@@ -379,12 +379,11 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.BackColor = System.Drawing.SystemColors.Info;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(524, 134);
+            this.label3.Location = new System.Drawing.Point(236, 53);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 32);
+            this.label3.Size = new System.Drawing.Size(87, 23);
             this.label3.TabIndex = 3;
             this.label3.Text = "CTRL+V";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -578,6 +577,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
