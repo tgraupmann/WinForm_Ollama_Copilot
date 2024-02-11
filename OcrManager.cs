@@ -11,6 +11,8 @@ namespace WinForm_Ollama_Copilot
 {
     internal class OcrManager
     {
+        bool _mMouseDown = false;
+        bool _mMouseOver = false;
         public static Point _sMouseMoveStart = Point.Empty;
         public static Point _sMouseMoveEnd = Point.Empty;
         public static Point _sMouseMoveOffset = Point.Empty;
@@ -34,12 +36,64 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
+        #region Input Events
+
+        public void SetInputEvents(PictureBox pictureBox)
+        {
+            pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureMouseDown);
+            pictureBox.MouseEnter += new System.EventHandler(this.PictureMouseEnter);
+            pictureBox.MouseLeave += new System.EventHandler(this.PictureMouseLeave);
+            pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureMouseMove);
+            pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureMouseUp);
+        }
+
+        public void PictureMouseDown(object sender, MouseEventArgs e)
+        {
+            if (!_mMouseDown && _mMouseOver)
+            {
+                _mMouseDown = true;
+                _sMouseMoveStart = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
+                _sMouseMoveOffset = Point.Empty;
+            }
+        }
+
+        public void PictureMouseUp(object sender, MouseEventArgs e)
+        {
+            if (_mMouseDown)
+            {
+                _sMouseMoveEnd = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
+                _sMouseMoveOffset = new Point(_sMouseMoveStart.X - _sMouseMoveEnd.X, _sMouseMoveStart.Y - _sMouseMoveEnd.Y);
+            }
+            _mMouseDown = false;
+        }
+
+        public void PictureMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_mMouseDown)
+            {
+                _sMouseMoveEnd = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
+            }
+        }
+
+        public void PictureMouseEnter(object sender, EventArgs e)
+        {
+            _mMouseOver = true;
+        }
+
+        public void PictureMouseLeave(object sender, EventArgs e)
+        {
+            _mMouseOver = false;
+        }
+
+        #endregion Input Events
+
         public void CaptureScreen(ComboBox dropDownDisplay, PictureBox pictureBox)
         {
             Graphics captureGraphics = null;
             Graphics g = null;
             Bitmap bmp = null;
-            Brush brush = null;
+            Brush brushBlack = null;
+            Brush brushCapture = null;
             Pen pen = null;
 
             try
@@ -67,11 +121,16 @@ namespace WinForm_Ollama_Copilot
                 // do some cropping
                 g = pictureBox.CreateGraphics();
 
+                // clear the picture box
+                //brushBlack = new SolidBrush(Color.Black);
+                //g.FillRectangle(brushBlack, 0, 0, pictureBox.Width, pictureBox.Height);
+
                 Rectangle rectCropArea = new Rectangle(
                     0,
                     0,
                     pictureBox.Width,
                     pictureBox.Height);
+
                 g.DrawImage(_mCaptureImage, 0, 0);
             }
             catch (Exception ex)
@@ -85,9 +144,13 @@ namespace WinForm_Ollama_Copilot
                 {
                     pen.Dispose();
                 }
-                if (brush != null)
+                if (brushBlack != null)
                 {
-                    brush.Dispose();
+                    brushBlack.Dispose();
+                }
+                if (brushCapture != null)
+                {
+                    brushCapture.Dispose();
                 }
                 if (bmp != null)
                 {

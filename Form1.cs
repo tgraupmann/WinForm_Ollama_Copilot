@@ -1408,6 +1408,7 @@ namespace WinForm_Ollama_Copilot
             this.TxtHeight.Text = height.ToString();
             this.TxtHeight.TextChanged += new System.EventHandler(this.TxtHeight_TextChanged);
 
+            _mOcrManager.SetInputEvents(PicBoxPreview);
             _mOcrManager.Init(width, height);
 
             TimerCapture.Interval = 100;
@@ -1484,11 +1485,20 @@ namespace WinForm_Ollama_Copilot
             UpdateConfiguration("SelectedTab", selectedTab);
         }
 
+        bool _mIsCapturing = false;
+
         private void TimerCapture_Tick(object sender, EventArgs e)
         {
+            if (_mIsCapturing)
+            {
+                return;
+            }
+
             if (ChkOCR.Checked)
             {
+                _mIsCapturing = true;
                 _mOcrManager.CaptureScreen(DropDownDisplay, PicBoxPreview);
+                _mIsCapturing = false;
             }
         }
     }
