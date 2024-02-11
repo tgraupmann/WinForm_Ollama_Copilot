@@ -32,37 +32,39 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TxtPrompt = new System.Windows.Forms.TextBox();
             this.PanelTop = new System.Windows.Forms.Panel();
-            this.ChkStayAwake = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.ChkDictation = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.LblVolume = new System.Windows.Forms.Label();
             this.LblThreshold = new System.Windows.Forms.Label();
+            this.DropDownInputDevice = new System.Windows.Forms.ComboBox();
             this.PbVolume = new System.Windows.Forms.ProgressBar();
             this.SliderTheshold = new System.Windows.Forms.TrackBar();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.BtnPaste = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.BtnLoad = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.DropDownModels = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ChkStayAwake = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.DropDownFocus = new System.Windows.Forms.ComboBox();
-            this.BtnPaste = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.DropDownModels = new System.Windows.Forms.ComboBox();
             this.PanelBottom = new System.Windows.Forms.Panel();
             this.ChkOutputSpeak = new System.Windows.Forms.CheckBox();
             this.DropDownOutputVoice = new System.Windows.Forms.ComboBox();
             this.BtnStop = new System.Windows.Forms.Button();
             this.BtnPlay = new System.Windows.Forms.Button();
-            this.DropDownInputDevice = new System.Windows.Forms.ComboBox();
             this.LblVersion = new System.Windows.Forms.Label();
             this.LblResponse = new System.Windows.Forms.Label();
             this.TxtResponse = new System.Windows.Forms.TextBox();
@@ -72,17 +74,30 @@
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.DropDownDisplay = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.PicBoxPreview = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ChkOCR = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.TxtX = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.TxtY = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.TxtWidth = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.TxtHeight = new System.Windows.Forms.TextBox();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.PanelBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // TxtPrompt
@@ -111,18 +126,6 @@
             this.PanelTop.Name = "PanelTop";
             this.PanelTop.Size = new System.Drawing.Size(584, 207);
             this.PanelTop.TabIndex = 2;
-            // 
-            // ChkStayAwake
-            // 
-            this.ChkStayAwake.AutoSize = true;
-            this.ChkStayAwake.Location = new System.Drawing.Point(10, 73);
-            this.ChkStayAwake.Name = "ChkStayAwake";
-            this.ChkStayAwake.Size = new System.Drawing.Size(83, 17);
-            this.ChkStayAwake.TabIndex = 2;
-            this.ChkStayAwake.Text = "Stay Awake";
-            this.ChkStayAwake.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ChkStayAwake.UseVisualStyleBackColor = true;
-            this.ChkStayAwake.CheckedChanged += new System.EventHandler(this.ChkStayAwake_CheckedChanged);
             // 
             // tabControl1
             // 
@@ -209,6 +212,16 @@
             this.tabPage2.Text = "STT";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 62);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Input Device:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -249,6 +262,15 @@
             this.LblThreshold.Text = "0%";
             this.LblThreshold.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DropDownInputDevice
+            // 
+            this.DropDownInputDevice.FormattingEnabled = true;
+            this.DropDownInputDevice.Location = new System.Drawing.Point(96, 58);
+            this.DropDownInputDevice.Name = "DropDownInputDevice";
+            this.DropDownInputDevice.Size = new System.Drawing.Size(286, 21);
+            this.DropDownInputDevice.TabIndex = 5;
+            this.DropDownInputDevice.SelectedIndexChanged += new System.EventHandler(this.CboInputDevice_SelectedIndexChanged);
+            // 
             // PbVolume
             // 
             this.PbVolume.BackColor = System.Drawing.Color.Black;
@@ -281,8 +303,42 @@
             this.tabPage3.Text = "Images";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.SystemColors.Info;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(236, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(87, 23);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "CTRL+V";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BtnPaste
+            // 
+            this.BtnPaste.Location = new System.Drawing.Point(236, 81);
+            this.BtnPaste.Name = "BtnPaste";
+            this.BtnPaste.Size = new System.Drawing.Size(87, 23);
+            this.BtnPaste.TabIndex = 10;
+            this.BtnPaste.Text = "Paste";
+            this.BtnPaste.UseVisualStyleBackColor = true;
+            this.BtnPaste.Click += new System.EventHandler(this.BtnPaste_Click);
+            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.TxtY);
+            this.tabPage4.Controls.Add(this.label11);
+            this.tabPage4.Controls.Add(this.TxtHeight);
+            this.tabPage4.Controls.Add(this.TxtWidth);
+            this.tabPage4.Controls.Add(this.label13);
+            this.tabPage4.Controls.Add(this.TxtX);
+            this.tabPage4.Controls.Add(this.label12);
+            this.tabPage4.Controls.Add(this.label10);
+            this.tabPage4.Controls.Add(this.ChkOCR);
+            this.tabPage4.Controls.Add(this.label9);
+            this.tabPage4.Controls.Add(this.PicBoxPreview);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.DropDownDisplay);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(569, 172);
@@ -341,10 +397,43 @@
             this.tabPage6.Controls.Add(this.DropDownFocus);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(506, 172);
+            this.tabPage6.Size = new System.Drawing.Size(569, 172);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Config";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // DropDownModels
+            // 
+            this.DropDownModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DropDownModels.FormattingEnabled = true;
+            this.DropDownModels.Location = new System.Drawing.Point(10, 25);
+            this.DropDownModels.Name = "DropDownModels";
+            this.DropDownModels.Size = new System.Drawing.Size(547, 21);
+            this.DropDownModels.TabIndex = 9;
+            this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Selected Model:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ChkStayAwake
+            // 
+            this.ChkStayAwake.AutoSize = true;
+            this.ChkStayAwake.Location = new System.Drawing.Point(10, 73);
+            this.ChkStayAwake.Name = "ChkStayAwake";
+            this.ChkStayAwake.Size = new System.Drawing.Size(83, 17);
+            this.ChkStayAwake.TabIndex = 2;
+            this.ChkStayAwake.Text = "Stay Awake";
+            this.ChkStayAwake.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ChkStayAwake.UseVisualStyleBackColor = true;
+            this.ChkStayAwake.CheckedChanged += new System.EventHandler(this.ChkStayAwake_CheckedChanged);
             // 
             // label5
             // 
@@ -363,41 +452,9 @@
             this.DropDownFocus.FormattingEnabled = true;
             this.DropDownFocus.Location = new System.Drawing.Point(10, 142);
             this.DropDownFocus.Name = "DropDownFocus";
-            this.DropDownFocus.Size = new System.Drawing.Size(484, 21);
+            this.DropDownFocus.Size = new System.Drawing.Size(547, 21);
             this.DropDownFocus.TabIndex = 2;
             this.DropDownFocus.SelectedIndexChanged += new System.EventHandler(this.DropDownFocus_SelectedIndexChanged);
-            // 
-            // BtnPaste
-            // 
-            this.BtnPaste.Location = new System.Drawing.Point(236, 81);
-            this.BtnPaste.Name = "BtnPaste";
-            this.BtnPaste.Size = new System.Drawing.Size(87, 23);
-            this.BtnPaste.TabIndex = 10;
-            this.BtnPaste.Text = "Paste";
-            this.BtnPaste.UseVisualStyleBackColor = true;
-            this.BtnPaste.Click += new System.EventHandler(this.BtnPaste_Click);
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.SystemColors.Info;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(236, 53);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 23);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "CTRL+V";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // DropDownModels
-            // 
-            this.DropDownModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DropDownModels.FormattingEnabled = true;
-            this.DropDownModels.Location = new System.Drawing.Point(10, 25);
-            this.DropDownModels.Name = "DropDownModels";
-            this.DropDownModels.Size = new System.Drawing.Size(484, 21);
-            this.DropDownModels.TabIndex = 9;
-            this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
             // 
             // PanelBottom
             // 
@@ -461,15 +518,6 @@
             this.BtnPlay.Text = "Play";
             this.BtnPlay.UseVisualStyleBackColor = true;
             this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
-            // 
-            // DropDownInputDevice
-            // 
-            this.DropDownInputDevice.FormattingEnabled = true;
-            this.DropDownInputDevice.Location = new System.Drawing.Point(96, 58);
-            this.DropDownInputDevice.Name = "DropDownInputDevice";
-            this.DropDownInputDevice.Size = new System.Drawing.Size(286, 21);
-            this.DropDownInputDevice.TabIndex = 5;
-            this.DropDownInputDevice.SelectedIndexChanged += new System.EventHandler(this.CboInputDevice_SelectedIndexChanged);
             // 
             // LblVersion
             // 
@@ -536,25 +584,127 @@
             this.TimerSpeaking.Interval = 500;
             this.TimerSpeaking.Tick += new System.EventHandler(this.TimerSpeaking_Tick);
             // 
-            // label6
+            // DropDownDisplay
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 62);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 13);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Input Device:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.DropDownDisplay.FormattingEnabled = true;
+            this.DropDownDisplay.Location = new System.Drawing.Point(94, 24);
+            this.DropDownDisplay.Name = "DropDownDisplay";
+            this.DropDownDisplay.Size = new System.Drawing.Size(229, 21);
+            this.DropDownDisplay.TabIndex = 0;
+            this.DropDownDisplay.SelectedIndexChanged += new System.EventHandler(this.DropDownDisplay_SelectedIndexChanged);
             // 
-            // label7
+            // label8
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Selected Model:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 29);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Capture Display:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // PicBoxPreview
+            // 
+            this.PicBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PicBoxPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.PicBoxPreview.Location = new System.Drawing.Point(431, 5);
+            this.PicBoxPreview.Name = "PicBoxPreview";
+            this.PicBoxPreview.Size = new System.Drawing.Size(128, 128);
+            this.PicBoxPreview.TabIndex = 2;
+            this.PicBoxPreview.TabStop = false;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(479, 138);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Preview";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ChkOCR
+            // 
+            this.ChkOCR.AutoSize = true;
+            this.ChkOCR.Location = new System.Drawing.Point(11, 5);
+            this.ChkOCR.Name = "ChkOCR";
+            this.ChkOCR.Size = new System.Drawing.Size(56, 17);
+            this.ChkOCR.TabIndex = 4;
+            this.ChkOCR.Text = "Active";
+            this.ChkOCR.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(74, 56);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "X:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtX
+            // 
+            this.TxtX.Location = new System.Drawing.Point(94, 52);
+            this.TxtX.Name = "TxtX";
+            this.TxtX.Size = new System.Drawing.Size(90, 20);
+            this.TxtX.TabIndex = 6;
+            this.TxtX.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(213, 55);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(17, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Y:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtY
+            // 
+            this.TxtY.Location = new System.Drawing.Point(233, 51);
+            this.TxtY.Name = "TxtY";
+            this.TxtY.Size = new System.Drawing.Size(90, 20);
+            this.TxtY.TabIndex = 6;
+            this.TxtY.Text = "0";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(53, 85);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Width:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtWidth
+            // 
+            this.TxtWidth.Location = new System.Drawing.Point(95, 81);
+            this.TxtWidth.Name = "TxtWidth";
+            this.TxtWidth.Size = new System.Drawing.Size(90, 20);
+            this.TxtWidth.TabIndex = 6;
+            this.TxtWidth.Text = "256";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(191, 86);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 13);
+            this.label13.TabIndex = 5;
+            this.label13.Text = "Height:";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtHeight
+            // 
+            this.TxtHeight.Location = new System.Drawing.Point(233, 82);
+            this.TxtHeight.Name = "TxtHeight";
+            this.TxtHeight.Size = new System.Drawing.Size(90, 20);
+            this.TxtHeight.TabIndex = 6;
+            this.TxtHeight.Text = "256";
             // 
             // Form1
             // 
@@ -578,11 +728,14 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.PanelBottom.ResumeLayout(false);
             this.PanelBottom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxPreview)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -633,6 +786,19 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox DropDownDisplay;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.PictureBox PicBoxPreview;
+        private System.Windows.Forms.TextBox TxtY;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox TxtWidth;
+        private System.Windows.Forms.TextBox TxtX;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox ChkOCR;
+        private System.Windows.Forms.TextBox TxtHeight;
+        private System.Windows.Forms.Label label13;
     }
 }
 

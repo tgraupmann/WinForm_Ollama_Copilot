@@ -1332,5 +1332,10 @@ namespace WinForm_Ollama_Copilot
                     break;
             }
         }
+
+        private void DropDownDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
