@@ -87,6 +87,7 @@
             this.TimerDictation = new System.Windows.Forms.Timer(this.components);
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
+            this.TimerCapture = new System.Windows.Forms.Timer(this.components);
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -705,6 +706,10 @@
             this.TimerSpeaking.Interval = 500;
             this.TimerSpeaking.Tick += new System.EventHandler(this.TimerSpeaking_Tick);
             // 
+            // CaptureTimer
+            // 
+            this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -798,6 +803,7 @@
         private System.Windows.Forms.CheckBox ChkOCR;
         private System.Windows.Forms.TextBox TxtHeight;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Timer TimerCapture;
     }
 }
 

@@ -38,6 +38,8 @@ namespace WinForm_Ollama_Copilot
 
         private SpeakManager _mSpeakManager = new SpeakManager();
 
+        private OcrManager _mOcrManager = new OcrManager();
+
         private static void UpdateConfiguration(string key, string value)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -757,6 +759,8 @@ namespace WinForm_Ollama_Copilot
                 TimerDictation.Stop();
                 TimerVolume.Stop();
                 TimerSpeaking.Stop();
+                TimerCapture.Stop();
+                _mOcrManager.Uninit();
                 Application.Exit();
             });
         }
@@ -836,7 +840,7 @@ namespace WinForm_Ollama_Copilot
 
                 if (_mHistory.Count > 0)
                 {
-                    JObject lastMessage = _mHistory[_mHistory.Count - 1].ToObject< JObject>();
+                    JObject lastMessage = _mHistory[_mHistory.Count - 1].ToObject<JObject>();
                     if (lastMessage["role"].ToString() == "user")
                     {
                         TxtPrompt.Text = lastMessage["content"].ToString().Replace("\n", "\r\n").Trim();
@@ -1396,11 +1400,18 @@ namespace WinForm_Ollama_Copilot
             this.TxtY.Text = ReadConfigurationInt("OCR.Y", 0).ToString();
             this.TxtY.TextChanged += new System.EventHandler(this.TxtY_TextChanged);
 
-            this.TxtWidth.Text = ReadConfigurationInt("OCR.Width", 256).ToString();
+            int width = ReadConfigurationInt("OCR.Width", 256);
+            this.TxtWidth.Text = width.ToString();
             this.TxtWidth.TextChanged += new System.EventHandler(this.TxtWidth_TextChanged);
 
-            this.TxtHeight.Text = ReadConfigurationInt("OCR.Height", 256).ToString();
+            int height = ReadConfigurationInt("OCR.Height", 256);
+            this.TxtHeight.Text = height.ToString();
             this.TxtHeight.TextChanged += new System.EventHandler(this.TxtHeight_TextChanged);
+
+            _mOcrManager.Init(width, height);
+
+            TimerCapture.Interval = 100;
+            TimerCapture.Start();
         }
 
         private void ChkOCR_CheckedChanged(object sender, EventArgs e)
@@ -1433,7 +1444,8 @@ namespace WinForm_Ollama_Copilot
             TextBox control = sender as TextBox;
             int val;
             if (int.TryParse(control.Text, out val) &&
-                val > 0)
+                val > 0 &&
+                val < 2048)
             {
                 UpdateConfiguration("OCR.Width", val.ToString());
             }
@@ -1444,7 +1456,8 @@ namespace WinForm_Ollama_Copilot
             TextBox control = sender as TextBox;
             int val;
             if (int.TryParse(control.Text, out val) &&
-                val > 0)
+                val > 0 &&
+                val < 2048)
             {
                 UpdateConfiguration("OCR.Height", val.ToString());
             }
@@ -1469,6 +1482,14 @@ namespace WinForm_Ollama_Copilot
         {
             string selectedTab = tabControl1.TabPages[tabControl1.SelectedIndex].Text;
             UpdateConfiguration("SelectedTab", selectedTab);
+        }
+
+        private void TimerCapture_Tick(object sender, EventArgs e)
+        {
+            if (ChkOCR.Checked)
+            {
+                _mOcrManager.CaptureScreen(DropDownDisplay, PicBoxPreview);
+            }
         }
     }
 }
