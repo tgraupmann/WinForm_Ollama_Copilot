@@ -62,6 +62,20 @@ namespace WinForm_Ollama_Copilot
             return ConfigurationManager.AppSettings[key];
         }
 
+        private static int ReadConfigurationInt(string key, int valueDefault = 0)
+        {
+            string txtResult = ConfigurationManager.AppSettings[key];
+            int result;
+            if (int.TryParse(txtResult, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return valueDefault;
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -69,6 +83,12 @@ namespace WinForm_Ollama_Copilot
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            LoadTab();
+
+            LoadMonitors();
+
+            LoadOCR();
+
             bool locationChanged = false;
 
             string strLocationX = ReadConfiguration("LocationX");
@@ -1333,9 +1353,122 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
+        private void LoadMonitors()
+        {
+            DropDownDisplay.Items.Add("-- Select a display --");
+
+            // list all monitors
+            int indexScreen = 1;
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                string deviceName = string.Format("{0}: {1}", indexScreen, screen.DeviceName);
+                DropDownDisplay.Items.Add(deviceName);
+                ++indexScreen;
+            }
+
+            string strSelectedDisplay = ReadConfiguration("SelectedDisplay");
+            int selectedDisplay = 0;
+            if (int.TryParse(strSelectedDisplay, out selectedDisplay))
+            {
+                DropDownDisplay.SelectedIndex = selectedDisplay;
+            }
+            else
+            {
+                DropDownDisplay.SelectedIndex = 0;
+            }
+
+            this.DropDownDisplay.SelectedIndexChanged += new System.EventHandler(this.DropDownDisplay_SelectedIndexChanged);
+        }
+
         private void DropDownDisplay_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateConfiguration("SelectedDisplay", DropDownDisplay.SelectedIndex.ToString());
+        }
 
+        private void LoadOCR()
+        {
+            this.ChkOCR.Checked = ReadConfiguration("OCR") == "True";
+            this.ChkOCR.CheckedChanged += new System.EventHandler(this.ChkOCR_CheckedChanged);
+
+            this.TxtX.Text = ReadConfigurationInt("OCR.X", 0).ToString();
+            this.TxtX.TextChanged += new System.EventHandler(this.TxtX_TextChanged);
+
+            this.TxtY.Text = ReadConfigurationInt("OCR.Y", 0).ToString();
+            this.TxtY.TextChanged += new System.EventHandler(this.TxtY_TextChanged);
+
+            this.TxtWidth.Text = ReadConfigurationInt("OCR.Width", 256).ToString();
+            this.TxtWidth.TextChanged += new System.EventHandler(this.TxtWidth_TextChanged);
+
+            this.TxtHeight.Text = ReadConfigurationInt("OCR.Height", 256).ToString();
+            this.TxtHeight.TextChanged += new System.EventHandler(this.TxtHeight_TextChanged);
+        }
+
+        private void ChkOCR_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("OCR", ChkOCR.Checked.ToString());
+        }
+
+        private void TxtX_TextChanged(object sender, EventArgs e)
+        {
+            TextBox control = sender as TextBox;
+            int val;
+            if (int.TryParse(control.Text, out val))
+            {
+                UpdateConfiguration("OCR.X", val.ToString());
+            }
+        }
+
+        private void TxtY_TextChanged(object sender, EventArgs e)
+        {
+            TextBox control = sender as TextBox;
+            int val;
+            if (int.TryParse(control.Text, out val))
+            {
+                UpdateConfiguration("OCR.Y", val.ToString());
+            }
+        }
+
+        private void TxtWidth_TextChanged(object sender, EventArgs e)
+        {
+            TextBox control = sender as TextBox;
+            int val;
+            if (int.TryParse(control.Text, out val) &&
+                val > 0)
+            {
+                UpdateConfiguration("OCR.Width", val.ToString());
+            }
+        }
+
+        private void TxtHeight_TextChanged(object sender, EventArgs e)
+        {
+            TextBox control = sender as TextBox;
+            int val;
+            if (int.TryParse(control.Text, out val) &&
+                val > 0)
+            {
+                UpdateConfiguration("OCR.Height", val.ToString());
+            }
+        }
+
+        private void LoadTab()
+        {
+            string selectedTab = ReadConfiguration("SelectedTab");
+            foreach (TabPage tab in tabControl1.TabPages)
+            {
+                if (tab.Text == selectedTab)
+                {
+                    tabControl1.SelectedTab = tab;
+                    break;
+                }
+            }
+
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedTab = tabControl1.TabPages[tabControl1.SelectedIndex].Text;
+            UpdateConfiguration("SelectedTab", selectedTab);
         }
     }
 }
