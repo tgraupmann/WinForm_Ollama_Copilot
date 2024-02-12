@@ -180,6 +180,8 @@ pip install pytesseract
 
 * Install Tesseract-OCR - [Installation](https://tesseract-ocr.github.io/tessdoc/Installation.html)
 
+* Windows Installer - [Tesseract at UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)
+
 * Add Tesseract to your path: `C:\Program Files\Tesseract-OCR`
 
 * Run the server
