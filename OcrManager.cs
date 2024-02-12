@@ -19,8 +19,8 @@ namespace WinForm_Ollama_Copilot
         public int _mWidth = 0;
         public int _mHeight = 0;
 
-        bool _mMouseDown = false;
-        bool _mMouseOver = false;
+        public bool _mMouseDown = false;
+        public bool _mMouseOver = false;
         public Point _mMouseMoveStart = Point.Empty;
         public Point _mMouseMoveEnd = Point.Empty;
         public Point _mMouseMoveOffset = Point.Empty;
