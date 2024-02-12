@@ -1489,6 +1489,11 @@ namespace WinForm_Ollama_Copilot
 
         private async void TimerCapture_Tick(object sender, EventArgs e)
         {
+            if (tabControl1.SelectedTab != TabOCR)
+            {
+                return;
+            }
+
             if (_mIsCapturing)
             {
                 return;
@@ -1497,8 +1502,21 @@ namespace WinForm_Ollama_Copilot
             if (ChkOCR.Checked)
             {
                 _mIsCapturing = true;
-                await _mOcrManager.GetTextFromScreen(DropDownDisplay, PicBoxPreview);
+                string text = await _mOcrManager.GetTextFromScreen(DropDownDisplay, PicBoxPreview);
                 _mIsCapturing = false;
+
+                if (!string.IsNullOrEmpty(text))
+                {
+                    if (TxtResponse.Text != text)
+                    {
+                        TxtResponse.Text = text;
+                        if (ChkOutputSpeak.Checked)
+                        {
+                            Speak();
+                        }
+                    }
+
+                }
             }
         }
     }

@@ -24,6 +24,8 @@ namespace WinForm_Ollama_Copilot
 
         private static readonly HttpClient client = new HttpClient();
 
+        private bool _mIsRecognizing = false;
+
         public void Uninit()
         {
             if (_mCaptureImage != null)
@@ -238,7 +240,14 @@ namespace WinForm_Ollama_Copilot
         public async Task<string> GetTextFromScreen(ComboBox dropDownDisplay, PictureBox pictureBox)
         {
             string base64String = CaptureBase64String(dropDownDisplay, pictureBox);
-            return await Base64ImageToString(base64String);
+            if (_mIsRecognizing)
+            {
+                return string.Empty;
+            }
+            _mIsRecognizing = true;
+            string text = await Base64ImageToString(base64String);
+            _mIsRecognizing = false;
+            return text;
         }
     }
 }
