@@ -16,6 +16,9 @@ namespace WinForm_Ollama_Copilot
     {
         Form1 _mForm1 = null;
 
+        public int _mWidth = 0;
+        public int _mHeight = 0;
+
         bool _mMouseDown = false;
         bool _mMouseOver = false;
         public static Point _sMouseMoveStart = Point.Empty;
@@ -52,6 +55,8 @@ namespace WinForm_Ollama_Copilot
         {
             if (_mCaptureImage == null)
             {
+                _mWidth = width;
+                _mHeight = height;
                 _mCaptureImage = new Bitmap(width, height, PixelFormat.Format24bppRgb);
             }
         }
@@ -116,7 +121,7 @@ namespace WinForm_Ollama_Copilot
 
             Graphics captureGraphics = null;
             Graphics g = null;
-            Bitmap bmp = null;
+            Bitmap captureBitmap = null;
             //Brush brushBlack = null;
             Brush brushCapture = null;
             Pen pen = null;
@@ -149,23 +154,24 @@ namespace WinForm_Ollama_Copilot
                 //brushBlack = new SolidBrush(Color.Black);
                 //g.FillRectangle(brushBlack, 0, 0, pictureBox.Width, pictureBox.Height);
 
-                Rectangle rectCropArea = new Rectangle(
+                Rectangle captureRectCropArea = new Rectangle(
                     0,
                     0,
-                    pictureBox.Width,
-                    pictureBox.Height);
+                    _mWidth,
+                    _mHeight);
 
-                g.DrawImage(_mCaptureImage, 0, 0);
-                bmp = new Bitmap(_mCaptureImage);
-                bmp = bmp.Clone(rectCropArea, bmp.PixelFormat);
+                captureBitmap = new Bitmap(_mCaptureImage);
+                captureBitmap = captureBitmap.Clone(captureRectCropArea, captureBitmap.PixelFormat);
 
                 // convert to base64 string
                 using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
                 {
-                    bmp.Save(ms, ImageFormat.Jpeg);
+                    captureBitmap.Save(ms, ImageFormat.Jpeg);
                     byte[] byteImage = ms.ToArray();
                     base64String = Convert.ToBase64String(byteImage);
                 }
+
+                g.DrawImage(_mCaptureImage, 0, 0, pictureBox.Width, pictureBox.Height);
             }
             catch (Exception ex)
             {
@@ -186,9 +192,9 @@ namespace WinForm_Ollama_Copilot
                 {
                     brushCapture.Dispose();
                 }
-                if (bmp != null)
+                if (captureBitmap != null)
                 {
-                    bmp.Dispose();
+                    captureBitmap.Dispose();
                 }
                 if (g != null)
                 {

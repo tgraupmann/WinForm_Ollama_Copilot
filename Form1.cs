@@ -1450,6 +1450,8 @@ namespace WinForm_Ollama_Copilot
                 val < 2048)
             {
                 UpdateConfiguration("OCR.Width", val.ToString());
+                _mOcrManager.Uninit();
+                _mOcrManager.Init(val, _mOcrManager._mHeight);
             }
         }
 
@@ -1462,6 +1464,8 @@ namespace WinForm_Ollama_Copilot
                 val < 2048)
             {
                 UpdateConfiguration("OCR.Height", val.ToString());
+                _mOcrManager.Uninit();
+                _mOcrManager.Init(_mOcrManager._mWidth, val);
             }
         }
 
