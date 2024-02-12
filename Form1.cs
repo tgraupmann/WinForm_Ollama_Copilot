@@ -1513,14 +1513,12 @@ namespace WinForm_Ollama_Copilot
                 text = text.Replace("\n", "\r\n").Trim();
                 if (!string.IsNullOrEmpty(text))
                 {
-                    if (TxtResponse.Text != text)
+                    if (TxtResponse.Text != text &&
+                        ChkOutputSpeak.Checked &&
+                        !_mAudioManager._mIsSpeaking)
                     {
                         TxtResponse.Text = text;
-                        if (ChkOutputSpeak.Checked &&
-                            !_mAudioManager._mIsSpeaking)
-                        {
-                            Speak();
-                        }
+                        Speak();
                     }
 
                 }
