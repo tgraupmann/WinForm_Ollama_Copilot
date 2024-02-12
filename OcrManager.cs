@@ -21,13 +21,13 @@ namespace WinForm_Ollama_Copilot
 
         bool _mMouseDown = false;
         bool _mMouseOver = false;
-        public static Point _sMouseMoveStart = Point.Empty;
-        public static Point _sMouseMoveEnd = Point.Empty;
-        public static Point _sMouseMoveOffset = Point.Empty;
+        public Point _mMouseMoveStart = Point.Empty;
+        public Point _mMouseMoveEnd = Point.Empty;
+        public Point _mMouseMoveOffset = Point.Empty;
 
         private Image _mCaptureImage = null;
 
-        private static readonly HttpClient client = new HttpClient();
+        private readonly HttpClient _mClient = new HttpClient();
 
         private bool _mIsRecognizing = false;
 
@@ -39,7 +39,7 @@ namespace WinForm_Ollama_Copilot
             int y;
             int.TryParse(_mForm1.TxtX.Text, out x);
             int.TryParse(_mForm1.TxtY.Text, out y);
-            _sMouseMoveStart = new Point(x, y);
+            _mMouseMoveStart = new Point(x, y);
         }
 
         public void Uninit()
@@ -77,8 +77,8 @@ namespace WinForm_Ollama_Copilot
             if (!_mMouseDown && _mMouseOver)
             {
                 _mMouseDown = true;
-                _sMouseMoveStart = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
-                _sMouseMoveOffset = Point.Empty;
+                _mMouseMoveStart = new Point(e.X + _mMouseMoveOffset.X, e.Y + _mMouseMoveOffset.Y);
+                _mMouseMoveOffset = Point.Empty;
             }
         }
 
@@ -86,8 +86,8 @@ namespace WinForm_Ollama_Copilot
         {
             if (_mMouseDown)
             {
-                _sMouseMoveEnd = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
-                _sMouseMoveOffset = new Point(_sMouseMoveStart.X - _sMouseMoveEnd.X, _sMouseMoveStart.Y - _sMouseMoveEnd.Y);
+                _mMouseMoveEnd = new Point(e.X + _mMouseMoveOffset.X, e.Y + _mMouseMoveOffset.Y);
+                _mMouseMoveOffset = new Point(_mMouseMoveStart.X - _mMouseMoveEnd.X, _mMouseMoveStart.Y - _mMouseMoveEnd.Y);
             }
             _mMouseDown = false;
         }
@@ -96,10 +96,10 @@ namespace WinForm_Ollama_Copilot
         {
             if (_mMouseDown)
             {
-                _sMouseMoveEnd = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
+                _mMouseMoveEnd = new Point(e.X + _mMouseMoveOffset.X, e.Y + _mMouseMoveOffset.Y);
 
-                _mForm1.TxtX.Text = (_sMouseMoveStart.X - _sMouseMoveEnd.X).ToString();
-                _mForm1.TxtY.Text = (_sMouseMoveStart.Y - _sMouseMoveEnd.Y).ToString();
+                _mForm1.TxtX.Text = (_mMouseMoveStart.X - _mMouseMoveEnd.X).ToString();
+                _mForm1.TxtY.Text = (_mMouseMoveStart.Y - _mMouseMoveEnd.Y).ToString();
             }
         }
 
@@ -144,8 +144,8 @@ namespace WinForm_Ollama_Copilot
                 captureGraphics = Graphics.FromImage(_mCaptureImage);
                 // copy pixels from screen
                 captureGraphics.CopyFromScreen(
-                    captureRectangle.Left + _sMouseMoveStart.X - _sMouseMoveEnd.X,
-                    captureRectangle.Top + _sMouseMoveStart.Y - _sMouseMoveEnd.Y, 0, 0, captureRectangle.Size);
+                    captureRectangle.Left + _mMouseMoveStart.X - _mMouseMoveEnd.X,
+                    captureRectangle.Top + _mMouseMoveStart.Y - _mMouseMoveEnd.Y, 0, 0, captureRectangle.Size);
 
                 // do some cropping
                 g = pictureBox.CreateGraphics();
@@ -231,7 +231,7 @@ namespace WinForm_Ollama_Copilot
                 httpRequestMessage.Headers.UserAgent.Add(productValue);
                 httpRequestMessage.Headers.UserAgent.Add(commentValue);
 
-                var response = await client.SendAsync(httpRequestMessage);
+                var response = await _mClient.SendAsync(httpRequestMessage);
                 if (response != null)
                 {
                     using (HttpContent content = response.Content)

@@ -1428,6 +1428,8 @@ namespace WinForm_Ollama_Copilot
             if (int.TryParse(control.Text, out val))
             {
                 UpdateConfiguration("OCR.X", val.ToString());
+                _mOcrManager._mMouseMoveStart.X = val;
+                _mOcrManager._mMouseMoveEnd.X = 0;
             }
         }
 
@@ -1438,6 +1440,8 @@ namespace WinForm_Ollama_Copilot
             if (int.TryParse(control.Text, out val))
             {
                 UpdateConfiguration("OCR.Y", val.ToString());
+                _mOcrManager._mMouseMoveStart.Y = val;
+                _mOcrManager._mMouseMoveEnd.Y = 0;
             }
         }
 
