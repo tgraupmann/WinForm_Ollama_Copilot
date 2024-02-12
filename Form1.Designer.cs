@@ -794,10 +794,10 @@
         private System.Windows.Forms.ComboBox DropDownDisplay;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox PicBoxPreview;
-        private System.Windows.Forms.TextBox TxtY;
+        public System.Windows.Forms.TextBox TxtY;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtWidth;
-        private System.Windows.Forms.TextBox TxtX;
+        public System.Windows.Forms.TextBox TxtX;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox ChkOCR;

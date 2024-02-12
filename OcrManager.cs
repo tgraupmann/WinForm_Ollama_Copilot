@@ -14,6 +14,8 @@ namespace WinForm_Ollama_Copilot
 {
     internal class OcrManager
     {
+        Form1 _mForm1 = null;
+
         bool _mMouseDown = false;
         bool _mMouseOver = false;
         public static Point _sMouseMoveStart = Point.Empty;
@@ -25,6 +27,17 @@ namespace WinForm_Ollama_Copilot
         private static readonly HttpClient client = new HttpClient();
 
         private bool _mIsRecognizing = false;
+
+        public void LoadConfig(Form1 form1)
+        {
+            _mForm1 = form1;
+
+            int x;
+            int y;
+            int.TryParse(_mForm1.TxtX.Text, out x);
+            int.TryParse(_mForm1.TxtY.Text, out y);
+            _sMouseMoveStart = new Point(x, y);
+        }
 
         public void Uninit()
         {
@@ -79,6 +92,9 @@ namespace WinForm_Ollama_Copilot
             if (_mMouseDown)
             {
                 _sMouseMoveEnd = new Point(e.X + _sMouseMoveOffset.X, e.Y + _sMouseMoveOffset.Y);
+
+                _mForm1.TxtX.Text = (_sMouseMoveStart.X - _sMouseMoveEnd.X).ToString();
+                _mForm1.TxtY.Text = (_sMouseMoveStart.Y - _sMouseMoveEnd.Y).ToString();
             }
         }
 

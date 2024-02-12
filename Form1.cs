@@ -1408,6 +1408,7 @@ namespace WinForm_Ollama_Copilot
             this.TxtHeight.Text = height.ToString();
             this.TxtHeight.TextChanged += new System.EventHandler(this.TxtHeight_TextChanged);
 
+            _mOcrManager.LoadConfig(this);
             _mOcrManager.SetInputEvents(PicBoxPreview);
             _mOcrManager.Init(width, height);
 
@@ -1505,6 +1506,7 @@ namespace WinForm_Ollama_Copilot
                 string text = await _mOcrManager.GetTextFromScreen(DropDownDisplay, PicBoxPreview);
                 _mIsCapturing = false;
 
+                text = text.Replace("\n", "\r\n").Trim();
                 if (!string.IsNullOrEmpty(text))
                 {
                     if (TxtResponse.Text != text)
