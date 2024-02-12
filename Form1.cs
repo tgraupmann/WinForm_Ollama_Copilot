@@ -1247,7 +1247,7 @@ namespace WinForm_Ollama_Copilot
             {
                 UpdateConfiguration("OutputVoice", DropDownOutputVoice.SelectedItem.ToString());
 
-                if (_mAudioManager._mIgnoreRecording)
+                if (_mAudioManager._mIsSpeaking)
                 {
                     BtnPlay_Click(null, null);
                 }
@@ -1298,7 +1298,7 @@ namespace WinForm_Ollama_Copilot
             if (ChkDictation.Checked)
             {
                 bool speaking = await _mSpeakManager.IsSpeaking();
-                _mAudioManager._mIgnoreRecording = speaking;
+                _mAudioManager._mIsSpeaking = speaking;
                 if (speaking)
                 {
                     if (ChkDictation.Enabled)
@@ -1516,7 +1516,8 @@ namespace WinForm_Ollama_Copilot
                     if (TxtResponse.Text != text)
                     {
                         TxtResponse.Text = text;
-                        if (ChkOutputSpeak.Checked)
+                        if (ChkOutputSpeak.Checked &&
+                            !_mAudioManager._mIsSpeaking)
                         {
                             Speak();
                         }
