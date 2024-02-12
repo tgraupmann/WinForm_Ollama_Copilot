@@ -1492,6 +1492,27 @@ namespace WinForm_Ollama_Copilot
 
         bool _mIsCapturing = false;
 
+        List<string> _mRecentTexts = new List<string>();
+
+        private bool CheckForUniqueRecentText(string text)
+        {
+            // reduce text to just letters
+            string match = Regex.Replace(text, @"[^a-zA-Z]", "").ToLower();
+            if (_mRecentTexts.Contains(match))
+            {
+                return true;
+            }
+            else
+            {
+                _mRecentTexts.Add(match);
+                if (_mRecentTexts.Count > 10)
+                {
+                    _mRecentTexts.RemoveAt(0);
+                }
+                return false;
+            }
+        }
+
         private async void TimerCapture_Tick(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab != TabOCR)
@@ -1515,7 +1536,8 @@ namespace WinForm_Ollama_Copilot
                 {
                     if (TxtResponse.Text != text &&
                         ChkOutputSpeak.Checked &&
-                        !_mAudioManager._mIsSpeaking)
+                        !_mAudioManager._mIsSpeaking &&
+                        !CheckForUniqueRecentText(text))
                     {
                         TxtResponse.Text = text;
                         Speak();
