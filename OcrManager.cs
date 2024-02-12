@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -18,6 +21,8 @@ namespace WinForm_Ollama_Copilot
         public static Point _sMouseMoveOffset = Point.Empty;
 
         private Image _mCaptureImage = null;
+
+        private static readonly HttpClient client = new HttpClient();
 
         public void Uninit()
         {
@@ -87,12 +92,14 @@ namespace WinForm_Ollama_Copilot
 
         #endregion Input Events
 
-        public void CaptureScreen(ComboBox dropDownDisplay, PictureBox pictureBox)
+        private string CaptureBase64String(ComboBox dropDownDisplay, PictureBox pictureBox)
         {
+            string base64String = string.Empty;
+
             Graphics captureGraphics = null;
             Graphics g = null;
             Bitmap bmp = null;
-            Brush brushBlack = null;
+            //Brush brushBlack = null;
             Brush brushCapture = null;
             Pen pen = null;
 
@@ -102,12 +109,11 @@ namespace WinForm_Ollama_Copilot
 
                 if (selectedIndex < 1 || (selectedIndex - 1) >= Screen.AllScreens.Length)
                 {
-                    return; // skip capture
+                    return string.Empty; // skip capture
                 }
 
                 // get the selected screen
                 Screen screen = Screen.AllScreens[selectedIndex - 1];
-
 
                 // capture from screen
                 Rectangle captureRectangle = screen.Bounds;
@@ -132,6 +138,16 @@ namespace WinForm_Ollama_Copilot
                     pictureBox.Height);
 
                 g.DrawImage(_mCaptureImage, 0, 0);
+                bmp = new Bitmap(_mCaptureImage);
+                bmp = bmp.Clone(rectCropArea, bmp.PixelFormat);
+
+                // convert to base64 string
+                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                {
+                    bmp.Save(ms, ImageFormat.Jpeg);
+                    byte[] byteImage = ms.ToArray();
+                    base64String = Convert.ToBase64String(byteImage);
+                }
             }
             catch (Exception ex)
             {
@@ -144,10 +160,10 @@ namespace WinForm_Ollama_Copilot
                 {
                     pen.Dispose();
                 }
-                if (brushBlack != null)
-                {
-                    brushBlack.Dispose();
-                }
+                //if (brushBlack != null)
+                //{
+                //    brushBlack.Dispose();
+                //}
                 if (brushCapture != null)
                 {
                     brushCapture.Dispose();
@@ -165,6 +181,64 @@ namespace WinForm_Ollama_Copilot
                     captureGraphics.Dispose();
                 }
             }
+
+            return base64String;
+        }
+
+        private async Task<string> Base64ImageToString(string base64String)
+        {
+            string result = string.Empty;
+            try
+            {
+
+                HttpRequestMessage httpRequestMessage =
+                    new HttpRequestMessage(HttpMethod.Post, "http://localhost:11439/image_to_string");
+
+                JObject jobject = new JObject();
+                jobject["data"] = base64String;
+
+                string pJsonContent = jobject.ToString();
+
+                HttpContent httpContent = new StringContent(pJsonContent, Encoding.UTF8, "application/json");
+                httpRequestMessage.Content = httpContent;
+
+                var productValue = new ProductInfoHeaderValue("OcrManager_Client", "1.0");
+                var commentValue = new ProductInfoHeaderValue("(+http://localhost:11439/image_to_string)");
+                httpRequestMessage.Headers.UserAgent.Add(productValue);
+                httpRequestMessage.Headers.UserAgent.Add(commentValue);
+
+                var response = await client.SendAsync(httpRequestMessage);
+                if (response != null)
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        string text = await content.ReadAsStringAsync();
+                        try
+                        {
+                            JObject responseJson = JObject.Parse(text);
+                            result = responseJson["result"].ToString();
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex != null)
+                {
+
+                }
+            }
+            return result;
+        }
+
+        public async Task<string> GetTextFromScreen(ComboBox dropDownDisplay, PictureBox pictureBox)
+        {
+            string base64String = CaptureBase64String(dropDownDisplay, pictureBox);
+            return await Base64ImageToString(base64String);
         }
     }
 }

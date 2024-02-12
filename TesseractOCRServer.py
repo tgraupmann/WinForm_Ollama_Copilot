@@ -24,17 +24,19 @@ app = FastAPI()
 class ImageBytes(BaseModel):
   data: str
 
-@app.post('/speak', response_class=HTMLResponse)
+@app.post('/image_to_string')
 async def image_to_string(item:ImageBytes):
 
     # Load the image using Pillow
     # Set the base64 string of the PNG image
     base64_string = item.data
 
-    print(f"image_to_string: base64_string={base64_string}")
+    #print(f"image_to_string: base64_string len={len(base64_string)}")
 
     # Decode the base64 string into bytes
     image_bytes = base64.b64decode(base64_string)
+
+    #print(f"image_to_string: image_bytes len={len(image_bytes)}")
 
     # Create a BytesIO object to load the image
     image_stream = io.BytesIO(image_bytes)
@@ -49,7 +51,7 @@ async def image_to_string(item:ImageBytes):
     text = pytesseract.image_to_string(img, lang=lang)
 
     # Print the recognized text
-    print(text)
+    #print(text)
 
     return { "result": text }
 

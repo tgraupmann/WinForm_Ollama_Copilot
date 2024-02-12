@@ -1487,7 +1487,7 @@ namespace WinForm_Ollama_Copilot
 
         bool _mIsCapturing = false;
 
-        private void TimerCapture_Tick(object sender, EventArgs e)
+        private async void TimerCapture_Tick(object sender, EventArgs e)
         {
             if (_mIsCapturing)
             {
@@ -1497,7 +1497,7 @@ namespace WinForm_Ollama_Copilot
             if (ChkOCR.Checked)
             {
                 _mIsCapturing = true;
-                _mOcrManager.CaptureScreen(DropDownDisplay, PicBoxPreview);
+                await _mOcrManager.GetTextFromScreen(DropDownDisplay, PicBoxPreview);
                 _mIsCapturing = false;
             }
         }
