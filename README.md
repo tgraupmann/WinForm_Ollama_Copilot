@@ -54,6 +54,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Pyttsx3](https://pypi.org/project/pyttsx3/)
 
+* [Teseract-OCR](https://tesseract-ocr.github.io/tessdoc/Installation.html)
+
 ### Ollama With Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -165,3 +167,23 @@ python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
 * "Response play" - Speaks the response
 
 - "Response clear" - Clears the response text area
+
+## Launch Tesseract-OCR server for real-time OCR
+
+### Windows
+
+* Install `pytesseract`
+
+```shell
+pip install pytesseract
+```
+
+* Install Tesseract-OCR - [Installation](https://tesseract-ocr.github.io/tessdoc/Installation.html)
+
+* Add Tesseract to your path: `C:\Program Files\Tesseract-OCR`
+
+* Run the server
+
+```shell
+python3 -m uvicorn TesseractOCRServer:app --reload --port 11439 --log-level error
+```
