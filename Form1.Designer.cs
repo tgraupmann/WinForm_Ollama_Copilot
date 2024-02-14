@@ -88,6 +88,7 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
+            this.BtnMarquee = new System.Windows.Forms.Button();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -327,6 +328,7 @@
             // 
             // TabOCR
             // 
+            this.TabOCR.Controls.Add(this.BtnMarquee);
             this.TabOCR.Controls.Add(this.TxtY);
             this.TabOCR.Controls.Add(this.label11);
             this.TabOCR.Controls.Add(this.TxtHeight);
@@ -706,9 +708,19 @@
             this.TimerSpeaking.Interval = 500;
             this.TimerSpeaking.Tick += new System.EventHandler(this.TimerSpeaking_Tick);
             // 
-            // CaptureTimer
+            // TimerCapture
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
+            // 
+            // BtnMarquee
+            // 
+            this.BtnMarquee.Location = new System.Drawing.Point(233, 128);
+            this.BtnMarquee.Name = "BtnMarquee";
+            this.BtnMarquee.Size = new System.Drawing.Size(75, 23);
+            this.BtnMarquee.TabIndex = 6;
+            this.BtnMarquee.Text = "Marquee";
+            this.BtnMarquee.UseVisualStyleBackColor = true;
+            this.BtnMarquee.Click += new System.EventHandler(this.BtnMarquee_Click);
             // 
             // Form1
             // 
@@ -796,14 +808,15 @@
         private System.Windows.Forms.PictureBox PicBoxPreview;
         public System.Windows.Forms.TextBox TxtY;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox TxtWidth;
+        public System.Windows.Forms.TextBox TxtWidth;
         public System.Windows.Forms.TextBox TxtX;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox ChkOCR;
-        private System.Windows.Forms.TextBox TxtHeight;
+        public System.Windows.Forms.TextBox TxtHeight;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Timer TimerCapture;
+        private System.Windows.Forms.Button BtnMarquee;
     }
 }
 

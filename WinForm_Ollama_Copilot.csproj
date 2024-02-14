@@ -87,6 +87,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormMarquee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMarquee.Designer.cs">
+      <DependentUpon>FormMarquee.cs</DependentUpon>
+    </Compile>
     <Compile Include="OcrManager.cs" />
     <Compile Include="SpeakManager.cs" />
     <Compile Include="AudioManager.cs" />
@@ -107,6 +113,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMarquee.resx">
+      <DependentUpon>FormMarquee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

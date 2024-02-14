@@ -40,7 +40,7 @@ namespace WinForm_Ollama_Copilot
 
         private OcrManager _mOcrManager = new OcrManager();
 
-        private static void UpdateConfiguration(string key, string value)
+        public static void UpdateConfiguration(string key, string value)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             KeyValueConfigurationElement kv = config.AppSettings.Settings[key];
@@ -320,10 +320,11 @@ namespace WinForm_Ollama_Copilot
                         }
                     }
                 }
+                DropDownModels.Enabled = true;
             }
             catch
             {
-                TxtResponse.Text = "Tags Response failed. Try again.";
+                DropDownModels.Enabled = false;
             }
         }
 
@@ -422,10 +423,11 @@ namespace WinForm_Ollama_Copilot
                         SendKeys.Send("^v");
                     }
                 }
+                BtnPrompt.Enabled = true;
             }
             catch
             {
-                TxtResponse.Text = "Chat Response failed. Try again.";
+                BtnPrompt.Enabled = false;
             }
         }
 
@@ -493,10 +495,11 @@ namespace WinForm_Ollama_Copilot
                         SendKeys.Send("^v");
                     }
                 }
+                BtnPrompt.Enabled = true;
             }
             catch
             {
-                TxtResponse.Text = "Chat Response failed. Try again.";
+                BtnPrompt.Enabled = false;
             }
         }
 
@@ -1500,8 +1503,6 @@ namespace WinForm_Ollama_Copilot
             UpdateConfiguration("SelectedTab", selectedTab);
         }
 
-        bool _mIsCapturing = false;
-
         List<string> _mRecentTexts = new List<string>();
 
         private bool CheckForUniqueRecentText(string text)
@@ -1530,16 +1531,13 @@ namespace WinForm_Ollama_Copilot
                 return;
             }
 
-            if (_mIsCapturing)
-            {
-                return;
-            }
-
             if (ChkOCR.Checked)
             {
-                _mIsCapturing = true;
                 string text = await _mOcrManager.GetTextFromScreen(DropDownDisplay, PicBoxPreview);
-                _mIsCapturing = false;
+                if (string.IsNullOrEmpty(text))
+                {
+                    return;
+                }
 
                 text = text.Replace("\n", "\r\n").Trim();
                 if (!string.IsNullOrEmpty(text))
@@ -1555,6 +1553,38 @@ namespace WinForm_Ollama_Copilot
 
                 }
             }
+        }
+
+        private int StrToInt(string str)
+        {
+            int val;
+            if (int.TryParse(str, out val))
+            {
+                return val;
+            }
+            return 0;
+        }
+
+        private void BtnMarquee_Click(object sender, EventArgs e)
+        {
+            // open form marquee
+            FormMarquee formMarquee = new FormMarquee();
+
+            // show form marquee
+            formMarquee.Show(this);
+
+            formMarquee._mParent = this;
+
+            int x = StrToInt(this.TxtX.Text);
+            int y = StrToInt(this.TxtY.Text);
+            int width = StrToInt(this.TxtWidth.Text);
+            int height = StrToInt(this.TxtHeight.Text);
+
+            formMarquee.Location = new Point(x, y);
+            formMarquee.Width = width;
+            formMarquee.Height = height;
+
+            formMarquee.SetupInputEvents();
         }
     }
 }
