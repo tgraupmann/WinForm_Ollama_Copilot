@@ -1576,9 +1576,9 @@ namespace WinForm_Ollama_Copilot
             formMarquee._mParent = this;
 
             int x = StrToInt(this.TxtX.Text);
-            int y = StrToInt(this.TxtY.Text);
+            int y = StrToInt(this.TxtY.Text) - FormMarquee.TITLE_PADDING;
             int width = StrToInt(this.TxtWidth.Text);
-            int height = StrToInt(this.TxtHeight.Text);
+            int height = StrToInt(this.TxtHeight.Text) + FormMarquee.TITLE_PADDING;
 
             formMarquee.Location = new Point(x, y);
             formMarquee.Width = width;

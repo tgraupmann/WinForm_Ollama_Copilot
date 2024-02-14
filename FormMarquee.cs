@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinForm_Ollama_Copilot
 {
     public partial class FormMarquee : Form
     {
+        public const int TITLE_PADDING = 35;
+
         public Form1 _mParent = null;
 
         public FormMarquee()
@@ -35,13 +31,17 @@ namespace WinForm_Ollama_Copilot
             _mParent.TxtX.Text = this.Location.X.ToString();
             Form1.UpdateConfiguration("OCR.X", _mParent.TxtX.Text);
 
-            _mParent.TxtY.Text = this.Location.Y.ToString();
+            int y = this.Location.Y;
+            y += TITLE_PADDING;
+            _mParent.TxtY.Text = y.ToString();
             Form1.UpdateConfiguration("OCR.Y", _mParent.TxtY.Text);
         }
         private void FormMarquee_Resize(object sender, EventArgs e)
         {
             _mParent.TxtWidth.Text = this.Width.ToString();
-            _mParent.TxtHeight.Text = this.Height.ToString();
+
+            int height = this.Height - TITLE_PADDING;
+            _mParent.TxtHeight.Text = height.ToString();
         }
     }
 }
