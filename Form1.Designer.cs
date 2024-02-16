@@ -93,6 +93,7 @@
             this.BtnImageClear = new System.Windows.Forms.Button();
             this.BtnImageSubmit = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
+            this.ChkResponseClipboard = new System.Windows.Forms.CheckBox();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -524,6 +525,7 @@
             // 
             // TabConfig
             // 
+            this.TabConfig.Controls.Add(this.ChkResponseClipboard);
             this.TabConfig.Controls.Add(this.DropDownModels);
             this.TabConfig.Controls.Add(this.label7);
             this.TabConfig.Controls.Add(this.ChkStayAwake);
@@ -531,7 +533,7 @@
             this.TabConfig.Controls.Add(this.DropDownFocus);
             this.TabConfig.Location = new System.Drawing.Point(4, 22);
             this.TabConfig.Name = "TabConfig";
-            this.TabConfig.Size = new System.Drawing.Size(569, 172);
+            this.TabConfig.Size = new System.Drawing.Size(469, 172);
             this.TabConfig.TabIndex = 5;
             this.TabConfig.Text = "Config";
             this.TabConfig.UseVisualStyleBackColor = true;
@@ -543,7 +545,7 @@
             this.DropDownModels.FormattingEnabled = true;
             this.DropDownModels.Location = new System.Drawing.Point(10, 25);
             this.DropDownModels.Name = "DropDownModels";
-            this.DropDownModels.Size = new System.Drawing.Size(547, 21);
+            this.DropDownModels.Size = new System.Drawing.Size(447, 21);
             this.DropDownModels.TabIndex = 9;
             this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
             // 
@@ -560,12 +562,11 @@
             // ChkStayAwake
             // 
             this.ChkStayAwake.AutoSize = true;
-            this.ChkStayAwake.Location = new System.Drawing.Point(10, 73);
+            this.ChkStayAwake.Location = new System.Drawing.Point(10, 64);
             this.ChkStayAwake.Name = "ChkStayAwake";
-            this.ChkStayAwake.Size = new System.Drawing.Size(83, 17);
+            this.ChkStayAwake.Size = new System.Drawing.Size(82, 17);
             this.ChkStayAwake.TabIndex = 2;
-            this.ChkStayAwake.Text = "Stay Awake";
-            this.ChkStayAwake.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ChkStayAwake.Text = "Stay awake";
             this.ChkStayAwake.UseVisualStyleBackColor = true;
             this.ChkStayAwake.CheckedChanged += new System.EventHandler(this.ChkStayAwake_CheckedChanged);
             // 
@@ -586,7 +587,7 @@
             this.DropDownFocus.FormattingEnabled = true;
             this.DropDownFocus.Location = new System.Drawing.Point(10, 142);
             this.DropDownFocus.Name = "DropDownFocus";
-            this.DropDownFocus.Size = new System.Drawing.Size(547, 21);
+            this.DropDownFocus.Size = new System.Drawing.Size(447, 21);
             this.DropDownFocus.TabIndex = 2;
             this.DropDownFocus.SelectedIndexChanged += new System.EventHandler(this.DropDownFocus_SelectedIndexChanged);
             // 
@@ -771,6 +772,17 @@
             this.label15.Text = "CTRL+ ENTER";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // ChkResponseClipboard
+            // 
+            this.ChkResponseClipboard.AutoSize = true;
+            this.ChkResponseClipboard.Location = new System.Drawing.Point(10, 87);
+            this.ChkResponseClipboard.Name = "ChkResponseClipboard";
+            this.ChkResponseClipboard.Size = new System.Drawing.Size(159, 17);
+            this.ChkResponseClipboard.TabIndex = 10;
+            this.ChkResponseClipboard.Text = "Copy responses to clipboard";
+            this.ChkResponseClipboard.UseVisualStyleBackColor = true;
+            this.ChkResponseClipboard.CheckedChanged += new System.EventHandler(this.ChkResponseClipboard_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -871,6 +883,7 @@
         private System.Windows.Forms.Button BtnImageClear;
         private System.Windows.Forms.Button BtnImageSubmit;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox ChkResponseClipboard;
     }
 }
 

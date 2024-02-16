@@ -85,6 +85,9 @@ namespace WinForm_Ollama_Copilot
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            string strCopyResponseToClipboard = ReadConfiguration("CopyResponseToClipboard");
+            ChkResponseClipboard.Checked = strCopyResponseToClipboard == "True";
+
             LoadTab();
 
             LoadOCR();
@@ -408,7 +411,10 @@ namespace WinForm_Ollama_Copilot
 
                     if (!string.IsNullOrEmpty(text))
                     {
-                        Clipboard.SetText(text);
+                        if (ChkResponseClipboard.Checked)
+                        {
+                            Clipboard.SetText(text);
+                        }
                         TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
 
                         if (DropDownFocus.SelectedIndex > 0)
@@ -485,7 +491,10 @@ namespace WinForm_Ollama_Copilot
                         text = text.Replace("|", "\t");
                     }
 
-                    Clipboard.SetText(text);
+                    if (ChkResponseClipboard.Checked)
+                    {
+                        Clipboard.SetText(text);
+                    }
                     TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
                     Speak();
 
@@ -1604,6 +1613,11 @@ namespace WinForm_Ollama_Copilot
             {
                 PromptOllamaGenerate();
             }
+        }
+
+        private void ChkResponseClipboard_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("CopyResponseToClipboard", ChkResponseClipboard.Checked.ToString());
         }
     }
 }
