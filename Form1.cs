@@ -1296,10 +1296,10 @@ namespace WinForm_Ollama_Copilot
 
         private async void TimerSpeaking_Tick(object sender, EventArgs e)
         {
+            bool speaking = await _mSpeakManager.IsSpeaking();
+            _mAudioManager._mIsSpeaking = speaking;
             if (ChkDictation.Checked)
             {
-                bool speaking = await _mSpeakManager.IsSpeaking();
-                _mAudioManager._mIsSpeaking = speaking;
                 if (speaking)
                 {
                     if (ChkDictation.Enabled)

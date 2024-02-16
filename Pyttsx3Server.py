@@ -39,9 +39,13 @@ async def api_get_voices():
 
 @app.get("/is_speaking")
 async def api_is_speaking():
+  global threadSpeak
   speakInProgress = False
   if (threadSpeak != None):
+    #print("threadSpeak is not None")
     speakInProgress = threadSpeak.is_alive()
+  #else:
+  #  print("threadSpeak is None")
   #print(f"is_speaking: {speakInProgress}")
   return { "speaking": speakInProgress }
 
@@ -84,4 +88,5 @@ async def api_speak(item:SpeakItem):
 
   return HTMLResponse(content="ok", status_code=200)
 
-print ("Python TTS Server Started")
+if __name__ == "__main__":
+  print ("Python TTS Server Started")
