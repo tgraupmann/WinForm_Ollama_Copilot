@@ -15,6 +15,7 @@ using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using System.Net;
 using YoutubeTranscriptApi;
+using static WinForm_Ollama_Copilot.OcrManager;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -752,15 +753,22 @@ namespace WinForm_Ollama_Copilot
 
             if ((e.KeyCode == Keys.Enter) && (e.Control))
             {
-                if (tabControl1.SelectedTab == TabImages)
+                if (DropDownModels.SelectedIndex == 0)
                 {
-                    PromptOllamaGenerate();
+                    TxtResponse.Text = "Select a model to prompt.";
                 }
                 else
                 {
-                    if (DropDownModels.SelectedIndex > 0)
+                    if (tabControl1.SelectedTab == TabImages)
                     {
-                        PromptOllamaChat();
+                        PromptOllamaGenerate();
+                    }
+                    else
+                    {
+                        if (DropDownModels.SelectedIndex > 0)
+                        {
+                            PromptOllamaChat();
+                        }
                     }
                 }
 
@@ -1529,13 +1537,22 @@ namespace WinForm_Ollama_Copilot
 
             if (ChkOCR.Checked)
             {
-                string text = await _mOcrManager.GetTextFromScreen(PicBoxPreview);
-                if (string.IsNullOrEmpty(text))
+                ResultOCR result = await _mOcrManager.GetTextFromScreen(PicBoxPreview);
+                if (tabControl1.SelectedTab != TabOCR)
                 {
                     return;
                 }
-
-                if (tabControl1.SelectedTab != TabOCR)
+                if (result == null)
+                {
+                    return;
+                }
+                if (!string.IsNullOrEmpty(result._mError))
+                {
+                    TxtResponse.Text = result._mError;
+                    return;
+                }
+                string text = result._mText;
+                if (string.IsNullOrEmpty(text))
                 {
                     return;
                 }

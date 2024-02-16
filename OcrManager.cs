@@ -185,9 +185,15 @@ namespace WinForm_Ollama_Copilot
             return base64String;
         }
 
-        private async Task<string> Base64ImageToString(string base64String)
+        public class ResultOCR
         {
-            string result = string.Empty;
+            public string _mText = null;
+            public string _mError = null;
+        }
+
+        private async Task<ResultOCR> Base64ImageToString(string base64String)
+        {
+            ResultOCR result = new ResultOCR();
             try
             {
 
@@ -216,7 +222,7 @@ namespace WinForm_Ollama_Copilot
                         try
                         {
                             JObject responseJson = JObject.Parse(text);
-                            result = responseJson["result"].ToString();
+                            result._mText = responseJson["result"].ToString();
                         }
                         catch
                         {
@@ -225,27 +231,24 @@ namespace WinForm_Ollama_Copilot
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                if (ex != null)
-                {
-
-                }
+                result._mError = "Failed to reach OCR server. Is the server running?";
             }
             return result;
         }
 
-        public async Task<string> GetTextFromScreen(PictureBox pictureBox)
+        public async Task<ResultOCR> GetTextFromScreen(PictureBox pictureBox)
         {
             string base64String = CaptureBase64String(pictureBox);
             if (_mIsRecognizing)
             {
-                return string.Empty;
+                return null;
             }
             _mIsRecognizing = true;
-            string text = await Base64ImageToString(base64String);
+            ResultOCR result = await Base64ImageToString(base64String);
             _mIsRecognizing = false;
-            return text;
+            return result;
         }
     }
 }
