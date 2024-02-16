@@ -56,7 +56,23 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Teseract-OCR](https://tesseract-ocr.github.io/tessdoc/Installation.html)
 
-### Ollama With Docker
+### Ollama with Windows preview
+
+* Install the [Ollama Windows preview](https://github.com/ollama/)
+
+* Install the `llama2` model to enable the Chat API
+
+```shell
+ollama run llama2
+```
+
+* Install the `llava` model
+
+```shell
+ollama run llava
+```
+
+### Ollama with Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
