@@ -1505,6 +1505,11 @@ namespace WinForm_Ollama_Copilot
                     return;
                 }
 
+                if (tabControl1.SelectedTab != TabOCR)
+                {
+                    return;
+                }
+
                 text = text.Replace("\n", "\r\n").Trim();
                 if (!string.IsNullOrEmpty(text))
                 {
