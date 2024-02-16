@@ -87,8 +87,6 @@ namespace WinForm_Ollama_Copilot
         {
             LoadTab();
 
-            LoadMonitors();
-
             LoadOCR();
 
             bool locationChanged = false;
@@ -1360,54 +1358,22 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
-        private void LoadMonitors()
-        {
-            DropDownDisplay.Items.Add("-- Select a display --");
-
-            // list all monitors
-            int indexScreen = 1;
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                string deviceName = string.Format("{0}: {1}", indexScreen, screen.DeviceName);
-                DropDownDisplay.Items.Add(deviceName);
-                ++indexScreen;
-            }
-
-            string strSelectedDisplay = ReadConfiguration("SelectedDisplay");
-            int selectedDisplay = 0;
-            if (int.TryParse(strSelectedDisplay, out selectedDisplay))
-            {
-                DropDownDisplay.SelectedIndex = selectedDisplay;
-            }
-            else
-            {
-                DropDownDisplay.SelectedIndex = 0;
-            }
-
-            this.DropDownDisplay.SelectedIndexChanged += new System.EventHandler(this.DropDownDisplay_SelectedIndexChanged);
-        }
-
-        private void DropDownDisplay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateConfiguration("SelectedDisplay", DropDownDisplay.SelectedIndex.ToString());
-        }
-
         private void LoadOCR()
         {
             this.ChkOCR.Checked = ReadConfiguration("OCR") == "True";
             this.ChkOCR.CheckedChanged += new System.EventHandler(this.ChkOCR_CheckedChanged);
 
-            this.TxtX.Text = ReadConfigurationInt("OCR.X", 0).ToString();
+            this.TxtX.Text = ReadConfigurationInt("OCR.X", Location.X).ToString();
             this.TxtX.TextChanged += new System.EventHandler(this.TxtX_TextChanged);
 
-            this.TxtY.Text = ReadConfigurationInt("OCR.Y", 0).ToString();
+            this.TxtY.Text = ReadConfigurationInt("OCR.Y", Location.Y).ToString();
             this.TxtY.TextChanged += new System.EventHandler(this.TxtY_TextChanged);
 
-            int width = ReadConfigurationInt("OCR.Width", 256);
+            int width = ReadConfigurationInt("OCR.Width", this.Width);
             this.TxtWidth.Text = width.ToString();
             this.TxtWidth.TextChanged += new System.EventHandler(this.TxtWidth_TextChanged);
 
-            int height = ReadConfigurationInt("OCR.Height", 256);
+            int height = ReadConfigurationInt("OCR.Height", this.Height);
             this.TxtHeight.Text = height.ToString();
             this.TxtHeight.TextChanged += new System.EventHandler(this.TxtHeight_TextChanged);
 
@@ -1533,7 +1499,7 @@ namespace WinForm_Ollama_Copilot
 
             if (ChkOCR.Checked)
             {
-                string text = await _mOcrManager.GetTextFromScreen(DropDownDisplay, PicBoxPreview);
+                string text = await _mOcrManager.GetTextFromScreen(PicBoxPreview);
                 if (string.IsNullOrEmpty(text))
                 {
                     return;
@@ -1542,13 +1508,25 @@ namespace WinForm_Ollama_Copilot
                 text = text.Replace("\n", "\r\n").Trim();
                 if (!string.IsNullOrEmpty(text))
                 {
-                    if (TxtResponse.Text != text &&
-                        ChkOutputSpeak.Checked &&
-                        !_mAudioManager._mIsSpeaking &&
-                        !CheckForUniqueRecentText(text))
+                    if (ChkOutputSpeak.Checked &&
+                        DropDownOutputVoice.SelectedIndex > 0)
                     {
-                        TxtResponse.Text = text;
-                        Speak();
+                        if (TxtResponse.Text != text &&
+                            !_mAudioManager._mIsSpeaking &&
+                            !CheckForUniqueRecentText(text))
+                        {
+                            TxtResponse.Text = text;
+                            Speak();
+                        }
+
+                    }
+                    else
+                    {
+                        if (TxtResponse.Text != text &&
+                            !CheckForUniqueRecentText(text))
+                        {
+                            TxtResponse.Text = text;
+                        }
                     }
 
                 }

@@ -115,53 +115,33 @@ namespace WinForm_Ollama_Copilot
 
         #endregion Input Events
 
-        private string CaptureBase64String(ComboBox dropDownDisplay, PictureBox pictureBox)
+        private string CaptureBase64String(PictureBox pictureBox)
         {
             string base64String = string.Empty;
 
             Graphics captureGraphics = null;
             Graphics g = null;
             Bitmap captureBitmap = null;
-            //Brush brushBlack = null;
             Brush brushCapture = null;
             Pen pen = null;
 
             try
             {
-                int selectedIndex = dropDownDisplay.SelectedIndex;
-
-                if (selectedIndex < 1 || (selectedIndex - 1) >= Screen.AllScreens.Length)
-                {
-                    return string.Empty; // skip capture
-                }
-
-                // get the selected screen
-                Screen screen = Screen.AllScreens[selectedIndex - 1];
-
-                // capture from screen
-                Rectangle captureRectangle = screen.Bounds;
                 // create graphics
                 captureGraphics = Graphics.FromImage(_mCaptureImage);
                 // copy pixels from screen
                 captureGraphics.CopyFromScreen(
-                    captureRectangle.Left + _mMouseMoveStart.X - _mMouseMoveEnd.X,
-                    captureRectangle.Top + _mMouseMoveStart.Y - _mMouseMoveEnd.Y, 0, 0, captureRectangle.Size);
+                    _mMouseMoveStart.X - _mMouseMoveEnd.X,
+                    _mMouseMoveStart.Y - _mMouseMoveEnd.Y,
+                    0,
+                    0,
+                    new Size(_mWidth, _mHeight));
 
                 // do some cropping
                 g = pictureBox.CreateGraphics();
 
-                // clear the picture box
-                //brushBlack = new SolidBrush(Color.Black);
-                //g.FillRectangle(brushBlack, 0, 0, pictureBox.Width, pictureBox.Height);
-
-                Rectangle captureRectCropArea = new Rectangle(
-                    0,
-                    0,
-                    _mWidth,
-                    _mHeight);
-
+                // extract the image
                 captureBitmap = new Bitmap(_mCaptureImage);
-                captureBitmap = captureBitmap.Clone(captureRectCropArea, captureBitmap.PixelFormat);
 
                 // convert to base64 string
                 using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
@@ -184,10 +164,6 @@ namespace WinForm_Ollama_Copilot
                 {
                     pen.Dispose();
                 }
-                //if (brushBlack != null)
-                //{
-                //    brushBlack.Dispose();
-                //}
                 if (brushCapture != null)
                 {
                     brushCapture.Dispose();
@@ -259,9 +235,9 @@ namespace WinForm_Ollama_Copilot
             return result;
         }
 
-        public async Task<string> GetTextFromScreen(ComboBox dropDownDisplay, PictureBox pictureBox)
+        public async Task<string> GetTextFromScreen(PictureBox pictureBox)
         {
-            string base64String = CaptureBase64String(dropDownDisplay, pictureBox);
+            string base64String = CaptureBase64String(pictureBox);
             if (_mIsRecognizing)
             {
                 return string.Empty;

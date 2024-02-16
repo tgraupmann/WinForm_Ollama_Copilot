@@ -50,6 +50,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.BtnPaste = new System.Windows.Forms.Button();
             this.TabOCR = new System.Windows.Forms.TabPage();
+            this.BtnMarquee = new System.Windows.Forms.Button();
             this.TxtY = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtHeight = new System.Windows.Forms.TextBox();
@@ -62,7 +63,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.PicBoxPreview = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.DropDownDisplay = new System.Windows.Forms.ComboBox();
             this.TabHistory = new System.Windows.Forms.TabPage();
             this.BtnLoad = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
@@ -88,7 +88,6 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
-            this.BtnMarquee = new System.Windows.Forms.Button();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -341,13 +340,22 @@
             this.TabOCR.Controls.Add(this.label9);
             this.TabOCR.Controls.Add(this.PicBoxPreview);
             this.TabOCR.Controls.Add(this.label8);
-            this.TabOCR.Controls.Add(this.DropDownDisplay);
             this.TabOCR.Location = new System.Drawing.Point(4, 22);
             this.TabOCR.Name = "TabOCR";
             this.TabOCR.Size = new System.Drawing.Size(569, 172);
             this.TabOCR.TabIndex = 3;
             this.TabOCR.Text = "OCR";
             this.TabOCR.UseVisualStyleBackColor = true;
+            // 
+            // BtnMarquee
+            // 
+            this.BtnMarquee.Location = new System.Drawing.Point(233, 128);
+            this.BtnMarquee.Name = "BtnMarquee";
+            this.BtnMarquee.Size = new System.Drawing.Size(75, 23);
+            this.BtnMarquee.TabIndex = 6;
+            this.BtnMarquee.Text = "Marquee";
+            this.BtnMarquee.UseVisualStyleBackColor = true;
+            this.BtnMarquee.Click += new System.EventHandler(this.BtnMarquee_Click);
             // 
             // TxtY
             // 
@@ -455,20 +463,12 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 29);
+            this.label8.Location = new System.Drawing.Point(191, 26);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.Size = new System.Drawing.Size(72, 13);
             this.label8.TabIndex = 1;
-            this.label8.Text = "Capture Display:";
+            this.label8.Text = "Capture Area:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DropDownDisplay
-            // 
-            this.DropDownDisplay.FormattingEnabled = true;
-            this.DropDownDisplay.Location = new System.Drawing.Point(94, 24);
-            this.DropDownDisplay.Name = "DropDownDisplay";
-            this.DropDownDisplay.Size = new System.Drawing.Size(229, 21);
-            this.DropDownDisplay.TabIndex = 1;
             // 
             // TabHistory
             // 
@@ -712,16 +712,6 @@
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
             // 
-            // BtnMarquee
-            // 
-            this.BtnMarquee.Location = new System.Drawing.Point(233, 128);
-            this.BtnMarquee.Name = "BtnMarquee";
-            this.BtnMarquee.Size = new System.Drawing.Size(75, 23);
-            this.BtnMarquee.TabIndex = 6;
-            this.BtnMarquee.Text = "Marquee";
-            this.BtnMarquee.UseVisualStyleBackColor = true;
-            this.BtnMarquee.Click += new System.EventHandler(this.BtnMarquee_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -803,7 +793,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox DropDownDisplay;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox PicBoxPreview;
         public System.Windows.Forms.TextBox TxtY;
