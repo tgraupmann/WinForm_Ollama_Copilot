@@ -88,6 +88,11 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
+            this.label14 = new System.Windows.Forms.Label();
+            this.LblImageCollection = new System.Windows.Forms.Label();
+            this.BtnImageClear = new System.Windows.Forms.Button();
+            this.BtnImageSubmit = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -125,7 +130,7 @@
             this.PanelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelTop.Location = new System.Drawing.Point(0, 0);
             this.PanelTop.Name = "PanelTop";
-            this.PanelTop.Size = new System.Drawing.Size(584, 207);
+            this.PanelTop.Size = new System.Drawing.Size(484, 207);
             this.PanelTop.TabIndex = 2;
             // 
             // tabControl1
@@ -142,7 +147,7 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(577, 198);
+            this.tabControl1.Size = new System.Drawing.Size(477, 198);
             this.tabControl1.TabIndex = 15;
             // 
             // TabPrompt
@@ -295,11 +300,16 @@
             // 
             // TabImages
             // 
+            this.TabImages.Controls.Add(this.label15);
+            this.TabImages.Controls.Add(this.BtnImageSubmit);
+            this.TabImages.Controls.Add(this.BtnImageClear);
+            this.TabImages.Controls.Add(this.LblImageCollection);
+            this.TabImages.Controls.Add(this.label14);
             this.TabImages.Controls.Add(this.label3);
             this.TabImages.Controls.Add(this.BtnPaste);
             this.TabImages.Location = new System.Drawing.Point(4, 22);
             this.TabImages.Name = "TabImages";
-            this.TabImages.Size = new System.Drawing.Size(569, 172);
+            this.TabImages.Size = new System.Drawing.Size(469, 172);
             this.TabImages.TabIndex = 2;
             this.TabImages.Text = "Images";
             this.TabImages.UseVisualStyleBackColor = true;
@@ -308,7 +318,7 @@
             // 
             this.label3.BackColor = System.Drawing.SystemColors.Info;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(236, 53);
+            this.label3.Location = new System.Drawing.Point(188, 77);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 23);
             this.label3.TabIndex = 3;
@@ -317,7 +327,7 @@
             // 
             // BtnPaste
             // 
-            this.BtnPaste.Location = new System.Drawing.Point(236, 81);
+            this.BtnPaste.Location = new System.Drawing.Point(188, 105);
             this.BtnPaste.Name = "BtnPaste";
             this.BtnPaste.Size = new System.Drawing.Size(87, 23);
             this.BtnPaste.TabIndex = 10;
@@ -596,14 +606,14 @@
             this.PanelBottom.Controls.Add(this.TxtResponse);
             this.PanelBottom.Location = new System.Drawing.Point(0, 208);
             this.PanelBottom.Name = "PanelBottom";
-            this.PanelBottom.Size = new System.Drawing.Size(584, 303);
+            this.PanelBottom.Size = new System.Drawing.Size(484, 203);
             this.PanelBottom.TabIndex = 3;
             // 
             // ChkOutputSpeak
             // 
             this.ChkOutputSpeak.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ChkOutputSpeak.AutoSize = true;
-            this.ChkOutputSpeak.Location = new System.Drawing.Point(8, 280);
+            this.ChkOutputSpeak.Location = new System.Drawing.Point(8, 180);
             this.ChkOutputSpeak.Name = "ChkOutputSpeak";
             this.ChkOutputSpeak.Size = new System.Drawing.Size(57, 17);
             this.ChkOutputSpeak.TabIndex = 10;
@@ -615,7 +625,7 @@
             // 
             this.DropDownOutputVoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DropDownOutputVoice.FormattingEnabled = true;
-            this.DropDownOutputVoice.Location = new System.Drawing.Point(74, 277);
+            this.DropDownOutputVoice.Location = new System.Drawing.Point(74, 177);
             this.DropDownOutputVoice.Name = "DropDownOutputVoice";
             this.DropDownOutputVoice.Size = new System.Drawing.Size(316, 21);
             this.DropDownOutputVoice.TabIndex = 9;
@@ -624,7 +634,7 @@
             // BtnStop
             // 
             this.BtnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnStop.Location = new System.Drawing.Point(492, 276);
+            this.BtnStop.Location = new System.Drawing.Point(392, 176);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(75, 23);
             this.BtnStop.TabIndex = 7;
@@ -635,7 +645,7 @@
             // BtnPlay
             // 
             this.BtnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPlay.Location = new System.Drawing.Point(411, 276);
+            this.BtnPlay.Location = new System.Drawing.Point(311, 176);
             this.BtnPlay.Name = "BtnPlay";
             this.BtnPlay.Size = new System.Drawing.Size(75, 23);
             this.BtnPlay.TabIndex = 6;
@@ -646,7 +656,7 @@
             // LblVersion
             // 
             this.LblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LblVersion.Location = new System.Drawing.Point(416, 5);
+            this.LblVersion.Location = new System.Drawing.Point(316, 5);
             this.LblVersion.Name = "LblVersion";
             this.LblVersion.Size = new System.Drawing.Size(151, 16);
             this.LblVersion.TabIndex = 3;
@@ -678,7 +688,7 @@
             this.TxtResponse.Name = "TxtResponse";
             this.TxtResponse.ReadOnly = true;
             this.TxtResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtResponse.Size = new System.Drawing.Size(563, 243);
+            this.TxtResponse.Size = new System.Drawing.Size(463, 143);
             this.TxtResponse.TabIndex = 0;
             // 
             // TimerDetection
@@ -712,12 +722,61 @@
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(15, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(141, 13);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Number of images in prompt:";
+            // 
+            // LblImageCollection
+            // 
+            this.LblImageCollection.AutoSize = true;
+            this.LblImageCollection.Location = new System.Drawing.Point(162, 9);
+            this.LblImageCollection.Name = "LblImageCollection";
+            this.LblImageCollection.Size = new System.Drawing.Size(13, 13);
+            this.LblImageCollection.TabIndex = 12;
+            this.LblImageCollection.Text = "0";
+            // 
+            // BtnImageClear
+            // 
+            this.BtnImageClear.Location = new System.Drawing.Point(81, 105);
+            this.BtnImageClear.Name = "BtnImageClear";
+            this.BtnImageClear.Size = new System.Drawing.Size(63, 23);
+            this.BtnImageClear.TabIndex = 13;
+            this.BtnImageClear.Text = "Clear Images";
+            this.BtnImageClear.UseVisualStyleBackColor = true;
+            this.BtnImageClear.Click += new System.EventHandler(this.BtnImageClear_Click);
+            // 
+            // BtnImageSubmit
+            // 
+            this.BtnImageSubmit.Location = new System.Drawing.Point(322, 105);
+            this.BtnImageSubmit.Name = "BtnImageSubmit";
+            this.BtnImageSubmit.Size = new System.Drawing.Size(58, 23);
+            this.BtnImageSubmit.TabIndex = 14;
+            this.BtnImageSubmit.Text = "Submit";
+            this.BtnImageSubmit.UseVisualStyleBackColor = true;
+            this.BtnImageSubmit.Click += new System.EventHandler(this.BtnImageSubmit_Click);
+            // 
+            // label15
+            // 
+            this.label15.BackColor = System.Drawing.SystemColors.Info;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(319, 68);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 32);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "CTRL+ ENTER";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(584, 511);
+            this.ClientSize = new System.Drawing.Size(484, 411);
             this.Controls.Add(this.PanelBottom);
             this.Controls.Add(this.PanelTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -734,6 +793,7 @@
             this.TabSTT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SliderTheshold)).EndInit();
             this.TabImages.ResumeLayout(false);
+            this.TabImages.PerformLayout();
             this.TabOCR.ResumeLayout(false);
             this.TabOCR.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxPreview)).EndInit();
@@ -806,6 +866,11 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Timer TimerCapture;
         private System.Windows.Forms.Button BtnMarquee;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label LblImageCollection;
+        private System.Windows.Forms.Button BtnImageClear;
+        private System.Windows.Forms.Button BtnImageSubmit;
+        private System.Windows.Forms.Label label15;
     }
 }
 

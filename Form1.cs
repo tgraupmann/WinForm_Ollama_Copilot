@@ -204,8 +204,8 @@ namespace WinForm_Ollama_Copilot
                 DropDownFocus.SelectedIndex = DropDownFocus.Items.Count - 1;
             }
 
-            TxtPrompt.KeyDown += TxtPrompt_KeyDown;
-            TxtPrompt.KeyUp += TxtPrompt_KeyUp;
+            tabControl1.KeyDown += TxtPrompt_KeyDown;
+            tabControl1.KeyUp += TxtPrompt_KeyUp;
 
             TimerDetection.Interval = 250;
             TimerDetection.Start();
@@ -406,20 +406,28 @@ namespace WinForm_Ollama_Copilot
                         text = text.Replace("|", "\t");
                     }
 
-                    Clipboard.SetText(text);
-                    TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
-
-                    if (DropDownFocus.SelectedIndex > 0)
+                    if (!string.IsNullOrEmpty(text))
                     {
-                        WindowState = FormWindowState.Minimized;
+                        Clipboard.SetText(text);
+                        TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
 
-                        WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
-                        NativeUtils.SetForegroundWindow(win.Hwnd);
+                        if (DropDownFocus.SelectedIndex > 0)
+                        {
+                            WindowState = FormWindowState.Minimized;
 
-                        // send with control+V to paste.
-                        // This is better than the UI going crazy sending one key at a time
-                        SendKeys.Send("^v");
+                            WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                            NativeUtils.SetForegroundWindow(win.Hwnd);
+
+                            // send with control+V to paste.
+                            // This is better than the UI going crazy sending one key at a time
+                            SendKeys.Send("^v");
+                        }
                     }
+                    else
+                    {
+                        TxtResponse.Text = "No response";
+                    }
+
                 }
                 BtnPrompt.Enabled = true;
             }
@@ -515,7 +523,15 @@ namespace WinForm_Ollama_Copilot
 
         private async void PromptOllamaGenerate()
         {
-            TxtResponse.Text = "Ollama is thinking...";
+            if (string.IsNullOrEmpty(TxtPrompt.Text))
+            {
+                TxtResponse.Text = "Prompt text cannot be empty. Submit again.";
+                return;
+            }
+            else
+            {
+                TxtResponse.Text = "Ollama is thinking...";
+            }
 
             await SendPostRequestApiGenerateAsync("http://localhost:11434/api/generate", new { model = GetModel(), prompt = TxtPrompt.Text, images = _mImages });
         }
@@ -727,9 +743,16 @@ namespace WinForm_Ollama_Copilot
 
             if ((e.KeyCode == Keys.Enter) && (e.Control))
             {
-                if (DropDownModels.SelectedIndex > 0)
+                if (tabControl1.SelectedTab == TabImages)
                 {
-                    PromptOllamaChat();
+                    PromptOllamaGenerate();
+                }
+                else
+                {
+                    if (DropDownModels.SelectedIndex > 0)
+                    {
+                        PromptOllamaChat();
+                    }
                 }
 
                 // Suppress the Enter key
@@ -993,16 +1016,17 @@ namespace WinForm_Ollama_Copilot
         {
             try
             {
-                _mImages.Clear();
-                TxtResponse.Text = "Reading files...";
                 var files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (var file in files)
                 {
                     string imgBase64 = ConvertImageToBase64(file);
                     _mImages.Add(imgBase64);
                 }
-                TxtPrompt.Text = "Describe the images";
-                PromptOllamaGenerate();
+                LblImageCollection.Text = _mImages.Count.ToString();
+                if (_mImages.Count > 0)
+                {
+                    BtnImageSubmit.Enabled = true;
+                }
             }
             catch
             {
@@ -1014,22 +1038,15 @@ namespace WinForm_Ollama_Copilot
         {
             try
             {
-                TxtResponse.Text = "Reading clipboard...";
                 if (DropDownModels.SelectedIndex <= 0)
                 {
                     TxtResponse.Text = "Select a model";
                 }
                 else
                 {
-                    if (Clipboard.ContainsText(TextDataFormat.Text))
+
+                    if (Clipboard.ContainsImage())
                     {
-                        TxtPrompt.Text = Clipboard.GetText(TextDataFormat.Text);
-                        PromptOllamaChat();
-                    }
-                    else if (Clipboard.ContainsImage())
-                    {
-                        _mImages.Clear();
-                        TxtPrompt.Text = "Describe the images";
                         Image image = Clipboard.GetImage();
                         using (MemoryStream ms = new MemoryStream())
                         {
@@ -1038,7 +1055,11 @@ namespace WinForm_Ollama_Copilot
                             string base64Image = Convert.ToBase64String(imageBytes);
                             _mImages.Add(base64Image);
                         }
-                        PromptOllamaGenerate();
+                        LblImageCollection.Text = _mImages.Count.ToString();
+                        if (_mImages.Count > 0)
+                        {
+                            BtnImageSubmit.Enabled = true;
+                        }
                     }
                 }
             }
@@ -1568,6 +1589,21 @@ namespace WinForm_Ollama_Copilot
             formMarquee.Height = height;
 
             formMarquee.SetupInputEvents();
+        }
+
+        private void BtnImageClear_Click(object sender, EventArgs e)
+        {
+            _mImages.Clear();
+            LblImageCollection.Text = "0";
+            BtnImageSubmit.Enabled = false;
+        }
+
+        private void BtnImageSubmit_Click(object sender, EventArgs e)
+        {
+            if (_mImages.Count > 0)
+            {
+                PromptOllamaGenerate();
+            }
         }
     }
 }
