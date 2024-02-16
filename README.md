@@ -58,7 +58,7 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 ### Ollama with Windows preview
 
-* Install the [Ollama Windows preview](https://github.com/ollama/)
+* Install the [Ollama Windows preview](https://github.com/ollama/ollama)
 
 * Install the `llama2` model to enable the Chat API
 
