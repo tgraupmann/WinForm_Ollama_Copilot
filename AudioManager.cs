@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -38,6 +39,8 @@ namespace WinForm_Ollama_Copilot
 
         public bool _mIsSpeaking = false;
 
+        public string _mError = null;
+
         public AudioManager()
         {
             #region Input devices
@@ -51,8 +54,9 @@ namespace WinForm_Ollama_Copilot
             #endregion Input devices
         }
 
-        private async void Translate()
+        private async Task<string> Translate()
         {
+            string error = null;
             _WaitingForResponse = true;
 
             try
@@ -111,14 +115,12 @@ namespace WinForm_Ollama_Copilot
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                if (ex != null)
-                {
-
-                }
+                error = "Failed to reach STT server. Is the server running?";
             }
             _WaitingForResponse = false;
+            return error;
         }
 
         public void StopInputDeviceRecording()
@@ -154,7 +156,7 @@ namespace WinForm_Ollama_Copilot
             }
         }
 
-        void Wave_DataAvailable(object sender, WaveInEventArgs e)
+        async void Wave_DataAvailable(object sender, WaveInEventArgs e)
         {
             if (_mIsSpeaking)
             {
@@ -197,7 +199,7 @@ namespace WinForm_Ollama_Copilot
                     return;
                 }
 
-                Translate();
+                _mError = await Translate();
             }
         }
     }

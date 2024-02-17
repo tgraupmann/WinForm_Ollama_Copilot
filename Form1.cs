@@ -16,6 +16,7 @@ using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using System.Net;
 using YoutubeTranscriptApi;
 using static WinForm_Ollama_Copilot.OcrManager;
+using static WinForm_Ollama_Copilot.SpeakManager;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -242,19 +243,24 @@ namespace WinForm_Ollama_Copilot
         {
             #region DropDownVoices
 
+            DropDownOutputVoice.Items.Clear();
             DropDownOutputVoice.Items.Add("-- Select an output voice --");
             string strOutputVoice = ReadConfiguration("OutputVoice");
             DropDownOutputVoice.SelectedIndex = 0;
-            List<string> voices = null;
             do
             {
-                voices = await _mSpeakManager.GetVoices();
-                if (voices.Count == 0)
+                ResultVoices result = await _mSpeakManager.GetVoices();
+                if (!string.IsNullOrEmpty(result._mError))
+                {
+                    TxtResponse.Text = result._mError;
+                    return;
+                }
+                if (result._mVoices.Count == 0)
                 {
                     await Task.Delay(3000);
                     continue;
                 }
-                foreach (string name in voices)
+                foreach (string name in result._mVoices)
                 {
                     DropDownOutputVoice.Items.Add(name);
                 }
@@ -268,7 +274,7 @@ namespace WinForm_Ollama_Copilot
                     }
                 }
             }
-            while (voices.Count == 0);
+            while (DropDownOutputVoice.Items.Count == 1);
 
             #endregion DropDownVoices
         }
@@ -1180,6 +1186,17 @@ namespace WinForm_Ollama_Copilot
 
         private void TimerDictation_Tick(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(_mAudioManager._mError))
+            {
+                if (tabControl1.SelectedTab == TabSTT)
+                {
+                    if (TxtResponse.Text != _mAudioManager._mError)
+                    {
+                        TxtResponse.Text = _mAudioManager._mError;
+                    }
+                }
+                return;
+            }
             List<string> detectedWords = _mAudioManager.DetectedWords;
             if (detectedWords.Count > 0)
             {

@@ -16,9 +16,15 @@ namespace WinForm_Ollama_Copilot
 
         private static readonly HttpClient client = new HttpClient();
 
-        public async Task<List<string>> GetVoices()
+        public class ResultVoices
         {
-            List<string> voices = new List<string>();
+            public List<string> _mVoices = new List<string>();
+            public string _mError = null;
+        }
+
+        public async Task<ResultVoices> GetVoices()
+        {
+            ResultVoices result = new ResultVoices();
 
             try
             {
@@ -40,19 +46,16 @@ namespace WinForm_Ollama_Copilot
                         JArray jarray = JArray.Parse(pJsonContent);
                         foreach (JObject jobject in jarray)
                         {
-                            voices.Add(jobject["name"].ToString());
+                            result._mVoices.Add(jobject["name"].ToString());
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                if (ex != null)
-                {
-
-                }
+                result._mError = "Failed to reach TTS server. Is the server running?";
             }
-            return voices;
+            return result;
         }
 
         public async Task<bool> IsSpeaking()

@@ -47,6 +47,11 @@
             this.PbVolume = new System.Windows.Forms.ProgressBar();
             this.SliderTheshold = new System.Windows.Forms.TrackBar();
             this.TabImages = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.BtnImageSubmit = new System.Windows.Forms.Button();
+            this.BtnImageClear = new System.Windows.Forms.Button();
+            this.LblImageCollection = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnPaste = new System.Windows.Forms.Button();
             this.TabOCR = new System.Windows.Forms.TabPage();
@@ -68,6 +73,7 @@
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.TabConfig = new System.Windows.Forms.TabPage();
+            this.ChkResponseClipboard = new System.Windows.Forms.CheckBox();
             this.DropDownModels = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.ChkStayAwake = new System.Windows.Forms.CheckBox();
@@ -88,12 +94,6 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
-            this.label14 = new System.Windows.Forms.Label();
-            this.LblImageCollection = new System.Windows.Forms.Label();
-            this.BtnImageClear = new System.Windows.Forms.Button();
-            this.BtnImageSubmit = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.ChkResponseClipboard = new System.Windows.Forms.CheckBox();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -119,7 +119,7 @@
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtPrompt.Size = new System.Drawing.Size(490, 161);
+            this.TxtPrompt.Size = new System.Drawing.Size(554, 161);
             this.TxtPrompt.TabIndex = 0;
             this.TxtPrompt.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragDrop);
             this.TxtPrompt.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragEnter);
@@ -131,7 +131,7 @@
             this.PanelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelTop.Location = new System.Drawing.Point(0, 0);
             this.PanelTop.Name = "PanelTop";
-            this.PanelTop.Size = new System.Drawing.Size(484, 207);
+            this.PanelTop.Size = new System.Drawing.Size(581, 207);
             this.PanelTop.TabIndex = 2;
             // 
             // tabControl1
@@ -148,19 +148,18 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(477, 198);
+            this.tabControl1.Size = new System.Drawing.Size(574, 198);
             this.tabControl1.TabIndex = 15;
             // 
             // TabPrompt
             // 
             this.TabPrompt.Controls.Add(this.TxtPrompt);
             this.TabPrompt.Controls.Add(this.BtnPrompt);
-            this.TabPrompt.Controls.Add(this.ChkDictation);
             this.TabPrompt.Controls.Add(this.label1);
             this.TabPrompt.Location = new System.Drawing.Point(4, 22);
             this.TabPrompt.Name = "TabPrompt";
             this.TabPrompt.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPrompt.Size = new System.Drawing.Size(569, 172);
+            this.TabPrompt.Size = new System.Drawing.Size(566, 172);
             this.TabPrompt.TabIndex = 0;
             this.TabPrompt.Text = "Prompt";
             this.TabPrompt.UseVisualStyleBackColor = true;
@@ -168,7 +167,7 @@
             // BtnPrompt
             // 
             this.BtnPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPrompt.Location = new System.Drawing.Point(499, 143);
+            this.BtnPrompt.Location = new System.Drawing.Point(641, 143);
             this.BtnPrompt.Name = "BtnPrompt";
             this.BtnPrompt.Size = new System.Drawing.Size(64, 23);
             this.BtnPrompt.TabIndex = 1;
@@ -178,9 +177,8 @@
             // 
             // ChkDictation
             // 
-            this.ChkDictation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ChkDictation.AutoSize = true;
-            this.ChkDictation.Location = new System.Drawing.Point(503, 6);
+            this.ChkDictation.Location = new System.Drawing.Point(96, 88);
             this.ChkDictation.Name = "ChkDictation";
             this.ChkDictation.Size = new System.Drawing.Size(60, 17);
             this.ChkDictation.TabIndex = 4;
@@ -194,7 +192,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.SystemColors.Info;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(502, 108);
+            this.label1.Location = new System.Drawing.Point(644, 108);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 32);
             this.label1.TabIndex = 3;
@@ -205,6 +203,7 @@
             // 
             this.TabSTT.Controls.Add(this.label6);
             this.TabSTT.Controls.Add(this.label4);
+            this.TabSTT.Controls.Add(this.ChkDictation);
             this.TabSTT.Controls.Add(this.label2);
             this.TabSTT.Controls.Add(this.LblVolume);
             this.TabSTT.Controls.Add(this.LblThreshold);
@@ -214,7 +213,7 @@
             this.TabSTT.Location = new System.Drawing.Point(4, 22);
             this.TabSTT.Name = "TabSTT";
             this.TabSTT.Padding = new System.Windows.Forms.Padding(3);
-            this.TabSTT.Size = new System.Drawing.Size(569, 172);
+            this.TabSTT.Size = new System.Drawing.Size(566, 172);
             this.TabSTT.TabIndex = 1;
             this.TabSTT.Text = "STT";
             this.TabSTT.UseVisualStyleBackColor = true;
@@ -310,10 +309,59 @@
             this.TabImages.Controls.Add(this.BtnPaste);
             this.TabImages.Location = new System.Drawing.Point(4, 22);
             this.TabImages.Name = "TabImages";
-            this.TabImages.Size = new System.Drawing.Size(469, 172);
+            this.TabImages.Size = new System.Drawing.Size(424, 172);
             this.TabImages.TabIndex = 2;
             this.TabImages.Text = "Images";
             this.TabImages.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.BackColor = System.Drawing.SystemColors.Info;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(319, 68);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 32);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "CTRL+ ENTER";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BtnImageSubmit
+            // 
+            this.BtnImageSubmit.Location = new System.Drawing.Point(322, 105);
+            this.BtnImageSubmit.Name = "BtnImageSubmit";
+            this.BtnImageSubmit.Size = new System.Drawing.Size(58, 23);
+            this.BtnImageSubmit.TabIndex = 14;
+            this.BtnImageSubmit.Text = "Submit";
+            this.BtnImageSubmit.UseVisualStyleBackColor = true;
+            this.BtnImageSubmit.Click += new System.EventHandler(this.BtnImageSubmit_Click);
+            // 
+            // BtnImageClear
+            // 
+            this.BtnImageClear.Location = new System.Drawing.Point(81, 105);
+            this.BtnImageClear.Name = "BtnImageClear";
+            this.BtnImageClear.Size = new System.Drawing.Size(63, 23);
+            this.BtnImageClear.TabIndex = 13;
+            this.BtnImageClear.Text = "Clear Images";
+            this.BtnImageClear.UseVisualStyleBackColor = true;
+            this.BtnImageClear.Click += new System.EventHandler(this.BtnImageClear_Click);
+            // 
+            // LblImageCollection
+            // 
+            this.LblImageCollection.AutoSize = true;
+            this.LblImageCollection.Location = new System.Drawing.Point(162, 9);
+            this.LblImageCollection.Name = "LblImageCollection";
+            this.LblImageCollection.Size = new System.Drawing.Size(13, 13);
+            this.LblImageCollection.TabIndex = 12;
+            this.LblImageCollection.Text = "0";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(15, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(141, 13);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Number of images in prompt:";
             // 
             // label3
             // 
@@ -353,7 +401,7 @@
             this.TabOCR.Controls.Add(this.label8);
             this.TabOCR.Location = new System.Drawing.Point(4, 22);
             this.TabOCR.Name = "TabOCR";
-            this.TabOCR.Size = new System.Drawing.Size(569, 172);
+            this.TabOCR.Size = new System.Drawing.Size(424, 172);
             this.TabOCR.TabIndex = 3;
             this.TabOCR.Text = "OCR";
             this.TabOCR.UseVisualStyleBackColor = true;
@@ -454,7 +502,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(479, 138);
+            this.label9.Location = new System.Drawing.Point(434, 138);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 13);
             this.label9.TabIndex = 3;
@@ -465,7 +513,7 @@
             // 
             this.PicBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PicBoxPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PicBoxPreview.Location = new System.Drawing.Point(431, 5);
+            this.PicBoxPreview.Location = new System.Drawing.Point(386, 5);
             this.PicBoxPreview.Name = "PicBoxPreview";
             this.PicBoxPreview.Size = new System.Drawing.Size(128, 128);
             this.PicBoxPreview.TabIndex = 2;
@@ -488,7 +536,7 @@
             this.TabHistory.Controls.Add(this.BtnSave);
             this.TabHistory.Location = new System.Drawing.Point(4, 22);
             this.TabHistory.Name = "TabHistory";
-            this.TabHistory.Size = new System.Drawing.Size(569, 172);
+            this.TabHistory.Size = new System.Drawing.Size(424, 172);
             this.TabHistory.TabIndex = 4;
             this.TabHistory.Text = "History";
             this.TabHistory.UseVisualStyleBackColor = true;
@@ -533,10 +581,21 @@
             this.TabConfig.Controls.Add(this.DropDownFocus);
             this.TabConfig.Location = new System.Drawing.Point(4, 22);
             this.TabConfig.Name = "TabConfig";
-            this.TabConfig.Size = new System.Drawing.Size(469, 172);
+            this.TabConfig.Size = new System.Drawing.Size(424, 172);
             this.TabConfig.TabIndex = 5;
             this.TabConfig.Text = "Config";
             this.TabConfig.UseVisualStyleBackColor = true;
+            // 
+            // ChkResponseClipboard
+            // 
+            this.ChkResponseClipboard.AutoSize = true;
+            this.ChkResponseClipboard.Location = new System.Drawing.Point(10, 87);
+            this.ChkResponseClipboard.Name = "ChkResponseClipboard";
+            this.ChkResponseClipboard.Size = new System.Drawing.Size(159, 17);
+            this.ChkResponseClipboard.TabIndex = 10;
+            this.ChkResponseClipboard.Text = "Copy responses to clipboard";
+            this.ChkResponseClipboard.UseVisualStyleBackColor = true;
+            this.ChkResponseClipboard.CheckedChanged += new System.EventHandler(this.ChkResponseClipboard_CheckedChanged);
             // 
             // DropDownModels
             // 
@@ -545,7 +604,7 @@
             this.DropDownModels.FormattingEnabled = true;
             this.DropDownModels.Location = new System.Drawing.Point(10, 25);
             this.DropDownModels.Name = "DropDownModels";
-            this.DropDownModels.Size = new System.Drawing.Size(447, 21);
+            this.DropDownModels.Size = new System.Drawing.Size(402, 21);
             this.DropDownModels.TabIndex = 9;
             this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
             // 
@@ -587,7 +646,7 @@
             this.DropDownFocus.FormattingEnabled = true;
             this.DropDownFocus.Location = new System.Drawing.Point(10, 142);
             this.DropDownFocus.Name = "DropDownFocus";
-            this.DropDownFocus.Size = new System.Drawing.Size(447, 21);
+            this.DropDownFocus.Size = new System.Drawing.Size(402, 21);
             this.DropDownFocus.TabIndex = 2;
             this.DropDownFocus.SelectedIndexChanged += new System.EventHandler(this.DropDownFocus_SelectedIndexChanged);
             // 
@@ -607,7 +666,7 @@
             this.PanelBottom.Controls.Add(this.TxtResponse);
             this.PanelBottom.Location = new System.Drawing.Point(0, 208);
             this.PanelBottom.Name = "PanelBottom";
-            this.PanelBottom.Size = new System.Drawing.Size(484, 203);
+            this.PanelBottom.Size = new System.Drawing.Size(581, 203);
             this.PanelBottom.TabIndex = 3;
             // 
             // ChkOutputSpeak
@@ -635,7 +694,7 @@
             // BtnStop
             // 
             this.BtnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnStop.Location = new System.Drawing.Point(392, 176);
+            this.BtnStop.Location = new System.Drawing.Point(489, 176);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(75, 23);
             this.BtnStop.TabIndex = 7;
@@ -646,7 +705,7 @@
             // BtnPlay
             // 
             this.BtnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPlay.Location = new System.Drawing.Point(311, 176);
+            this.BtnPlay.Location = new System.Drawing.Point(408, 176);
             this.BtnPlay.Name = "BtnPlay";
             this.BtnPlay.Size = new System.Drawing.Size(75, 23);
             this.BtnPlay.TabIndex = 6;
@@ -657,7 +716,7 @@
             // LblVersion
             // 
             this.LblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LblVersion.Location = new System.Drawing.Point(316, 5);
+            this.LblVersion.Location = new System.Drawing.Point(413, 5);
             this.LblVersion.Name = "LblVersion";
             this.LblVersion.Size = new System.Drawing.Size(151, 16);
             this.LblVersion.TabIndex = 3;
@@ -689,7 +748,7 @@
             this.TxtResponse.Name = "TxtResponse";
             this.TxtResponse.ReadOnly = true;
             this.TxtResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtResponse.Size = new System.Drawing.Size(463, 143);
+            this.TxtResponse.Size = new System.Drawing.Size(560, 143);
             this.TxtResponse.TabIndex = 0;
             // 
             // TimerDetection
@@ -723,72 +782,12 @@
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 9);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(141, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Number of images in prompt:";
-            // 
-            // LblImageCollection
-            // 
-            this.LblImageCollection.AutoSize = true;
-            this.LblImageCollection.Location = new System.Drawing.Point(162, 9);
-            this.LblImageCollection.Name = "LblImageCollection";
-            this.LblImageCollection.Size = new System.Drawing.Size(13, 13);
-            this.LblImageCollection.TabIndex = 12;
-            this.LblImageCollection.Text = "0";
-            // 
-            // BtnImageClear
-            // 
-            this.BtnImageClear.Location = new System.Drawing.Point(81, 105);
-            this.BtnImageClear.Name = "BtnImageClear";
-            this.BtnImageClear.Size = new System.Drawing.Size(63, 23);
-            this.BtnImageClear.TabIndex = 13;
-            this.BtnImageClear.Text = "Clear Images";
-            this.BtnImageClear.UseVisualStyleBackColor = true;
-            this.BtnImageClear.Click += new System.EventHandler(this.BtnImageClear_Click);
-            // 
-            // BtnImageSubmit
-            // 
-            this.BtnImageSubmit.Location = new System.Drawing.Point(322, 105);
-            this.BtnImageSubmit.Name = "BtnImageSubmit";
-            this.BtnImageSubmit.Size = new System.Drawing.Size(58, 23);
-            this.BtnImageSubmit.TabIndex = 14;
-            this.BtnImageSubmit.Text = "Submit";
-            this.BtnImageSubmit.UseVisualStyleBackColor = true;
-            this.BtnImageSubmit.Click += new System.EventHandler(this.BtnImageSubmit_Click);
-            // 
-            // label15
-            // 
-            this.label15.BackColor = System.Drawing.SystemColors.Info;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(319, 68);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(61, 32);
-            this.label15.TabIndex = 15;
-            this.label15.Text = "CTRL+ ENTER";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ChkResponseClipboard
-            // 
-            this.ChkResponseClipboard.AutoSize = true;
-            this.ChkResponseClipboard.Location = new System.Drawing.Point(10, 87);
-            this.ChkResponseClipboard.Name = "ChkResponseClipboard";
-            this.ChkResponseClipboard.Size = new System.Drawing.Size(159, 17);
-            this.ChkResponseClipboard.TabIndex = 10;
-            this.ChkResponseClipboard.Text = "Copy responses to clipboard";
-            this.ChkResponseClipboard.UseVisualStyleBackColor = true;
-            this.ChkResponseClipboard.CheckedChanged += new System.EventHandler(this.ChkResponseClipboard_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(484, 411);
+            this.ClientSize = new System.Drawing.Size(581, 411);
             this.Controls.Add(this.PanelBottom);
             this.Controls.Add(this.PanelTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
