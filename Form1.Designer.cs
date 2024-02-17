@@ -35,39 +35,39 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPrompt = new System.Windows.Forms.TabPage();
             this.BtnPrompt = new System.Windows.Forms.Button();
-            this.ChkDictation = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LblControlEnter = new System.Windows.Forms.Label();
             this.TabSTT = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LblInputDevice = new System.Windows.Forms.Label();
+            this.LblInputThreshold = new System.Windows.Forms.Label();
+            this.ChkDictation = new System.Windows.Forms.CheckBox();
+            this.LblVolumeLeft = new System.Windows.Forms.Label();
             this.LblVolume = new System.Windows.Forms.Label();
             this.LblThreshold = new System.Windows.Forms.Label();
             this.DropDownInputDevice = new System.Windows.Forms.ComboBox();
             this.PbVolume = new System.Windows.Forms.ProgressBar();
             this.SliderTheshold = new System.Windows.Forms.TrackBar();
             this.TabImages = new System.Windows.Forms.TabPage();
-            this.label15 = new System.Windows.Forms.Label();
+            this.LblImagesControlEnter = new System.Windows.Forms.Label();
             this.BtnImageSubmit = new System.Windows.Forms.Button();
             this.BtnImageClear = new System.Windows.Forms.Button();
             this.LblImageCollection = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.LblNumberOfImagesLeft = new System.Windows.Forms.Label();
+            this.LblCOntrolV = new System.Windows.Forms.Label();
             this.BtnPaste = new System.Windows.Forms.Button();
             this.TabOCR = new System.Windows.Forms.TabPage();
             this.BtnMarquee = new System.Windows.Forms.Button();
             this.TxtY = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.LblY = new System.Windows.Forms.Label();
             this.TxtHeight = new System.Windows.Forms.TextBox();
             this.TxtWidth = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.LblHeight = new System.Windows.Forms.Label();
             this.TxtX = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.LblWidth = new System.Windows.Forms.Label();
+            this.LblX = new System.Windows.Forms.Label();
             this.ChkOCR = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.LblPreview = new System.Windows.Forms.Label();
             this.PicBoxPreview = new System.Windows.Forms.PictureBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.LblCaptureArea = new System.Windows.Forms.Label();
             this.TabHistory = new System.Windows.Forms.TabPage();
             this.BtnLoad = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
@@ -75,9 +75,9 @@
             this.TabConfig = new System.Windows.Forms.TabPage();
             this.ChkResponseClipboard = new System.Windows.Forms.CheckBox();
             this.DropDownModels = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.LblSelectedModel = new System.Windows.Forms.Label();
             this.ChkStayAwake = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.LblForwardResponse = new System.Windows.Forms.Label();
             this.DropDownFocus = new System.Windows.Forms.ComboBox();
             this.PanelBottom = new System.Windows.Forms.Panel();
             this.ChkOutputSpeak = new System.Windows.Forms.CheckBox();
@@ -119,7 +119,7 @@
             this.TxtPrompt.Multiline = true;
             this.TxtPrompt.Name = "TxtPrompt";
             this.TxtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtPrompt.Size = new System.Drawing.Size(554, 161);
+            this.TxtPrompt.Size = new System.Drawing.Size(483, 161);
             this.TxtPrompt.TabIndex = 0;
             this.TxtPrompt.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragDrop);
             this.TxtPrompt.DragEnter += new System.Windows.Forms.DragEventHandler(this.TxtPrompt_DragEnter);
@@ -155,7 +155,7 @@
             // 
             this.TabPrompt.Controls.Add(this.TxtPrompt);
             this.TabPrompt.Controls.Add(this.BtnPrompt);
-            this.TabPrompt.Controls.Add(this.label1);
+            this.TabPrompt.Controls.Add(this.LblControlEnter);
             this.TabPrompt.Location = new System.Drawing.Point(4, 22);
             this.TabPrompt.Name = "TabPrompt";
             this.TabPrompt.Padding = new System.Windows.Forms.Padding(3);
@@ -167,44 +167,32 @@
             // BtnPrompt
             // 
             this.BtnPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPrompt.Location = new System.Drawing.Point(641, 143);
+            this.BtnPrompt.Location = new System.Drawing.Point(498, 143);
             this.BtnPrompt.Name = "BtnPrompt";
-            this.BtnPrompt.Size = new System.Drawing.Size(64, 23);
+            this.BtnPrompt.Size = new System.Drawing.Size(58, 23);
             this.BtnPrompt.TabIndex = 1;
             this.BtnPrompt.Text = "Prompt";
             this.BtnPrompt.UseVisualStyleBackColor = true;
             this.BtnPrompt.Click += new System.EventHandler(this.BtnPrompt_Click);
             // 
-            // ChkDictation
+            // LblControlEnter
             // 
-            this.ChkDictation.AutoSize = true;
-            this.ChkDictation.Location = new System.Drawing.Point(96, 88);
-            this.ChkDictation.Name = "ChkDictation";
-            this.ChkDictation.Size = new System.Drawing.Size(60, 17);
-            this.ChkDictation.TabIndex = 4;
-            this.ChkDictation.Text = "Dictate";
-            this.ChkDictation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ChkDictation.UseVisualStyleBackColor = true;
-            this.ChkDictation.CheckedChanged += new System.EventHandler(this.ChkDictation_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.BackColor = System.Drawing.SystemColors.Info;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(644, 108);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 32);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "CTRL+ ENTER";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblControlEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblControlEnter.BackColor = System.Drawing.SystemColors.Info;
+            this.LblControlEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblControlEnter.Location = new System.Drawing.Point(495, 108);
+            this.LblControlEnter.Name = "LblControlEnter";
+            this.LblControlEnter.Size = new System.Drawing.Size(61, 32);
+            this.LblControlEnter.TabIndex = 3;
+            this.LblControlEnter.Text = "CTRL+ ENTER";
+            this.LblControlEnter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TabSTT
             // 
-            this.TabSTT.Controls.Add(this.label6);
-            this.TabSTT.Controls.Add(this.label4);
+            this.TabSTT.Controls.Add(this.LblInputDevice);
+            this.TabSTT.Controls.Add(this.LblInputThreshold);
             this.TabSTT.Controls.Add(this.ChkDictation);
-            this.TabSTT.Controls.Add(this.label2);
+            this.TabSTT.Controls.Add(this.LblVolumeLeft);
             this.TabSTT.Controls.Add(this.LblVolume);
             this.TabSTT.Controls.Add(this.LblThreshold);
             this.TabSTT.Controls.Add(this.DropDownInputDevice);
@@ -218,35 +206,47 @@
             this.TabSTT.Text = "STT";
             this.TabSTT.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // LblInputDevice
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 62);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 13);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Input Device:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblInputDevice.AutoSize = true;
+            this.LblInputDevice.Location = new System.Drawing.Point(19, 62);
+            this.LblInputDevice.Name = "LblInputDevice";
+            this.LblInputDevice.Size = new System.Drawing.Size(71, 13);
+            this.LblInputDevice.TabIndex = 17;
+            this.LblInputDevice.Text = "Input Device:";
+            this.LblInputDevice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label4
+            // LblInputThreshold
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 36);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Input Threshold:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblInputThreshold.AutoSize = true;
+            this.LblInputThreshold.Location = new System.Drawing.Point(6, 36);
+            this.LblInputThreshold.Name = "LblInputThreshold";
+            this.LblInputThreshold.Size = new System.Drawing.Size(84, 13);
+            this.LblInputThreshold.TabIndex = 16;
+            this.LblInputThreshold.Text = "Input Threshold:";
+            this.LblInputThreshold.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // ChkDictation
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(44, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Volume:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ChkDictation.AutoSize = true;
+            this.ChkDictation.Location = new System.Drawing.Point(96, 88);
+            this.ChkDictation.Name = "ChkDictation";
+            this.ChkDictation.Size = new System.Drawing.Size(60, 17);
+            this.ChkDictation.TabIndex = 4;
+            this.ChkDictation.Text = "Dictate";
+            this.ChkDictation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ChkDictation.UseVisualStyleBackColor = true;
+            this.ChkDictation.CheckedChanged += new System.EventHandler(this.ChkDictation_CheckedChanged);
+            // 
+            // LblVolumeLeft
+            // 
+            this.LblVolumeLeft.AutoSize = true;
+            this.LblVolumeLeft.Location = new System.Drawing.Point(44, 9);
+            this.LblVolumeLeft.Name = "LblVolumeLeft";
+            this.LblVolumeLeft.Size = new System.Drawing.Size(45, 13);
+            this.LblVolumeLeft.TabIndex = 15;
+            this.LblVolumeLeft.Text = "Volume:";
+            this.LblVolumeLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LblVolume
             // 
@@ -300,30 +300,30 @@
             // 
             // TabImages
             // 
-            this.TabImages.Controls.Add(this.label15);
+            this.TabImages.Controls.Add(this.LblImagesControlEnter);
             this.TabImages.Controls.Add(this.BtnImageSubmit);
             this.TabImages.Controls.Add(this.BtnImageClear);
             this.TabImages.Controls.Add(this.LblImageCollection);
-            this.TabImages.Controls.Add(this.label14);
-            this.TabImages.Controls.Add(this.label3);
+            this.TabImages.Controls.Add(this.LblNumberOfImagesLeft);
+            this.TabImages.Controls.Add(this.LblCOntrolV);
             this.TabImages.Controls.Add(this.BtnPaste);
             this.TabImages.Location = new System.Drawing.Point(4, 22);
             this.TabImages.Name = "TabImages";
-            this.TabImages.Size = new System.Drawing.Size(424, 172);
+            this.TabImages.Size = new System.Drawing.Size(566, 172);
             this.TabImages.TabIndex = 2;
             this.TabImages.Text = "Images";
             this.TabImages.UseVisualStyleBackColor = true;
             // 
-            // label15
+            // LblImagesControlEnter
             // 
-            this.label15.BackColor = System.Drawing.SystemColors.Info;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(319, 68);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(61, 32);
-            this.label15.TabIndex = 15;
-            this.label15.Text = "CTRL+ ENTER";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblImagesControlEnter.BackColor = System.Drawing.SystemColors.Info;
+            this.LblImagesControlEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblImagesControlEnter.Location = new System.Drawing.Point(319, 68);
+            this.LblImagesControlEnter.Name = "LblImagesControlEnter";
+            this.LblImagesControlEnter.Size = new System.Drawing.Size(61, 32);
+            this.LblImagesControlEnter.TabIndex = 15;
+            this.LblImagesControlEnter.Text = "CTRL+ ENTER";
+            this.LblImagesControlEnter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BtnImageSubmit
             // 
@@ -354,25 +354,25 @@
             this.LblImageCollection.TabIndex = 12;
             this.LblImageCollection.Text = "0";
             // 
-            // label14
+            // LblNumberOfImagesLeft
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 9);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(141, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Number of images in prompt:";
+            this.LblNumberOfImagesLeft.AutoSize = true;
+            this.LblNumberOfImagesLeft.Location = new System.Drawing.Point(15, 9);
+            this.LblNumberOfImagesLeft.Name = "LblNumberOfImagesLeft";
+            this.LblNumberOfImagesLeft.Size = new System.Drawing.Size(141, 13);
+            this.LblNumberOfImagesLeft.TabIndex = 11;
+            this.LblNumberOfImagesLeft.Text = "Number of images in prompt:";
             // 
-            // label3
+            // LblCOntrolV
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.Info;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(188, 77);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 23);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "CTRL+V";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblCOntrolV.BackColor = System.Drawing.SystemColors.Info;
+            this.LblCOntrolV.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblCOntrolV.Location = new System.Drawing.Point(188, 77);
+            this.LblCOntrolV.Name = "LblCOntrolV";
+            this.LblCOntrolV.Size = new System.Drawing.Size(87, 23);
+            this.LblCOntrolV.TabIndex = 3;
+            this.LblCOntrolV.Text = "CTRL+V";
+            this.LblCOntrolV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BtnPaste
             // 
@@ -388,17 +388,17 @@
             // 
             this.TabOCR.Controls.Add(this.BtnMarquee);
             this.TabOCR.Controls.Add(this.TxtY);
-            this.TabOCR.Controls.Add(this.label11);
+            this.TabOCR.Controls.Add(this.LblY);
             this.TabOCR.Controls.Add(this.TxtHeight);
             this.TabOCR.Controls.Add(this.TxtWidth);
-            this.TabOCR.Controls.Add(this.label13);
+            this.TabOCR.Controls.Add(this.LblHeight);
             this.TabOCR.Controls.Add(this.TxtX);
-            this.TabOCR.Controls.Add(this.label12);
-            this.TabOCR.Controls.Add(this.label10);
+            this.TabOCR.Controls.Add(this.LblWidth);
+            this.TabOCR.Controls.Add(this.LblX);
             this.TabOCR.Controls.Add(this.ChkOCR);
-            this.TabOCR.Controls.Add(this.label9);
+            this.TabOCR.Controls.Add(this.LblPreview);
             this.TabOCR.Controls.Add(this.PicBoxPreview);
-            this.TabOCR.Controls.Add(this.label8);
+            this.TabOCR.Controls.Add(this.LblCaptureArea);
             this.TabOCR.Location = new System.Drawing.Point(4, 22);
             this.TabOCR.Name = "TabOCR";
             this.TabOCR.Size = new System.Drawing.Size(566, 172);
@@ -424,15 +424,15 @@
             this.TxtY.TabIndex = 3;
             this.TxtY.Text = "0";
             // 
-            // label11
+            // LblY
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(213, 55);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(17, 13);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Y:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblY.AutoSize = true;
+            this.LblY.Location = new System.Drawing.Point(213, 55);
+            this.LblY.Name = "LblY";
+            this.LblY.Size = new System.Drawing.Size(17, 13);
+            this.LblY.TabIndex = 5;
+            this.LblY.Text = "Y:";
+            this.LblY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TxtHeight
             // 
@@ -450,15 +450,15 @@
             this.TxtWidth.TabIndex = 4;
             this.TxtWidth.Text = "256";
             // 
-            // label13
+            // LblHeight
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(191, 86);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 13);
-            this.label13.TabIndex = 5;
-            this.label13.Text = "Height:";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblHeight.AutoSize = true;
+            this.LblHeight.Location = new System.Drawing.Point(191, 86);
+            this.LblHeight.Name = "LblHeight";
+            this.LblHeight.Size = new System.Drawing.Size(41, 13);
+            this.LblHeight.TabIndex = 5;
+            this.LblHeight.Text = "Height:";
+            this.LblHeight.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TxtX
             // 
@@ -468,25 +468,25 @@
             this.TxtX.TabIndex = 2;
             this.TxtX.Text = "0";
             // 
-            // label12
+            // LblWidth
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(53, 85);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Width:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblWidth.AutoSize = true;
+            this.LblWidth.Location = new System.Drawing.Point(53, 85);
+            this.LblWidth.Name = "LblWidth";
+            this.LblWidth.Size = new System.Drawing.Size(38, 13);
+            this.LblWidth.TabIndex = 5;
+            this.LblWidth.Text = "Width:";
+            this.LblWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label10
+            // LblX
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(74, 56);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(17, 13);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "X:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblX.AutoSize = true;
+            this.LblX.Location = new System.Drawing.Point(74, 56);
+            this.LblX.Name = "LblX";
+            this.LblX.Size = new System.Drawing.Size(17, 13);
+            this.LblX.TabIndex = 5;
+            this.LblX.Text = "X:";
+            this.LblX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ChkOCR
             // 
@@ -498,36 +498,36 @@
             this.ChkOCR.Text = "Active";
             this.ChkOCR.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // LblPreview
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(576, 138);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(45, 13);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Preview";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblPreview.AutoSize = true;
+            this.LblPreview.Location = new System.Drawing.Point(468, 138);
+            this.LblPreview.Name = "LblPreview";
+            this.LblPreview.Size = new System.Drawing.Size(45, 13);
+            this.LblPreview.TabIndex = 3;
+            this.LblPreview.Text = "Preview";
+            this.LblPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PicBoxPreview
             // 
             this.PicBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PicBoxPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PicBoxPreview.Location = new System.Drawing.Point(428, 23);
+            this.PicBoxPreview.Location = new System.Drawing.Point(428, 5);
             this.PicBoxPreview.Name = "PicBoxPreview";
             this.PicBoxPreview.Size = new System.Drawing.Size(128, 128);
             this.PicBoxPreview.TabIndex = 2;
             this.PicBoxPreview.TabStop = false;
             // 
-            // label8
+            // LblCaptureArea
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(191, 26);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Capture Area:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblCaptureArea.AutoSize = true;
+            this.LblCaptureArea.Location = new System.Drawing.Point(191, 26);
+            this.LblCaptureArea.Name = "LblCaptureArea";
+            this.LblCaptureArea.Size = new System.Drawing.Size(72, 13);
+            this.LblCaptureArea.TabIndex = 1;
+            this.LblCaptureArea.Text = "Capture Area:";
+            this.LblCaptureArea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TabHistory
             // 
@@ -536,7 +536,7 @@
             this.TabHistory.Controls.Add(this.BtnSave);
             this.TabHistory.Location = new System.Drawing.Point(4, 22);
             this.TabHistory.Name = "TabHistory";
-            this.TabHistory.Size = new System.Drawing.Size(424, 172);
+            this.TabHistory.Size = new System.Drawing.Size(566, 172);
             this.TabHistory.TabIndex = 4;
             this.TabHistory.Text = "History";
             this.TabHistory.UseVisualStyleBackColor = true;
@@ -575,13 +575,13 @@
             // 
             this.TabConfig.Controls.Add(this.ChkResponseClipboard);
             this.TabConfig.Controls.Add(this.DropDownModels);
-            this.TabConfig.Controls.Add(this.label7);
+            this.TabConfig.Controls.Add(this.LblSelectedModel);
             this.TabConfig.Controls.Add(this.ChkStayAwake);
-            this.TabConfig.Controls.Add(this.label5);
+            this.TabConfig.Controls.Add(this.LblForwardResponse);
             this.TabConfig.Controls.Add(this.DropDownFocus);
             this.TabConfig.Location = new System.Drawing.Point(4, 22);
             this.TabConfig.Name = "TabConfig";
-            this.TabConfig.Size = new System.Drawing.Size(424, 172);
+            this.TabConfig.Size = new System.Drawing.Size(566, 172);
             this.TabConfig.TabIndex = 5;
             this.TabConfig.Text = "Config";
             this.TabConfig.UseVisualStyleBackColor = true;
@@ -608,15 +608,15 @@
             this.DropDownModels.TabIndex = 9;
             this.DropDownModels.SelectedIndexChanged += new System.EventHandler(this.CboModel_SelectedIndexChanged);
             // 
-            // label7
+            // LblSelectedModel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Selected Model:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblSelectedModel.AutoSize = true;
+            this.LblSelectedModel.Location = new System.Drawing.Point(9, 9);
+            this.LblSelectedModel.Name = "LblSelectedModel";
+            this.LblSelectedModel.Size = new System.Drawing.Size(84, 13);
+            this.LblSelectedModel.TabIndex = 4;
+            this.LblSelectedModel.Text = "Selected Model:";
+            this.LblSelectedModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ChkStayAwake
             // 
@@ -629,15 +629,15 @@
             this.ChkStayAwake.UseVisualStyleBackColor = true;
             this.ChkStayAwake.CheckedChanged += new System.EventHandler(this.ChkStayAwake_CheckedChanged);
             // 
-            // label5
+            // LblForwardResponse
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 126);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(160, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Forward response to application:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblForwardResponse.AutoSize = true;
+            this.LblForwardResponse.Location = new System.Drawing.Point(7, 126);
+            this.LblForwardResponse.Name = "LblForwardResponse";
+            this.LblForwardResponse.Size = new System.Drawing.Size(160, 13);
+            this.LblForwardResponse.TabIndex = 3;
+            this.LblForwardResponse.Text = "Forward response to application:";
+            this.LblForwardResponse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DropDownFocus
             // 
@@ -832,9 +832,9 @@
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Button BtnPrompt;
         private System.Windows.Forms.Button BtnPaste;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LblControlEnter;
         private System.Windows.Forms.ComboBox DropDownModels;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label LblCOntrolV;
         private System.Windows.Forms.CheckBox ChkStayAwake;
         private System.Windows.Forms.Timer TimerAwake;
         private System.Windows.Forms.Label LblVersion;
@@ -857,31 +857,31 @@
         private System.Windows.Forms.TabPage TabImages;
         private System.Windows.Forms.TabPage TabOCR;
         private System.Windows.Forms.TabPage TabHistory;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LblInputThreshold;
+        private System.Windows.Forms.Label LblVolumeLeft;
         private System.Windows.Forms.TabPage TabConfig;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label LblForwardResponse;
+        private System.Windows.Forms.Label LblInputDevice;
+        private System.Windows.Forms.Label LblSelectedModel;
+        private System.Windows.Forms.Label LblCaptureArea;
+        private System.Windows.Forms.Label LblPreview;
         private System.Windows.Forms.PictureBox PicBoxPreview;
         public System.Windows.Forms.TextBox TxtY;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label LblY;
         public System.Windows.Forms.TextBox TxtWidth;
         public System.Windows.Forms.TextBox TxtX;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label LblWidth;
+        private System.Windows.Forms.Label LblX;
         private System.Windows.Forms.CheckBox ChkOCR;
         public System.Windows.Forms.TextBox TxtHeight;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label LblHeight;
         private System.Windows.Forms.Timer TimerCapture;
         private System.Windows.Forms.Button BtnMarquee;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label LblNumberOfImagesLeft;
         private System.Windows.Forms.Label LblImageCollection;
         private System.Windows.Forms.Button BtnImageClear;
         private System.Windows.Forms.Button BtnImageSubmit;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label LblImagesControlEnter;
         private System.Windows.Forms.CheckBox ChkResponseClipboard;
     }
 }
