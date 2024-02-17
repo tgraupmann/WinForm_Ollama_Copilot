@@ -1597,6 +1597,11 @@ namespace WinForm_Ollama_Copilot
 
         private void BtnMarquee_Click(object sender, EventArgs e)
         {
+            if (FormMarquee._sIsOpen)
+            {
+                return;
+            }
+
             // open form marquee
             FormMarquee formMarquee = new FormMarquee();
 

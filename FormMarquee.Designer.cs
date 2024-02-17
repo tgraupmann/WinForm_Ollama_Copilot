@@ -51,6 +51,7 @@
             this.Text = "Select Capture Area";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.Magenta;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMarquee_FormClosed);
             this.Load += new System.EventHandler(this.FormMarquee_Load);
             this.ResumeLayout(false);
 

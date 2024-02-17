@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Web.SessionState;
 using System.Windows.Forms;
 
 namespace WinForm_Ollama_Copilot
@@ -10,6 +11,8 @@ namespace WinForm_Ollama_Copilot
 
         public Form1 _mParent = null;
 
+        public static bool _sIsOpen = false;
+
         public FormMarquee()
         {
             InitializeComponent();
@@ -18,6 +21,8 @@ namespace WinForm_Ollama_Copilot
         private void FormMarquee_Load(object sender, EventArgs e)
         {
             this.BackColor = this.TransparencyKey = Color.Red;
+
+            _sIsOpen = true;
         }
 
         public void SetupInputEvents()
@@ -42,6 +47,11 @@ namespace WinForm_Ollama_Copilot
 
             int height = this.Height - TITLE_PADDING;
             _mParent.TxtHeight.Text = height.ToString();
+        }
+
+        private void FormMarquee_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _sIsOpen = false;
         }
     }
 }
