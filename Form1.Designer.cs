@@ -401,7 +401,7 @@
             this.TabOCR.Controls.Add(this.label8);
             this.TabOCR.Location = new System.Drawing.Point(4, 22);
             this.TabOCR.Name = "TabOCR";
-            this.TabOCR.Size = new System.Drawing.Size(424, 172);
+            this.TabOCR.Size = new System.Drawing.Size(566, 172);
             this.TabOCR.TabIndex = 3;
             this.TabOCR.Text = "OCR";
             this.TabOCR.UseVisualStyleBackColor = true;
@@ -502,7 +502,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(434, 138);
+            this.label9.Location = new System.Drawing.Point(576, 138);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 13);
             this.label9.TabIndex = 3;
@@ -513,7 +513,7 @@
             // 
             this.PicBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PicBoxPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PicBoxPreview.Location = new System.Drawing.Point(386, 5);
+            this.PicBoxPreview.Location = new System.Drawing.Point(428, 23);
             this.PicBoxPreview.Name = "PicBoxPreview";
             this.PicBoxPreview.Size = new System.Drawing.Size(128, 128);
             this.PicBoxPreview.TabIndex = 2;
