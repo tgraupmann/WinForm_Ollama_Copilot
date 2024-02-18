@@ -87,6 +87,8 @@ namespace WinForm_Ollama_Copilot
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            BtnImageSubmit.Enabled = false;
+
             string strCopyResponseToClipboard = ReadConfiguration("CopyResponseToClipboard");
             ChkResponseClipboard.Checked = strCopyResponseToClipboard == "True";
 
