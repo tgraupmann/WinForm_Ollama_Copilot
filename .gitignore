@@ -4,3 +4,7 @@ obj/
 packages/
 __pycache__/
 audio.mp3
+OllamaCopilotSetup/Debug/OllamaCopilotSetup.msi
+OllamaCopilotSetup/Release/OllamaCopilotSetup.msi
+OllamaCopilotSetup/Debug/setup.exe
+OllamaCopilotSetup/Release/setup.exe

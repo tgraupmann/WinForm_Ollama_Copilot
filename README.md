@@ -38,6 +38,10 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Ollama AI](https://ollama.ai)
 
+## Visual Studio Build Dependencies
+
+* [Microsoft Visual Studio Installer Projects 2022](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects)
+
 * Open `WinForm_Ollama_Copilot.sln` in [Visual Studio 2022](https://visualstudio.microsoft.com/).
 
 ![image_5](/images/image_5.png)
