@@ -38,7 +38,11 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 * [Ollama AI](https://ollama.ai)
 
-## Visual Studio Build Dependencies
+* Ollama Copilot Installer (Windows) - [Ollama Copilot v1.0.4](https://github.com/tgraupmann/WinForm_Ollama_Copilot/releases/tag/v1.0.4)
+
+### Visual Studio Build Dependencies
+
+* Note you can skip the Visual Studio Build dependencies if you used the `Ollama Copilot Installer`.
 
 * [Microsoft Visual Studio Installer Projects 2022](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects)
 
@@ -57,6 +61,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 * [Html Agility Pack](https://html-agility-pack.net/)
 
 * [youtube-transcript-api-sharp](https://github.com/BobLd/youtube-transcript-api-sharp)
+
+### Feature Dependencies
 
 * [Whisper](https://github.com/openai/whisper.git)
 
