@@ -10,6 +10,8 @@ The application has a text prompt that uses the Ollama chat API. Application win
 
 ## Videos
 
+[Playlist](https://www.youtube.com/playlist?list=PL4mjXeDqRBMTj8hd6OOv5u0qhJVZ32upw)
+
 **Overview of Ollama Copilot**
 
 <a target="_blank" href="https://www.youtube.com/watch?v=4mKgcgBTwCo"><img src="https://img.youtube.com/vi/4mKgcgBTwCo/0.jpg"/></a>
