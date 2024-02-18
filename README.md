@@ -6,6 +6,8 @@ Copilot responses can be automatically forward to other applications just like o
 
 The `Ollama Copilot` has other features like speech to text, text to speech, and OCR all using free open-source software.
 
+Check out [Releases](https://github.com/tgraupmann/WinForm_Ollama_Copilot/releases) for the latest installer.
+
 ## Screenshots
 
 ![image_1](images/image_1.png)
