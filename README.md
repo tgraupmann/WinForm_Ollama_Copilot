@@ -1,8 +1,10 @@
 # Ollama Copilot
 
-This project is a Windows Form application.
+`Ollama Copilot` is a UI for Ollama on Windows that uses Windows Forms.
 
-The application has a text prompt that uses the Ollama chat API. Application windows are listed in a drop down. Ollama responses are placed into the clipboard and pasted into the selected application specified by the dropdown.
+Copilot responses can be automatically forward to other applications just like other paid copilots.
+
+The `Ollama Copilot` has other features like speech to text, text to speech, and OCR all using free open-source software.
 
 ## Screenshots
 
