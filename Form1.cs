@@ -42,6 +42,8 @@ namespace WinForm_Ollama_Copilot
 
         private OcrManager _mOcrManager = new OcrManager();
 
+        private bool _mMonitoringVoices = false;
+
         public static void UpdateConfiguration(string key, string value)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -91,6 +93,7 @@ namespace WinForm_Ollama_Copilot
 
             string strCopyResponseToClipboard = ReadConfiguration("CopyResponseToClipboard");
             ChkResponseClipboard.Checked = strCopyResponseToClipboard == "True";
+            DropDownFocus.Enabled = ChkResponseClipboard.Checked;
 
             LoadTab();
 
@@ -238,11 +241,26 @@ namespace WinForm_Ollama_Copilot
             TimerSpeaking.Interval = 100;
             TimerSpeaking.Start();
 
-            await PopulateVoices();
+            DropDownOutputVoice.Items.Clear();
+            DropDownOutputVoice.Items.Add("-- Select an output voice --");
+            DropDownOutputVoice.SelectedIndex = 0;
+
+            if (ChkOutputSpeak.Checked)
+            {
+                await PopulateVoices();
+            }
+
+            this.DropDownOutputVoice.SelectedIndexChanged += new System.EventHandler(this.DropDownOutputVoice_SelectedIndexChanged);
         }
 
         private async Task PopulateVoices()
         {
+            if (_mMonitoringVoices)
+            {
+                return;
+            }
+            _mMonitoringVoices = true;
+
             #region DropDownVoices
 
             DropDownOutputVoice.Items.Clear();
@@ -420,22 +438,22 @@ namespace WinForm_Ollama_Copilot
 
                     if (!string.IsNullOrEmpty(text))
                     {
+                        TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
+
                         if (ChkResponseClipboard.Checked)
                         {
                             Clipboard.SetText(text);
-                        }
-                        TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
+                            if (DropDownFocus.SelectedIndex > 0)
+                            {
+                                WindowState = FormWindowState.Minimized;
 
-                        if (DropDownFocus.SelectedIndex > 0)
-                        {
-                            WindowState = FormWindowState.Minimized;
+                                WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                                NativeUtils.SetForegroundWindow(win.Hwnd);
 
-                            WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
-                            NativeUtils.SetForegroundWindow(win.Hwnd);
-
-                            // send with control+V to paste.
-                            // This is better than the UI going crazy sending one key at a time
-                            SendKeys.Send("^v");
+                                // send with control+V to paste.
+                                // This is better than the UI going crazy sending one key at a time
+                                SendKeys.Send("^v");
+                            }
                         }
                     }
                     else
@@ -500,23 +518,23 @@ namespace WinForm_Ollama_Copilot
                         text = text.Replace("|", "\t");
                     }
 
-                    if (ChkResponseClipboard.Checked)
-                    {
-                        Clipboard.SetText(text);
-                    }
                     TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
                     Speak();
 
-                    if (DropDownFocus.SelectedIndex > 0)
+                    if (ChkResponseClipboard.Checked)
                     {
-                        WindowState = FormWindowState.Minimized;
+                        Clipboard.SetText(text);
+                        if (DropDownFocus.SelectedIndex > 0)
+                        {
+                            WindowState = FormWindowState.Minimized;
 
-                        WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
-                        NativeUtils.SetForegroundWindow(win.Hwnd);
+                            WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                            NativeUtils.SetForegroundWindow(win.Hwnd);
 
-                        // send with control+V to paste.
-                        // This is better than the UI going crazy sending one key at a time
-                        SendKeys.Send("^v");
+                            // send with control+V to paste.
+                            // This is better than the UI going crazy sending one key at a time
+                            SendKeys.Send("^v");
+                        }
                     }
                 }
                 BtnPrompt.Enabled = true;
@@ -824,7 +842,7 @@ namespace WinForm_Ollama_Copilot
             }
             win.Title = NativeUtils.GetActiveWindowTitle();
             if (string.IsNullOrEmpty(win.Title) ||
-                win.Title == "Ollama Copilot")
+                win.Title.StartsWith("Ollama Copilot"))
             {
                 return;
             }
@@ -1133,7 +1151,11 @@ namespace WinForm_Ollama_Copilot
                 };
                 JArray pingMessage = new JArray();
                 pingMessage.Add(message);
-                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = pingMessage });
+                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new { 
+                    model = GetModel(),
+                    messages = pingMessage,
+                    keep_alive = -1
+                });
             }
         }
 
@@ -1294,9 +1316,13 @@ namespace WinForm_Ollama_Copilot
             LblThreshold.Text = string.Format("{0}%", SliderTheshold.Value);
             UpdateConfiguration("AudioInputThreshold", SliderTheshold.Value.ToString());
         }
-        private void ChkOutputSpeak_CheckedChanged(object sender, EventArgs e)
+        private async void ChkOutputSpeak_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("OutputSpeak", ChkOutputSpeak.Checked.ToString());
+            if (ChkOutputSpeak.Checked)
+            {
+                await PopulateVoices();
+            }
         }
 
         private void DropDownOutputVoice_SelectedIndexChanged(object sender, EventArgs e)
@@ -1659,6 +1685,7 @@ namespace WinForm_Ollama_Copilot
         private void ChkResponseClipboard_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("CopyResponseToClipboard", ChkResponseClipboard.Checked.ToString());
+            DropDownFocus.Enabled = ChkResponseClipboard.Checked;
         }
     }
 }

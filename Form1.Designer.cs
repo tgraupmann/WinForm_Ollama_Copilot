@@ -589,7 +589,7 @@
             // ChkResponseClipboard
             // 
             this.ChkResponseClipboard.AutoSize = true;
-            this.ChkResponseClipboard.Location = new System.Drawing.Point(10, 87);
+            this.ChkResponseClipboard.Location = new System.Drawing.Point(253, 125);
             this.ChkResponseClipboard.Name = "ChkResponseClipboard";
             this.ChkResponseClipboard.Size = new System.Drawing.Size(159, 17);
             this.ChkResponseClipboard.TabIndex = 10;
@@ -643,6 +643,7 @@
             // 
             this.DropDownFocus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DropDownFocus.Enabled = false;
             this.DropDownFocus.FormattingEnabled = true;
             this.DropDownFocus.Location = new System.Drawing.Point(10, 142);
             this.DropDownFocus.Name = "DropDownFocus";
@@ -689,7 +690,6 @@
             this.DropDownOutputVoice.Name = "DropDownOutputVoice";
             this.DropDownOutputVoice.Size = new System.Drawing.Size(316, 21);
             this.DropDownOutputVoice.TabIndex = 9;
-            this.DropDownOutputVoice.SelectedIndexChanged += new System.EventHandler(this.DropDownOutputVoice_SelectedIndexChanged);
             // 
             // BtnStop
             // 
