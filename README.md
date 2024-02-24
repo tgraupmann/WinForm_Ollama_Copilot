@@ -50,6 +50,8 @@ Check out [Releases](https://github.com/tgraupmann/WinForm_Ollama_Copilot/releas
 
 * Note you can skip the Visual Studio Build dependencies if you used the `Ollama Copilot Installer`.
 
+* [InnoSetup](https://jrsoftware.org/isinfo.php)
+
 * [Microsoft Visual Studio Installer Projects 2022](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects)
 
 * Open `WinForm_Ollama_Copilot.sln` in [Visual Studio 2022](https://visualstudio.microsoft.com/).
