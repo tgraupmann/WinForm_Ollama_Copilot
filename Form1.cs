@@ -91,8 +91,13 @@ namespace WinForm_Ollama_Copilot
         {
             BtnImageSubmit.Enabled = false;
 
+            string strUseHistory = ReadConfiguration("UseHistory");
+            ChkUseHistory.Checked = strUseHistory != "False";
+            this.ChkUseHistory.CheckedChanged += new System.EventHandler(this.ChkUseHistory_CheckedChanged);
+
             string strCopyResponseToClipboard = ReadConfiguration("CopyResponseToClipboard");
             ChkResponseClipboard.Checked = strCopyResponseToClipboard == "True";
+            this.ChkResponseClipboard.CheckedChanged += new System.EventHandler(this.ChkResponseClipboard_CheckedChanged);
             DropDownFocus.Enabled = ChkResponseClipboard.Checked;
 
             LoadTab();
@@ -700,14 +705,32 @@ namespace WinForm_Ollama_Copilot
 
                 }
 
-
+                JArray messages = new JArray();
                 JObject message = new JObject()
                 {
                     ["role"] = "user",
                     ["content"] = TxtPrompt.Text,
                 };
-                _mHistory.Add(message);
-                await SendPostRequestApiChatAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = _mHistory });
+                messages.Add(message);
+
+                #region Populate History
+
+                if (ChkUseHistory.Checked)
+                {
+                    foreach (JObject copyMessage in _mHistory)
+                    {
+                        messages.Add(copyMessage);
+                    }
+                }
+
+                if (ChkUseHistory.Checked)
+                {
+                    _mHistory.Add(message);
+                }
+
+                #endregion Populate History
+
+                await SendPostRequestApiChatAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = messages });
             }
         }
 
@@ -1685,6 +1708,16 @@ namespace WinForm_Ollama_Copilot
         {
             UpdateConfiguration("CopyResponseToClipboard", ChkResponseClipboard.Checked.ToString());
             DropDownFocus.Enabled = ChkResponseClipboard.Checked;
+        }
+
+        private void ChkUseHistory_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("UseHistory", ChkUseHistory.Checked.ToString());
+        }
+
+        private void BtnClearPrompt_Click(object sender, EventArgs e)
+        {
+            TxtPrompt.Text = string.Empty;
         }
     }
 }

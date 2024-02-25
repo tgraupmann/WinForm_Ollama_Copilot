@@ -69,6 +69,7 @@
             this.PicBoxPreview = new System.Windows.Forms.PictureBox();
             this.LblCaptureArea = new System.Windows.Forms.Label();
             this.TabHistory = new System.Windows.Forms.TabPage();
+            this.ChkUseHistory = new System.Windows.Forms.CheckBox();
             this.BtnLoad = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
@@ -94,6 +95,7 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
+            this.BtnClearPrompt = new System.Windows.Forms.Button();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -153,6 +155,7 @@
             // 
             // TabPrompt
             // 
+            this.TabPrompt.Controls.Add(this.BtnClearPrompt);
             this.TabPrompt.Controls.Add(this.TxtPrompt);
             this.TabPrompt.Controls.Add(this.BtnPrompt);
             this.TabPrompt.Controls.Add(this.LblControlEnter);
@@ -531,6 +534,7 @@
             // 
             // TabHistory
             // 
+            this.TabHistory.Controls.Add(this.ChkUseHistory);
             this.TabHistory.Controls.Add(this.BtnLoad);
             this.TabHistory.Controls.Add(this.BtnClear);
             this.TabHistory.Controls.Add(this.BtnSave);
@@ -541,9 +545,21 @@
             this.TabHistory.Text = "History";
             this.TabHistory.UseVisualStyleBackColor = true;
             // 
+            // ChkUseHistory
+            // 
+            this.ChkUseHistory.AutoSize = true;
+            this.ChkUseHistory.Checked = true;
+            this.ChkUseHistory.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkUseHistory.Location = new System.Drawing.Point(253, 17);
+            this.ChkUseHistory.Name = "ChkUseHistory";
+            this.ChkUseHistory.Size = new System.Drawing.Size(78, 17);
+            this.ChkUseHistory.TabIndex = 7;
+            this.ChkUseHistory.Text = "Use history";
+            this.ChkUseHistory.UseVisualStyleBackColor = true;
+            // 
             // BtnLoad
             // 
-            this.BtnLoad.Location = new System.Drawing.Point(253, 98);
+            this.BtnLoad.Location = new System.Drawing.Point(253, 112);
             this.BtnLoad.Name = "BtnLoad";
             this.BtnLoad.Size = new System.Drawing.Size(58, 23);
             this.BtnLoad.TabIndex = 6;
@@ -553,7 +569,7 @@
             // 
             // BtnClear
             // 
-            this.BtnClear.Location = new System.Drawing.Point(253, 40);
+            this.BtnClear.Location = new System.Drawing.Point(253, 54);
             this.BtnClear.Name = "BtnClear";
             this.BtnClear.Size = new System.Drawing.Size(58, 23);
             this.BtnClear.TabIndex = 4;
@@ -563,7 +579,7 @@
             // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(253, 69);
+            this.BtnSave.Location = new System.Drawing.Point(253, 83);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(58, 23);
             this.BtnSave.TabIndex = 5;
@@ -595,7 +611,6 @@
             this.ChkResponseClipboard.TabIndex = 10;
             this.ChkResponseClipboard.Text = "Copy responses to clipboard";
             this.ChkResponseClipboard.UseVisualStyleBackColor = true;
-            this.ChkResponseClipboard.CheckedChanged += new System.EventHandler(this.ChkResponseClipboard_CheckedChanged);
             // 
             // DropDownModels
             // 
@@ -782,6 +797,17 @@
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
             // 
+            // BtnClearPrompt
+            // 
+            this.BtnClearPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnClearPrompt.Location = new System.Drawing.Point(498, 6);
+            this.BtnClearPrompt.Name = "BtnClearPrompt";
+            this.BtnClearPrompt.Size = new System.Drawing.Size(58, 23);
+            this.BtnClearPrompt.TabIndex = 4;
+            this.BtnClearPrompt.Text = "Clear";
+            this.BtnClearPrompt.UseVisualStyleBackColor = true;
+            this.BtnClearPrompt.Click += new System.EventHandler(this.BtnClearPrompt_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -793,7 +819,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(500, 450);
             this.Name = "Form1";
-            this.Text = "Ollama Copilot v1.0.4";
+            this.Text = "Ollama Copilot v1.0.5";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.PanelTop.ResumeLayout(false);
@@ -809,6 +835,7 @@
             this.TabOCR.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxPreview)).EndInit();
             this.TabHistory.ResumeLayout(false);
+            this.TabHistory.PerformLayout();
             this.TabConfig.ResumeLayout(false);
             this.TabConfig.PerformLayout();
             this.PanelBottom.ResumeLayout(false);
@@ -883,6 +910,8 @@
         private System.Windows.Forms.Button BtnImageSubmit;
         private System.Windows.Forms.Label LblImagesControlEnter;
         private System.Windows.Forms.CheckBox ChkResponseClipboard;
+        private System.Windows.Forms.CheckBox ChkUseHistory;
+        private System.Windows.Forms.Button BtnClearPrompt;
     }
 }
 
