@@ -318,12 +318,11 @@ namespace WinForm_Ollama_Copilot
                     JObject jsonResponse = JObject.Parse(responseBody);
                     foreach (JObject model in jsonResponse["models"])
                     {
-                        string nameVersion = (string)model["name"];
-                        if (!string.IsNullOrEmpty(nameVersion))
+                        string name = (string)model["name"];
+                        if (!string.IsNullOrEmpty(name))
                         {
-                            if (nameVersion.Contains(":"))
+                            if (name.Contains(":"))
                             {
-                                string name = nameVersion.Split(":".ToCharArray())[0];
                                 bool exists = false;
                                 foreach (string modelName in DropDownModels.Items)
                                 {
@@ -537,12 +536,12 @@ namespace WinForm_Ollama_Copilot
                         }
                     }
                 }
-                BtnPrompt.Enabled = true;
             }
             catch
             {
-                BtnPrompt.Enabled = false;
+                TxtResponse.Text = "Failed to chat with Ollama";
             }
+            BtnPrompt.Enabled = true;
         }
 
         private string GetModel()

@@ -94,10 +94,22 @@ ollama run llama2
 ollama run llava
 ```
 
-* Install the `gemma` model
+* Install the `gemma` model (7B default)
 
 ```shell
 ollama run gemma
+```
+
+* You can remove the `gemma` model (7B)
+
+```shell
+ollama rm gemma
+```
+
+* to install the smaller `gemma` 2B model
+
+```shell
+ollama run gemma:2b
 ```
 
 ### Ollama with Docker
