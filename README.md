@@ -94,6 +94,12 @@ ollama run llama2
 ollama run llava
 ```
 
+* Install the `gemma` model
+
+```shell
+ollama run gemma
+```
+
 ### Ollama with Docker
 
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -114,6 +120,12 @@ docker exec -it ollama ollama run llama2
 
 ```shell
 docker exec -it ollama ollama run llava
+```
+
+* Install the `gemma` model
+
+```shell
+docker exec -it ollama ollama run gemma
 ```
 
 * Install the `mixtral` model (requires 48GB of VRAM)
