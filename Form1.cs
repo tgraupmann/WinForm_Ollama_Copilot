@@ -427,12 +427,15 @@ namespace WinForm_Ollama_Copilot
                         text += jsonResponse[i]["response"].ToString();
                     }
 
-                    JObject message = new JObject()
+                    if (ChkUseHistory.Checked)
                     {
-                        ["role"] = "assistant",
-                        ["content"] = text,
-                    };
-                    _mHistory.Add(message);
+                        JObject message = new JObject()
+                        {
+                            ["role"] = "assistant",
+                            ["content"] = text,
+                        };
+                        _mHistory.Add(message);
+                    }
 
                     String title = GetSelectedTitle();
                     if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
@@ -509,12 +512,15 @@ namespace WinForm_Ollama_Copilot
                         text += jsonResponse[i]["message"]["content"].ToString();
                     }
 
-                    JObject message = new JObject()
+                    if (ChkUseHistory.Checked)
                     {
-                        ["role"] = "assistant",
-                        ["content"] = text,
-                    };
-                    _mHistory.Add(message);
+                        JObject message = new JObject()
+                        {
+                            ["role"] = "assistant",
+                            ["content"] = text,
+                        };
+                        _mHistory.Add(message);
+                    }
 
                     String title = GetSelectedTitle();
                     if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
@@ -1173,7 +1179,8 @@ namespace WinForm_Ollama_Copilot
                 };
                 JArray pingMessage = new JArray();
                 pingMessage.Add(message);
-                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new { 
+                await SendPostRequestApiChatPingAsync("http://localhost:11434/api/chat", new
+                {
                     model = GetModel(),
                     messages = pingMessage,
                     keep_alive = -1
