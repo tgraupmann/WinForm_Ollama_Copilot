@@ -17,6 +17,7 @@ using System.Net;
 using YoutubeTranscriptApi;
 using static WinForm_Ollama_Copilot.OcrManager;
 using static WinForm_Ollama_Copilot.SpeakManager;
+using System.Diagnostics;
 
 namespace WinForm_Ollama_Copilot
 {
@@ -1749,6 +1750,13 @@ namespace WinForm_Ollama_Copilot
         private void ChkUseTabs_CheckedChanged(object sender, EventArgs e)
         {
             UpdateConfiguration("UseTabs", ChkUseTabs.Checked.ToString());
+        }
+
+        private void BtnOpen_Click(object sender, EventArgs e)
+        {
+            // write C# to open application folder
+            string path = Path.GetDirectoryName(Application.ExecutablePath);
+            Process.Start(path);
         }
     }
 }

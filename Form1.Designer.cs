@@ -97,6 +97,7 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
+            this.BtnOpen = new System.Windows.Forms.Button();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -601,6 +602,7 @@
             // 
             // TabConfig
             // 
+            this.TabConfig.Controls.Add(this.BtnOpen);
             this.TabConfig.Controls.Add(this.ChkUseTabs);
             this.TabConfig.Controls.Add(this.ChkResponseClipboard);
             this.TabConfig.Controls.Add(this.DropDownModels);
@@ -820,6 +822,16 @@
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
             // 
+            // BtnOpen
+            // 
+            this.BtnOpen.Location = new System.Drawing.Point(253, 59);
+            this.BtnOpen.Name = "BtnOpen";
+            this.BtnOpen.Size = new System.Drawing.Size(159, 23);
+            this.BtnOpen.TabIndex = 12;
+            this.BtnOpen.Text = "Open Application Folder";
+            this.BtnOpen.UseVisualStyleBackColor = true;
+            this.BtnOpen.Click += new System.EventHandler(this.BtnOpen_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -925,6 +937,7 @@
         private System.Windows.Forms.CheckBox ChkUseHistory;
         private System.Windows.Forms.Button BtnClearPrompt;
         private System.Windows.Forms.CheckBox ChkUseTabs;
+        private System.Windows.Forms.Button BtnOpen;
     }
 }
 
