@@ -18,7 +18,7 @@ InfoBeforeFile=eula.txt
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "bin\Release\*"; DestDir: "{localappdata}\TAGENIGMA\OllamaCopilot"; Excludes: "*.pdb"; CopyMode: alwaysoverwrite
+Source: "bin\Release\*"; DestDir: "{localappdata}\TAGENIGMA\OllamaCopilot"; Excludes: "*.pdb;*.history"; CopyMode: alwaysoverwrite
 Source: "Pyttsx3Server.py"; DestDir: "{localappdata}\TAGENIGMA\OllamaCopilot"; CopyMode: alwaysoverwrite
 Source: "start_whisper_server.sh"; DestDir: "{localappdata}\TAGENIGMA\OllamaCopilot"; CopyMode: alwaysoverwrite
 Source: "StartPyttsx3Server.cmd"; DestDir: "{localappdata}\TAGENIGMA\OllamaCopilot"; CopyMode: alwaysoverwrite

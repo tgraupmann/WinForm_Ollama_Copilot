@@ -446,9 +446,14 @@ namespace WinForm_Ollama_Copilot
                         text = text.Replace("|", "\t");
                     }
 
-                    if (!string.IsNullOrEmpty(text))
+                    text = text.Replace("\n", "\r\n").Trim();
+                    if (string.IsNullOrEmpty(text))
                     {
-                        TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
+                        TxtResponse.Text = "No response";
+                    }
+                    else
+                    {
+                        TxtResponse.Text = text;
 
                         if (ChkResponseClipboard.Checked)
                         {
@@ -465,10 +470,6 @@ namespace WinForm_Ollama_Copilot
                                 SendKeys.Send("^v");
                             }
                         }
-                    }
-                    else
-                    {
-                        TxtResponse.Text = "No response";
                     }
 
                 }
@@ -530,22 +531,30 @@ namespace WinForm_Ollama_Copilot
                         text = text.Replace("|", "\t");
                     }
 
-                    TxtResponse.Text = text.Replace("\n", "\r\n").Trim();
-                    Speak();
-
-                    if (ChkResponseClipboard.Checked)
+                    text = text.Replace("\n", "\r\n").Trim();
+                    if (string.IsNullOrEmpty(text))
                     {
-                        Clipboard.SetText(text);
-                        if (DropDownFocus.SelectedIndex > 0)
+                        TxtResponse.Text = "No response";
+                    }
+                    else
+                    {
+                        TxtResponse.Text = text;
+                        Speak();
+
+                        if (ChkResponseClipboard.Checked)
                         {
-                            WindowState = FormWindowState.Minimized;
+                            Clipboard.SetText(text);
+                            if (DropDownFocus.SelectedIndex > 0)
+                            {
+                                WindowState = FormWindowState.Minimized;
 
-                            WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
-                            NativeUtils.SetForegroundWindow(win.Hwnd);
+                                WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                                NativeUtils.SetForegroundWindow(win.Hwnd);
 
-                            // send with control+V to paste.
-                            // This is better than the UI going crazy sending one key at a time
-                            SendKeys.Send("^v");
+                                // send with control+V to paste.
+                                // This is better than the UI going crazy sending one key at a time
+                                SendKeys.Send("^v");
+                            }
                         }
                     }
                 }
@@ -1634,7 +1643,11 @@ namespace WinForm_Ollama_Copilot
                 }
 
                 text = text.Replace("\n", "\r\n").Trim();
-                if (!string.IsNullOrEmpty(text))
+                if (string.IsNullOrEmpty(text))
+                {
+                    TxtResponse.Text = "No response";
+                }
+                else
                 {
                     if (ChkOutputSpeak.Checked &&
                         DropDownOutputVoice.SelectedIndex > 0)
