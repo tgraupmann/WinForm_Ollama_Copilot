@@ -431,54 +431,60 @@ namespace WinForm_Ollama_Copilot
                         text += jsonResponse[i]["response"].ToString();
                     }
 
-                    if (ChkUseHistory.Checked)
-                    {
-                        JObject message = new JObject()
-                        {
-                            ["role"] = "assistant",
-                            ["content"] = text,
-                        };
-                        _mHistory.Add(message);
-                    }
-
-                    if (ChkUseTabs.Checked)
-                    {
-                        text = text.Replace("|", "\t");
-                    }
-
-                    text = text.Replace("\n", "\r\n").Trim();
                     if (string.IsNullOrEmpty(text))
                     {
                         TxtResponse.Text = "No response";
                     }
                     else
                     {
-                        TxtResponse.Text = text;
-
-                        if (ChkResponseClipboard.Checked)
+                        if (ChkUseHistory.Checked)
                         {
-                            Clipboard.SetText(text);
-                            if (DropDownFocus.SelectedIndex > 0)
+                            JObject message = new JObject()
                             {
-                                WindowState = FormWindowState.Minimized;
+                                ["role"] = "assistant",
+                                ["content"] = text,
+                            };
+                            _mHistory.Add(message);
+                        }
 
-                                WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
-                                NativeUtils.SetForegroundWindow(win.Hwnd);
+                        if (ChkUseTabs.Checked)
+                        {
+                            text = text.Replace("|", "\t");
+                        }
 
-                                // send with control+V to paste.
-                                // This is better than the UI going crazy sending one key at a time
-                                SendKeys.Send("^v");
+                        text = text.Replace("\n", "\r\n").Trim();
+                        if (string.IsNullOrEmpty(text))
+                        {
+                            TxtResponse.Text = "No response";
+                        }
+                        else
+                        {
+                            TxtResponse.Text = text;
+
+                            if (ChkResponseClipboard.Checked)
+                            {
+                                Clipboard.SetText(text);
+                                if (DropDownFocus.SelectedIndex > 0)
+                                {
+                                    WindowState = FormWindowState.Minimized;
+
+                                    WindowFocus win = _mDetectedWindows[DropDownFocus.SelectedIndex - 1];
+                                    NativeUtils.SetForegroundWindow(win.Hwnd);
+
+                                    // send with control+V to paste.
+                                    // This is better than the UI going crazy sending one key at a time
+                                    SendKeys.Send("^v");
+                                }
                             }
                         }
                     }
 
                 }
-                BtnPrompt.Enabled = true;
             }
             catch
             {
-                BtnPrompt.Enabled = false;
             }
+            BtnPrompt.Enabled = true;
         }
 
         private async Task SendPostRequestApiChatAsync(string url, object data)
@@ -723,12 +729,12 @@ namespace WinForm_Ollama_Copilot
                 }
 
                 JArray messages = new JArray();
+
                 JObject message = new JObject()
                 {
                     ["role"] = "user",
                     ["content"] = TxtPrompt.Text,
                 };
-                messages.Add(message);
 
                 #region Populate History
 
@@ -738,14 +744,12 @@ namespace WinForm_Ollama_Copilot
                     {
                         messages.Add(copyMessage);
                     }
-                }
-
-                if (ChkUseHistory.Checked)
-                {
                     _mHistory.Add(message);
                 }
 
                 #endregion Populate History
+
+                messages.Add(message);
 
                 await SendPostRequestApiChatAsync("http://localhost:11434/api/chat", new { model = GetModel(), messages = messages });
             }
@@ -1639,37 +1643,37 @@ namespace WinForm_Ollama_Copilot
                 string text = result._mText;
                 if (string.IsNullOrEmpty(text))
                 {
-                    return;
-                }
-
-                text = text.Replace("\n", "\r\n").Trim();
-                if (string.IsNullOrEmpty(text))
-                {
                     TxtResponse.Text = "No response";
                 }
                 else
                 {
-                    if (ChkOutputSpeak.Checked &&
-                        DropDownOutputVoice.SelectedIndex > 0)
+                    text = text.Replace("\n", "\r\n").Trim();
+                    if (string.IsNullOrEmpty(text))
                     {
-                        if (TxtResponse.Text != text &&
-                            !_mAudioManager._mIsSpeaking &&
-                            !CheckForUniqueRecentText(text))
-                        {
-                            TxtResponse.Text = text;
-                            Speak();
-                        }
-
+                        TxtResponse.Text = "No response";
                     }
                     else
                     {
-                        if (TxtResponse.Text != text &&
-                            !CheckForUniqueRecentText(text))
+                        if (ChkOutputSpeak.Checked &&
+                            DropDownOutputVoice.SelectedIndex > 0)
                         {
-                            TxtResponse.Text = text;
+                            if (TxtResponse.Text != text &&
+                                !_mAudioManager._mIsSpeaking &&
+                                !CheckForUniqueRecentText(text))
+                            {
+                                TxtResponse.Text = text;
+                                Speak();
+                            }
+                        }
+                        else
+                        {
+                            if (TxtResponse.Text != text &&
+                                !CheckForUniqueRecentText(text))
+                            {
+                                TxtResponse.Text = text;
+                            }
                         }
                     }
-
                 }
             }
         }
