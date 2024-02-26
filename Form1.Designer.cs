@@ -34,6 +34,7 @@
             this.PanelTop = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPrompt = new System.Windows.Forms.TabPage();
+            this.BtnClearPrompt = new System.Windows.Forms.Button();
             this.BtnPrompt = new System.Windows.Forms.Button();
             this.LblControlEnter = new System.Windows.Forms.Label();
             this.TabSTT = new System.Windows.Forms.TabPage();
@@ -74,6 +75,7 @@
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.TabConfig = new System.Windows.Forms.TabPage();
+            this.ChkUseTabs = new System.Windows.Forms.CheckBox();
             this.ChkResponseClipboard = new System.Windows.Forms.CheckBox();
             this.DropDownModels = new System.Windows.Forms.ComboBox();
             this.LblSelectedModel = new System.Windows.Forms.Label();
@@ -95,7 +97,6 @@
             this.TimerVolume = new System.Windows.Forms.Timer(this.components);
             this.TimerSpeaking = new System.Windows.Forms.Timer(this.components);
             this.TimerCapture = new System.Windows.Forms.Timer(this.components);
-            this.BtnClearPrompt = new System.Windows.Forms.Button();
             this.PanelTop.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPrompt.SuspendLayout();
@@ -166,6 +167,17 @@
             this.TabPrompt.TabIndex = 0;
             this.TabPrompt.Text = "Prompt";
             this.TabPrompt.UseVisualStyleBackColor = true;
+            // 
+            // BtnClearPrompt
+            // 
+            this.BtnClearPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnClearPrompt.Location = new System.Drawing.Point(498, 6);
+            this.BtnClearPrompt.Name = "BtnClearPrompt";
+            this.BtnClearPrompt.Size = new System.Drawing.Size(58, 23);
+            this.BtnClearPrompt.TabIndex = 4;
+            this.BtnClearPrompt.Text = "Clear";
+            this.BtnClearPrompt.UseVisualStyleBackColor = true;
+            this.BtnClearPrompt.Click += new System.EventHandler(this.BtnClearPrompt_Click);
             // 
             // BtnPrompt
             // 
@@ -589,6 +601,7 @@
             // 
             // TabConfig
             // 
+            this.TabConfig.Controls.Add(this.ChkUseTabs);
             this.TabConfig.Controls.Add(this.ChkResponseClipboard);
             this.TabConfig.Controls.Add(this.DropDownModels);
             this.TabConfig.Controls.Add(this.LblSelectedModel);
@@ -601,6 +614,16 @@
             this.TabConfig.TabIndex = 5;
             this.TabConfig.Text = "Config";
             this.TabConfig.UseVisualStyleBackColor = true;
+            // 
+            // ChkUseTabs
+            // 
+            this.ChkUseTabs.AutoSize = true;
+            this.ChkUseTabs.Location = new System.Drawing.Point(10, 93);
+            this.ChkUseTabs.Name = "ChkUseTabs";
+            this.ChkUseTabs.Size = new System.Drawing.Size(172, 17);
+            this.ChkUseTabs.TabIndex = 11;
+            this.ChkUseTabs.Text = "Use tab separators in response";
+            this.ChkUseTabs.UseVisualStyleBackColor = true;
             // 
             // ChkResponseClipboard
             // 
@@ -636,7 +659,7 @@
             // ChkStayAwake
             // 
             this.ChkStayAwake.AutoSize = true;
-            this.ChkStayAwake.Location = new System.Drawing.Point(10, 64);
+            this.ChkStayAwake.Location = new System.Drawing.Point(10, 59);
             this.ChkStayAwake.Name = "ChkStayAwake";
             this.ChkStayAwake.Size = new System.Drawing.Size(82, 17);
             this.ChkStayAwake.TabIndex = 2;
@@ -797,17 +820,6 @@
             // 
             this.TimerCapture.Tick += new System.EventHandler(this.TimerCapture_Tick);
             // 
-            // BtnClearPrompt
-            // 
-            this.BtnClearPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnClearPrompt.Location = new System.Drawing.Point(498, 6);
-            this.BtnClearPrompt.Name = "BtnClearPrompt";
-            this.BtnClearPrompt.Size = new System.Drawing.Size(58, 23);
-            this.BtnClearPrompt.TabIndex = 4;
-            this.BtnClearPrompt.Text = "Clear";
-            this.BtnClearPrompt.UseVisualStyleBackColor = true;
-            this.BtnClearPrompt.Click += new System.EventHandler(this.BtnClearPrompt_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -912,6 +924,7 @@
         private System.Windows.Forms.CheckBox ChkResponseClipboard;
         private System.Windows.Forms.CheckBox ChkUseHistory;
         private System.Windows.Forms.Button BtnClearPrompt;
+        private System.Windows.Forms.CheckBox ChkUseTabs;
     }
 }
 

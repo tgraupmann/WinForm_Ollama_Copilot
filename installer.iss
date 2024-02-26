@@ -1,13 +1,13 @@
 [Setup]
 AppName=Ollama Copilot
-AppVerName=Ollama Copilot v1.0.4
+AppVerName=Ollama Copilot v1.0.5
 AppPublisher=TAGENIGMA LLC
 AppPublisherURL=https://tagenigma.com
 AppSupportURL=https://tagenigma.com
 AppUpdatesURL=https://tagenigma.com
 DefaultDirName={localappdata}\TAGENIGMA\OllamaCopilot
 DefaultGroupName=TAGENIGMA\Ollama Copilot
-OutputBaseFilename=OllamaCopilotSetup_v1.0.4
+OutputBaseFilename=OllamaCopilotSetup_v1.0.5
 SetupIconFile=favicon.ico
 UninstallDisplayIcon=favicon.ico
 Compression=lzma

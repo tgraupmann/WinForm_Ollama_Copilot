@@ -95,6 +95,10 @@ namespace WinForm_Ollama_Copilot
             ChkUseHistory.Checked = strUseHistory != "False";
             this.ChkUseHistory.CheckedChanged += new System.EventHandler(this.ChkUseHistory_CheckedChanged);
 
+            string strUseTabs = ReadConfiguration("UseTabs");
+            ChkUseTabs.Checked = strUseTabs != "False";
+            this.ChkUseTabs.CheckedChanged += new System.EventHandler(this.ChkUseTabs_CheckedChanged);
+
             string strCopyResponseToClipboard = ReadConfiguration("CopyResponseToClipboard");
             ChkResponseClipboard.Checked = strCopyResponseToClipboard == "True";
             this.ChkResponseClipboard.CheckedChanged += new System.EventHandler(this.ChkResponseClipboard_CheckedChanged);
@@ -437,8 +441,7 @@ namespace WinForm_Ollama_Copilot
                         _mHistory.Add(message);
                     }
 
-                    String title = GetSelectedTitle();
-                    if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
+                    if (ChkUseTabs.Checked)
                     {
                         text = text.Replace("|", "\t");
                     }
@@ -522,8 +525,7 @@ namespace WinForm_Ollama_Copilot
                         _mHistory.Add(message);
                     }
 
-                    String title = GetSelectedTitle();
-                    if (!String.IsNullOrEmpty(title) && title.ToLower().Contains("excel"))
+                    if (ChkUseTabs.Checked)
                     {
                         text = text.Replace("|", "\t");
                     }
@@ -1725,6 +1727,11 @@ namespace WinForm_Ollama_Copilot
         private void BtnClearPrompt_Click(object sender, EventArgs e)
         {
             TxtPrompt.Text = string.Empty;
+        }
+
+        private void ChkUseTabs_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateConfiguration("UseTabs", ChkUseTabs.Checked.ToString());
         }
     }
 }
