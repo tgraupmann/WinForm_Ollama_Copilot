@@ -1,13 +1,13 @@
 [Setup]
 AppName=Ollama Copilot
-AppVerName=Ollama Copilot v1.0.5
+AppVerName=Ollama Copilot v1.0.6
 AppPublisher=TAGENIGMA LLC
 AppPublisherURL=https://tagenigma.com
 AppSupportURL=https://tagenigma.com
 AppUpdatesURL=https://tagenigma.com
 DefaultDirName={localappdata}\TAGENIGMA\OllamaCopilot
 DefaultGroupName=TAGENIGMA\Ollama Copilot
-OutputBaseFilename=OllamaCopilotSetup_v1.0.5
+OutputBaseFilename=OllamaCopilotSetup_v1.0.6
 SetupIconFile=favicon.ico
 UninstallDisplayIcon=favicon.ico
 Compression=lzma
@@ -33,4 +33,3 @@ Name: "{group}\Uninstall Ollama Copilot"; Filename: "{uninstallexe}"
 
 [Run]
 Filename: "{localappdata}\TAGENIGMA\OllamaCopilot\WinForm_Ollama_Copilot.exe"; Description: "Launch Ollama Copilot"; Flags: shellexec postinstall skipifsilent runascurrentuser; WorkingDir: "{localappdata}\TAGENIGMA\OllamaCopilot"
-Filename: "{win}\explorer.exe"; Description: "Open Application Folder"; Flags: shellexec postinstall skipifsilent runascurrentuser; WorkingDir: "{localappdata}\TAGENIGMA\OllamaCopilot"; Parameters: "{localappdata}\TAGENIGMA\OllamaCopilot"
