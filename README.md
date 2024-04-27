@@ -94,6 +94,12 @@ ollama run llama2
 ollama run llava
 ```
 
+* Install the `Phi 3` model
+
+```shell
+ollama run phi3
+```
+
 * Install the `gemma` model (7B default)
 
 ```shell
