@@ -214,7 +214,7 @@ python3 WhisperTest.py audio.mp3
 
 * Open the Windows command prompt to install dependencies
 
-```cmd
+```shell
 pip3 install uvicorn
 pip3 install FastAPI[all]
 pip3 install pyttsx3
@@ -222,7 +222,7 @@ pip3 install pyttsx3
 
 * Launch the Pyttsx3 Server in the Windows command prompt
 
-```cmd
+```shell
 python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
 ```
 
@@ -243,6 +243,8 @@ python3 -m uvicorn Pyttsx3Server:app --reload --port 11438
 * Install `pytesseract`
 
 ```shell
+pip3 install uvicorn
+pip3 install FastAPI[all]
 pip install pytesseract
 ```
 
