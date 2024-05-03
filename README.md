@@ -82,7 +82,7 @@ Check out [Releases](https://github.com/tgraupmann/WinForm_Ollama_Copilot/releas
 
 * Install the [Ollama Windows preview](https://github.com/ollama/ollama)
 
-* Install the a model to enable the Chat API
+* **Install a model to enable the Chat API:**
 
 * Install the `llama3` model
 
